@@ -8,12 +8,11 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/s29papi/wag3r-bot/bot/env"
 	// _ "github.com/s29papi/wag3r-bot/bot/env"
 )
 
 func main() {
-	val, err := strconv.Atoi(env.DURATION_STR)
+	val, err := strconv.Atoi(os.Getenv("REQUEST_DURATION"))
 	if err != nil {
 		log.Fatal("Error: conversion of DURATION_STR to int")
 	}
