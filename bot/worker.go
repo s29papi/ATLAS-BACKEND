@@ -33,9 +33,9 @@ func NewWorker(interrupt <-chan os.Signal) *Worker {
 	t := time.NewTicker(dur)
 	s := client.NewHTTPService()
 	return &Worker{
-		T:               t,
-		s:               s,
-		interrupt:       interrupt,
+		T: t,
+		s: s,
+		// interrupt:       interrupt,
 		Req:             make(chan struct{}, 1),
 		interruptTicker: make(chan struct{}),
 		startstop:       make(chan struct{}),
@@ -48,7 +48,7 @@ func (w *Worker) Start() {
 	go w.tick(w.T.C)
 	go w.workloop()
 	go w.Stop()
-	<-w.done
+	// <-w.done
 	os.Exit(0)
 }
 

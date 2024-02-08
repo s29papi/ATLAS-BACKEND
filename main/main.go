@@ -1,22 +1,39 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
-	"os/signal"
-	"syscall"
+	"strconv"
+	"time"
 
 	"github.com/gin-gonic/gin"
-	worker "github.com/s29papi/wag3r-bot/bot"
+	"github.com/s29papi/wag3r-bot/bot/env"
 	// _ "github.com/s29papi/wag3r-bot/bot/env"
 )
 
 func main() {
 
-	signalCh := make(chan os.Signal, 1)
-	signal.Notify(signalCh, os.Interrupt, syscall.SIGTERM, syscall.SIGKILL)
-	bot := worker.NewWorker(signalCh)
-	bot.Start()
+	// signalCh := make(chan os.Signal, 1)
+	// signal.Notify(signalCh, os.Interrupt, syscall.SIGTERM, syscall.SIGKILL)
+	// bot := worker.NewWorker(signalCh)
+	// bot.Start()
+	val, err := strconv.Atoi(env.DURATION_STR)
+	if err != nil {
+		log.Fatal("Error: conversion of DURATION_STR to int")
+	}
+	dur := time.Duration(val) * time.Second
+	t := time.NewTicker(dur)
+	fmt.Println(t)
+	fmt.Println(dur)
+	go func(t <-chan time.Time) {
+		for {
+			select {
+			case <-t:
+				log.Println("Hello world")
+			}
+		}
+	}(t.C)
 	gin.SetMode(gin.ReleaseMode)
 	router := gin.New()
 	port := os.Getenv("PORT")
