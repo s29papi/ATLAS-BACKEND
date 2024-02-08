@@ -1,10 +1,12 @@
 package main
 
 import (
+	"log"
 	"os"
 	"os/signal"
 	"syscall"
 
+	"github.com/gin-gonic/gin"
 	worker "github.com/s29papi/wag3r-bot/bot"
 	// _ "github.com/s29papi/wag3r-bot/bot/env"
 )
@@ -15,6 +17,15 @@ func main() {
 	signal.Notify(signalCh, os.Interrupt, syscall.SIGTERM, syscall.SIGKILL)
 	bot := worker.NewWorker(signalCh)
 	bot.Start()
+	gin.SetMode(gin.ReleaseMode)
+	router := gin.New()
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+	if err := router.Run(":" + port); err != nil {
+		log.Panicf("error: %s", err)
+	}
 }
 
 // i would need to get the logs of this service
