@@ -13,11 +13,6 @@ import (
 )
 
 func main() {
-
-	// signalCh := make(chan os.Signal, 1)
-	// signal.Notify(signalCh, os.Interrupt, syscall.SIGTERM, syscall.SIGKILL)
-	// bot := worker.NewWorker(signalCh)
-	// bot.Start()
 	val, err := strconv.Atoi(env.DURATION_STR)
 	if err != nil {
 		log.Fatal("Error: conversion of DURATION_STR to int")
@@ -56,3 +51,8 @@ func main() {
 *
  */
 //  curl http://arena.wield.co:2281/v1/castsByFid?fid=2
+
+// this bot is on render
+// we have a free hub
+// a frontend vercel
+//
