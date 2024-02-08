@@ -3,16 +3,21 @@ package main
 import (
 	"fmt"
 	"log"
+	"net/http"
 	"os"
 	"strconv"
 	"time"
 
-	"github.com/gin-gonic/gin"
+	"github.com/s29papi/wag3r-bot/bot/env"
 	// _ "github.com/s29papi/wag3r-bot/bot/env"
 )
 
 func main() {
-	val, err := strconv.Atoi(os.Getenv("REQUEST_DURATION"))
+	req_dur := os.Getenv("REQUEST_DURATION")
+	if len(req_dur) == 0 {
+		req_dur = env.DURATION_STR
+	}
+	val, err := strconv.Atoi(req_dur)
 	if err != nil {
 		log.Fatal("Error: conversion of DURATION_STR to int")
 	}
@@ -28,16 +33,29 @@ func main() {
 			}
 		}
 	}(t.C)
-	gin.SetMode(gin.ReleaseMode)
-	router := gin.New()
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8080"
-	}
-	if err := router.Run(":" + port); err != nil {
-		log.Panicf("error: %s", err)
-	}
+	http.ListenAndServe(":8090", nil)
+	// StartHTTP()
+	// gin.SetMode(gin.ReleaseMode)
+	// router := gin.New()
+	// port := os.Getenv("PORT")
+	// if port == "" {
+	// 	port = "8080"
+	// }
+	// if err := router.Run(":" + port); err != nil {
+	// 	log.Panicf("error: %s", err)
+	// }
 }
+
+// func StartHTTP() {
+// 	s := &http.Server{
+// 		Addr: ":8080",
+// 		// Handler:        myHandler,
+// 		ReadTimeout:    10 * time.Second,
+// 		WriteTimeout:   10 * time.Second,
+// 		MaxHeaderBytes: 1 << 20,
+// 	}
+// 	log.Fatal(s.ListenAndServe())
+// }
 
 // i would need to get the logs of this service
 /**
