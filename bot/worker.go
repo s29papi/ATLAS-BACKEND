@@ -9,7 +9,6 @@ import (
 	"time"
 
 	"github.com/s29papi/wag3r-bot/bot/client"
-	"github.com/s29papi/wag3r-bot/bot/env"
 )
 
 type Worker struct {
@@ -24,8 +23,16 @@ type Worker struct {
 	done            chan struct{}
 }
 
-func NewWorker(interrupt <-chan os.Signal) *Worker {
-	val, err := strconv.Atoi(env.DURATION_STR)
+func NewWorker() *Worker {
+	req_dur := os.Getenv("REQUEST_DURATION")
+	// how can you create an alternate dev environment
+	// if len(req_dur) == 0 {
+	// 	req_dur = env.DURATION_STR
+	// }
+	val, err := strconv.Atoi(req_dur)
+	if err != nil {
+		log.Fatal("Error: conversion of DURATION_STR to int")
+	}
 	if err != nil {
 		log.Fatal("Error: conversion of DURATION_STR to int")
 	}
@@ -61,6 +68,8 @@ func (w *Worker) tick(t <-chan time.Time) {
 			w.Req <- struct{}{}
 			log.Println("Tick go-routine: paused.")
 			<-w.pause
+
+		// potential bug
 		case <-w.interruptTicker:
 			w.T.Stop()
 			log.Println("Tick go-routine: stopped.")
@@ -68,11 +77,6 @@ func (w *Worker) tick(t <-chan time.Time) {
 		}
 	}
 
-}
-
-func checkNewCast(service *client.HTTPService) {
-	req := client.ChannelCastRequest()
-	go service.SendRequest(http.MethodGet, req)
 }
 
 func (w *Worker) workloop() {
@@ -105,19 +109,7 @@ func (w *Worker) process(d []byte) {
 	w.pause <- struct{}{}
 }
 
-// 	defer res.Body.Close()
-// body, _ := io.ReadAll(res.Body)
-
-// 	// fmt.Println(string(body))
-
-// 	var stadiumCasts StadiumCasts
-// 	err := json.Unmarshal(body, &stadiumCasts)
-// 	if err != nil {
-// 		fmt.Println("Error decoding JSON:", err)
-// 		return
-// 	}
-// 	fmt.Println(stadiumCasts.Casts[0].Text)
-// 	fmt.Println(stadiumCasts.Casts[0].Timestamp.UnixMicro())
-// 	fmt.Println(time.Now().UnixMicro())
-
-// }
+func checkNewCast(service *client.HTTPService) {
+	req := client.ChannelCastRequest()
+	go service.SendRequest(http.MethodGet, req)
+}

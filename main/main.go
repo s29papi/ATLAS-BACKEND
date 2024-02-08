@@ -3,9 +3,10 @@ package main
 import (
 	"log"
 	"net/http"
-	"os"
 	"strconv"
 	"time"
+
+	"github.com/s29papi/wag3r-bot/bot/env"
 	// _ "github.com/s29papi/wag3r-bot/bot/env"
 )
 
@@ -14,13 +15,10 @@ func main() {
 	startServer()
 }
 
+var id = 318902
+
 func startBot() {
-	req_dur := os.Getenv("REQUEST_DURATION")
-	// how can you create an alternate dev environment
-	// if len(req_dur) == 0 {
-	// 	req_dur = env.DURATION_STR
-	// }
-	val, err := strconv.Atoi(req_dur)
+	val, err := strconv.Atoi(env.DURATION_STR)
 	if err != nil {
 		log.Fatal("Error: conversion of DURATION_STR to int")
 	}
@@ -51,9 +49,9 @@ func startServer() {
 *
 *
  */
-//  curl http://arena.wield.co:2281/v1/castsByFid?fid=2
+//  curl http://hub.freefarcasterhub.com:2281/v1/castsByMention?fid=318902
 
-// this bot is on render
 // we have a free hub
 // a frontend vercel
 //
+// curl http://arena.wield.co/v1/castsByMention?fid=318902
