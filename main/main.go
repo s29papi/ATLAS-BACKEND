@@ -7,16 +7,15 @@ import (
 	"os"
 	"strconv"
 	"time"
-
-	"github.com/s29papi/wag3r-bot/bot/env"
 	// _ "github.com/s29papi/wag3r-bot/bot/env"
 )
 
 func main() {
 	req_dur := os.Getenv("REQUEST_DURATION")
-	if len(req_dur) == 0 {
-		req_dur = env.DURATION_STR
-	}
+	// how can you create an alternate dev environment
+	// if len(req_dur) == 0 {
+	// 	req_dur = env.DURATION_STR
+	// }
 	val, err := strconv.Atoi(req_dur)
 	if err != nil {
 		log.Fatal("Error: conversion of DURATION_STR to int")
