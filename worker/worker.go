@@ -1,38 +1,30 @@
 package worker
 
 import (
-	"fmt"
 	"log"
-	"net/http"
 	"os"
 	"strconv"
 	"time"
 
-	"github.com/s29papi/wag3r-bot/bot/client"
+	"github.com/s29papi/wag3r-bot/worker/client"
+	"github.com/s29papi/wag3r-bot/worker/env"
 )
 
 type Worker struct {
 	T *time.Ticker
 
+	lastProcReqTime *int64
 	s               *client.HTTPService
 	Req             chan struct{}
 	interrupt       <-chan os.Signal
 	interruptTicker chan struct{}
-	pause           chan struct{}
-	startstop       chan struct{}
+	pauseFn         chan struct{}
+	startStopFn     chan struct{}
 	done            chan struct{}
 }
 
-func NewWorker() *Worker {
-	req_dur := os.Getenv("REQUEST_DURATION")
-	// how can you create an alternate dev environment
-	// if len(req_dur) == 0 {
-	// 	req_dur = env.DURATION_STR
-	// }
-	val, err := strconv.Atoi(req_dur)
-	if err != nil {
-		log.Fatal("Error: conversion of DURATION_STR to int")
-	}
+func NewWorker(signalChan <-chan os.Signal) *Worker {
+	val, err := strconv.Atoi(env.DURATION_STR)
 	if err != nil {
 		log.Fatal("Error: conversion of DURATION_STR to int")
 	}
@@ -40,13 +32,14 @@ func NewWorker() *Worker {
 	t := time.NewTicker(dur)
 	s := client.NewHTTPService()
 	return &Worker{
-		T: t,
-		s: s,
-		// interrupt:       interrupt,
+		T:               t,
+		s:               s,
 		Req:             make(chan struct{}, 1),
+		lastProcReqTime: new(int64),
+		interrupt:       signalChan,
 		interruptTicker: make(chan struct{}),
-		startstop:       make(chan struct{}),
-		pause:           make(chan struct{}),
+		startStopFn:     make(chan struct{}),
+		pauseFn:         make(chan struct{}),
 		done:            make(chan struct{}),
 	}
 }
@@ -55,7 +48,7 @@ func (w *Worker) Start() {
 	go w.tick(w.T.C)
 	go w.workloop()
 	go w.Stop()
-	// <-w.done
+	<-w.done
 	os.Exit(0)
 }
 
@@ -67,9 +60,7 @@ func (w *Worker) tick(t <-chan time.Time) {
 			log.Println("Tick go-routine:, new request initiated")
 			w.Req <- struct{}{}
 			log.Println("Tick go-routine: paused.")
-			<-w.pause
-
-		// potential bug
+			<-w.pauseFn
 		case <-w.interruptTicker:
 			w.T.Stop()
 			log.Println("Tick go-routine: stopped.")
@@ -85,31 +76,20 @@ func (w *Worker) workloop() {
 		case buff := <-w.s.Resp:
 			w.process(buff)
 		case <-w.Req:
-			checkNewCast(w.s)
-		case signal := <-w.interrupt:
-			log.Printf("Received Interrupt signal: %v\n", signal)
-			w.startstop <- struct{}{}
+			checkNewMentions(w.s)
+		case sig := <-w.interrupt:
+			log.Printf("Received Interrupt signal: %v\n", sig)
+			w.startStopFn <- struct{}{}
 		}
 	}
 }
 
 func (w *Worker) Stop() {
-	<-w.startstop
+	<-w.startStopFn
 
 	w.interruptTicker <- struct{}{}
 	close(w.Req)
-	close(w.startstop)
+	close(w.startStopFn)
 	log.Println("Exiting...")
 	w.done <- struct{}{}
-}
-
-// check if a new cast has been added
-func (w *Worker) process(d []byte) {
-	fmt.Println(string(d))
-	w.pause <- struct{}{}
-}
-
-func checkNewCast(service *client.HTTPService) {
-	req := client.ChannelCastRequest()
-	go service.SendRequest(http.MethodGet, req)
 }

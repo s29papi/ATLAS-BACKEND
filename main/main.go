@@ -1,13 +1,12 @@
 package main
 
 import (
-	"log"
 	"net/http"
-	"strconv"
-	"time"
+	"os"
+	"os/signal"
+	"syscall"
 
-	"github.com/s29papi/wag3r-bot/bot/env"
-	// _ "github.com/s29papi/wag3r-bot/bot/env"
+	"github.com/s29papi/wag3r-bot/worker"
 )
 
 func main() {
@@ -18,21 +17,10 @@ func main() {
 var id = 318902
 
 func startBot() {
-	val, err := strconv.Atoi(env.DURATION_STR)
-	if err != nil {
-		log.Fatal("Error: conversion of DURATION_STR to int")
-	}
-	dur := time.Duration(val) * time.Second
-	t := time.NewTicker(dur)
-
-	go func(t <-chan time.Time) {
-		for {
-			select {
-			case <-t:
-				log.Println("Hello world")
-			}
-		}
-	}(t.C)
+	signalChan := make(chan os.Signal, 1)
+	signal.Notify(signalChan, os.Interrupt, syscall.SIGTERM)
+	bot := worker.NewWorker(signalChan)
+	go bot.Start()
 }
 
 func startServer() {
