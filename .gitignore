@@ -4,3 +4,6 @@ main/r.go
 main/try.go
 
 .env
+
+./signature/.env
+p
