@@ -1,6 +1,7 @@
 package worker
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"strconv"
@@ -73,12 +74,12 @@ func (w *Worker) tick(t <-chan time.Time) {
 func (w *Worker) workloop() {
 	for {
 		select {
-		case buff := <-w.s.Resp:
-			w.process(buff)
 		case <-w.Req:
-			checkNewMentions(w.s)
-		case sig := <-w.interrupt:
-			log.Printf("Received Interrupt signal: %v\n", sig)
+			fmt.Println("sent a request")
+			mentions := GetMentions(w.s)
+			w.process(mentions)
+		case <-w.interrupt:
+			log.Printf("Received Interrupt signal.")
 			w.startStopFn <- struct{}{}
 		}
 	}

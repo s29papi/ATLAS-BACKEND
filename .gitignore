@@ -7,3 +7,9 @@ main/try.go
 
 ./signature/.env
 p
+
+
+# .gitignore on the frontend side 
+frontend/node_modules
+frontend/.DS_STORE
+frontend/.next/

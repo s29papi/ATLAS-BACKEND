@@ -2,6 +2,7 @@ package client
 
 import (
 	"bytes"
+	"fmt"
 	"log"
 	"net"
 	"net/http"
@@ -11,7 +12,7 @@ import (
 type HTTPService struct {
 	C *http.Client
 
-	Resp chan []byte
+	Resp []byte
 }
 
 func NewHTTPService() *HTTPService {
@@ -30,40 +31,44 @@ func NewHTTPService() *HTTPService {
 	}
 
 	return &HTTPService{
-		C:    c,
-		Resp: make(chan []byte, 1),
+		C: c,
 	}
 }
 
-func (h *HTTPService) SendRequest(method string, request *http.Request) {
-	switch method {
-	case http.MethodGet:
-		if !(len(request.Header.Values("accept")) > 0) {
-			log.Println("Error: Accept Header not set")
-			return
-		}
-		if !(len(request.Header.Values("api_key")) > 0) {
-			log.Println("Error: api_key not set")
-			return
-		}
-	default:
-		log.Printf("Error: Passed in HTTP Method %v does not exist", method)
-		return
+func (h *HTTPService) SendRequest(method string, request *http.Request) []byte {
+	if !(len(request.Header.Values("accept")) > 0) {
+		log.Println("Error: Accept Header not set")
+		return nil
 	}
+	if !(len(request.Header.Values("api_key")) > 0) {
+		log.Println("Error: api_key not set")
+		return nil
+	}
+
+	if method == http.MethodPost {
+		if !(len(request.Header.Values("content-type")) > 0) {
+			log.Println("Error: content-type not set")
+			return nil
+		}
+	}
+
 	response, err := h.C.Do(request)
 	if err != nil {
 		log.Printf("Error sending request to API endpoint. %+v", err)
-		return
+		return nil
 	}
 	if response.StatusCode < 200 || response.StatusCode >= 300 {
 		log.Printf("Error: HTTP Method %v Errored. StatuCode: %v, Status: %v", method, response.StatusCode, response.Status)
-		return
+		return nil
 	}
+
 	var buf bytes.Buffer
 	_, err = buf.ReadFrom(response.Body)
 	if err != nil {
 		log.Printf("Error reading response body: %+v", err)
-		return
+		return nil
 	}
-	h.Resp <- buf.Bytes()
+	fmt.Println(string(buf.Bytes()))
+
+	return buf.Bytes()
 }

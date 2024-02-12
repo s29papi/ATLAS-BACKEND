@@ -2,29 +2,42 @@ package worker
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 	"regexp"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/s29papi/wag3r-bot/worker/client"
+	"github.com/s29papi/wag3r-bot/worker/env"
 	"github.com/s29papi/wag3r-bot/worker/types"
 )
 
 // check if a new cast has been added
+// sunday
 func (w *Worker) process(d []byte) {
 	var userMentions types.UserMentions
 	if err := json.Unmarshal(d, &userMentions); err != nil {
 		log.Println(err)
 		// handle a return here
 	}
-	for _, notifs := range userMentions.Notifications {
+
+	var currentTime int64
+	var wg sync.WaitGroup
+	for idx, notifs := range userMentions.Notifications {
 		t := timestamp2secs(notifs.Cast.Timestamp)
-		if t == 0 || t <= *w.lastProcReqTime {
-			continue
+
+		if idx == 0 && t > *w.lastProcReqTime {
+			currentTime = t
 		}
+
+		if t <= *w.lastProcReqTime {
+			break
+		}
+
 		if notifs.Type != "mention" {
 			continue
 		}
@@ -36,16 +49,33 @@ func (w *Worker) process(d []byte) {
 		case ERR_MAX_NUMBER_LINES_NO:
 		}
 
-		// handle wrong input
+		payload := &types.Payload{
+			Parent:      notifs.Cast.Hash,
+			Channel_Id:  env.CHANNEL_ID,
+			Signer_uuid: env.SIGNER_UUID,
+		}
 
-		// other parts of today
-		// make a request to vercel
+		if errNo == 0 {
+			payload.Text = "Open /stadium Challenge Accepted"
+		}
 
-		// vercel store in db
+		if errNo != 0 {
+			payload.Text = "Wrong Message Format."
+		}
 
-		// returns url
+		fmt.Println(errNo)
 
-		w.lastProcReqTime = &t
+		wg.Add(1)
+		go func(p *types.Payload) {
+			defer wg.Done()
+			data := buildCastReply(p)
+			castNewReply(w.s, data)
+		}(payload)
+
+	}
+	wg.Wait()
+	if currentTime > *w.lastProcReqTime {
+		w.lastProcReqTime = &currentTime
 	}
 
 	w.pauseFn <- struct{}{}
@@ -72,6 +102,7 @@ func process(text string, info *types.Game) int64 {
 		}
 
 		if !challengeStarted {
+			fmt.Println(len(textLine))
 			if textLine == "Open /stadium Challenge:" {
 				challengeStarted = true
 			}
@@ -114,13 +145,14 @@ func process(text string, info *types.Game) int64 {
 					info.Token = token
 				default:
 					return ERR_UNEXPECTED_FIELD_NO
+
 				}
 			}
 		}
-		if info.Name == "" || info.Setup == "" || info.Date == "" || info.Amount == 0 || info.Token == "" {
-			return ERR_MISSING_REQ_FIELD_NO
-		}
+	}
 
+	if info.Name == "" || info.Setup == "" || info.Date == "" || info.Amount == 0 || info.Token == "" {
+		return ERR_MISSING_REQ_FIELD_NO
 	}
 	return 0 // sucess
 }
@@ -130,9 +162,9 @@ func checkNewCast(service *client.HTTPService) {
 	go service.SendRequest(http.MethodGet, req)
 }
 
-func checkNewMentions(service *client.HTTPService) {
+func GetMentions(service *client.HTTPService) []byte {
 	req := client.UserMentionsRequest()
-	go service.SendRequest(http.MethodGet, req)
+	return service.SendRequest(http.MethodGet, req)
 }
 
 func timestamp2secs(t string) int64 {
@@ -142,4 +174,21 @@ func timestamp2secs(t string) int64 {
 		return 0
 	}
 	return parsedTime.Unix()
+}
+
+func buildCastReply(payload *types.Payload) *strings.Reader {
+	payloadString := fmt.Sprintf(`
+						{
+						"parent": "%s",
+						"channel_id": "%s",
+						"signer_uuid": "%s",
+						"text": "%s"
+						}`, payload.Parent, payload.Channel_Id, payload.Signer_uuid, payload.Text)
+
+	return strings.NewReader(payloadString)
+}
+
+func castNewReply(service *client.HTTPService, data *strings.Reader) {
+	req := client.MentionReplyRequest(data)
+	service.SendRequest(http.MethodPost, req)
 }
