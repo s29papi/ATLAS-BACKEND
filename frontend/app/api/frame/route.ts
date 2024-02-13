@@ -14,7 +14,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
           <meta property="fc:frame:image" content="https://wag3r-bot.vercel.app/stadium-second-page.png"/>
           <meta property="fc:frame:button:1" content="Wager" />
           <meta property="fc:frame:button:1:action" content="post"/>
-          <meta property="fc:frame:post_url" content="https://frames-follow-like-refuel.vercel.app/api/frame"/>
+          <meta property="fc:frame:post_url" content="https://wag3r-bot.vercel.app/api/frame/wager"/>
       </head></html>`);
   }
   // wager: is the second buttonId
