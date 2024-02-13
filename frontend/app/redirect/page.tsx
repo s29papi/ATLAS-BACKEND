@@ -2,6 +2,12 @@
 import {useRouter} from "next/navigation";
 import {useEffect} from "react";
 
+declare global {
+    interface Window {
+      ethereum?: any;
+    }
+  } 
+
 export default function Redirect() {
     const router = useRouter();
 
@@ -22,6 +28,17 @@ export default function Redirect() {
         };
       }, []);
 
+    useEffect(() => {
+        async function openWallet() {
+            const [account] = await window.ethereum.request({
+                method: 'eth_requestAccounts',
+              });
+            return account;
+        }
+
+        openWallet()
+    })
+
       const handleCloseButtonClick = () => {
         // Close the current tab
         window.close();
@@ -38,11 +55,3 @@ export default function Redirect() {
 
 
 
-    // useEffect(() => {
-    //     const redirectUrl = '';
-
-    //     // Perform the redirect
-    //     window.location.href = redirectUrl; // For a full page reload redirect
-    //     // Or use Next.js router for client-side redirect (comment out the line above if using this)
-    //     // router.push(youtubeUrl);
-    // }, [router]);
