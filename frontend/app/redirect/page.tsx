@@ -8,8 +8,16 @@ export default function RedirectPage() {
     useEffect(() => {
         const redirectUrl = 'https://twitter.com';
 
+        const width = 600;
+        const height = 400;
+        const left = (window.innerWidth - width) / 2;
+        const top = (window.innerHeight - height) / 2;
+        const options = `width=${width},height=${height},left=${left},top=${top}`;
+    
+
         // Perform the redirect
-        window.location.href = redirectUrl; // For a full page reload redirect
+        // window.location.href = redirectUrl; // For a full page reload redirect
+        window.open(redirectUrl, 'PopupWindow', options)
         // Or use Next.js router for client-side redirect (comment out the line above if using this)
         // router.push(youtubeUrl);
     }, [router]);
