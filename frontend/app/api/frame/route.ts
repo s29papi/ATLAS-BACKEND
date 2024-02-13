@@ -80,7 +80,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
   <title>Success</title>
   <meta property="fc:frame" content="vNext" />
   <meta property="fc:frame:image" content="https://frames-follow-like-refuel.vercel.app/sixth-page.png"/>
-  <meta property="fc:frame:button:1" content="Success sent to ${message?.interactor.verified_accounts[0]} on Gnosis Chain  🎉" />
+  <meta property="fc:frame:button:1" content="Success sent to on Gnosis Chain  🎉" />
 </head></html>`);
 }
 
