@@ -4,9 +4,11 @@ import type { Metadata } from 'next';
 
 const frameMetadata = getFrameMetadata({
   buttons: [
-      {label: 'Refuel', action: 'post'},
+      {label: 'Wager', action: 'post'},
+      {label: 'Un-Wager', action: 'post'},
+      {label: 'Info', action: 'post'},
   ],
-  image: 'https://frames-follow-like-refuel.vercel.app/first-page.png',
+  image: 'https://wag3r-bot.vercel.app/stadium-first-page.png',
   post_url: 'https://frames-follow-like-refuel.vercel.app/api/frame',
 });
 
@@ -16,7 +18,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Refuel-Frame by socket.',
     description: 'Follow this user, Like the post, and Refuel.',
-    images: [`https://frames-follow-like-refuel.vercel.app/first-page.png`],
+    images: [`https://wag3r-bot.vercel.app/stadium-first-page.png`],
   },
   other: {
     ...frameMetadata,
