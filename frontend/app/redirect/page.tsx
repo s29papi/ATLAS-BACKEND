@@ -17,7 +17,7 @@ export default function RedirectPage() {
 
         // Perform the redirect
         // window.location.href = redirectUrl; // For a full page reload redirect
-        window.open(redirectUrl, 'PopupWindow', options)
+        window.open(redirectUrl, '_blank', options)
         // Or use Next.js router for client-side redirect (comment out the line above if using this)
         // router.push(youtubeUrl);
     }, [router]);
