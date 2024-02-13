@@ -9,7 +9,7 @@ const frameMetadata = getFrameMetadata({
       {label: 'Info', action: 'post'},
   ],
   image: 'https://wag3r-bot.vercel.app/stadium-first-page.png',
-  post_url: 'https://frames-follow-like-refuel.vercel.app/api/frame',
+  post_url: 'https://wag3r-bot.vercel.app/api/frame',
 });
 
 export const metadata: Metadata = {
