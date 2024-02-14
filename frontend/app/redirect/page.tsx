@@ -31,6 +31,7 @@ export default function Redirect() {
     useEffect(() => {
         async function openWallet() {
             open()
+            
   
         }
 
@@ -45,7 +46,7 @@ export default function Redirect() {
 
     return (
         <div>
-            <p>Redirecting...</p>
+            
             
             <button onClick={handleCloseButtonClick}>Close Tab</button>
         </div>
