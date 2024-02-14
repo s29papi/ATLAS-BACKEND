@@ -2,11 +2,11 @@
 import {useRouter} from "next/navigation";
 import {useEffect} from "react";
 
-declare global {
-    interface Window {
-      ethereum?: any;
-    }
-  } 
+// declare global {
+//     interface Window {
+//       ethereum?: any;
+//     }
+//   } 
 
 export default function Redirect() {
     const router = useRouter();
@@ -30,10 +30,11 @@ export default function Redirect() {
 
     useEffect(() => {
         async function openWallet() {
-            const [account] = await window.ethereum.request({
-                method: 'eth_requestAccounts',
-              });
-            return account;
+          <w3m-button />
+            // const [account] = await window.ethereum.request({
+            //     method: 'eth_requestAccounts',
+            //   });
+            // return account;
         }
 
         openWallet()
