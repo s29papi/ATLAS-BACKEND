@@ -14,13 +14,14 @@ import { config } from "../../config"
 export default function Redirect() {
     const router = useRouter();
     // const { open } = useWeb3Modal()
-    const { data: hash, sendTransaction } = useSendTransaction() 
+    const { data: hash, sendTransaction } = useSendTransaction({config,}) 
     const { signMessage } = useSignMessage()
     const result = usePrepareTransactionRequest({
       to: '0x70997970c51812dc3a010c7d01b50e0d17dc79c8',
       value: parseEther('1'),
     })
 
+    // const { data, isSuccess, sendTransaction, error } = useSendTransaction(result);
    
 
     useEffect(() => {
@@ -52,10 +53,11 @@ export default function Redirect() {
     // })
 
     async function submitTx() {
-      await  prepareTransactionRequest(config, {
+     let request = await  prepareTransactionRequest(config, {
           to: '0x70997970c51812dc3a010c7d01b50e0d17dc79c8',
           value: parseEther('1'),
         })
+      // usePrepareTransactionRequest(request)
     }
 
       const handleCloseButtonClick = () => {
@@ -71,7 +73,7 @@ export default function Redirect() {
             <button onClick={async () => { await submitTx() }}>Stake</button>
             <button onClick={handleCloseButtonClick}>Close Tab</button>
             <button onClick={() => signMessage({ message: 'hello world' })}>Sign message</button>
-            <button onClick={() => sendTransaction({ to: `0x${"47dEAF612F0769d99aDB653bA2d22bba79F26C42"}`, value: parseEther("0.2") })}>Send Tx</button>
+            <button onClick={() => sendTransaction( { to: `0x${"47dEAF612F0769d99aDB653bA2d22bba79F26C42"}`, value: parseEther("0.2") })}>Send Tx</button>
         </div>
     );
 }
