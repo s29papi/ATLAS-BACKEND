@@ -1,20 +1,15 @@
 'use client';
 
-// export default function RedirectPage() {
-
-// }
 import {useRouter} from "next/navigation";
 import {useEffect} from "react";
 import Connect from '../../components/Connect'
+import { useWeb3Modal } from '@web3modal/wagmi/react'
 
-// declare global {
-//     interface Window {
-//       ethereum?: any;
-//     }
-//   } 
+
 
 export default function Redirect() {
     const router = useRouter();
+    const { open } = useWeb3Modal()
 
     useEffect(() => {
         const handleBeforeUnload = (event: BeforeUnloadEvent) => {
@@ -35,11 +30,8 @@ export default function Redirect() {
 
     useEffect(() => {
         async function openWallet() {
-          
-            // const [account] = await window.ethereum.request({
-            //     method: 'eth_requestAccounts',
-            //   });
-            // return account;
+            open()
+  
         }
 
         openWallet()
@@ -54,7 +46,7 @@ export default function Redirect() {
     return (
         <div>
             <p>Redirecting...</p>
-            <Connect/>
+            
             <button onClick={handleCloseButtonClick}>Close Tab</button>
         </div>
     );
@@ -62,3 +54,4 @@ export default function Redirect() {
 
 
 
+// exit page when done
