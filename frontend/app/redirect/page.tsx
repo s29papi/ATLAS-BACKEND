@@ -1,7 +1,7 @@
 'use client';
 
 export default function RedirectPage() {
-  
+
 }
 // import {useRouter} from "next/navigation";
 // import {useEffect} from "react";
