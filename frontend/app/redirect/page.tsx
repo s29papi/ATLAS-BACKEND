@@ -3,7 +3,7 @@
 import {useRouter} from "next/navigation";
 import {useEffect} from "react";
 import Connect from '../../components/Connect'
-import { useWeb3Modal } from '@web3modal/wagmi/react'
+// import { useWeb3Modal } from '@web3modal/wagmi/react'
 import { useSendTransaction } from 'wagmi' 
 import { parseEther } from 'viem' 
 
@@ -11,7 +11,7 @@ import { parseEther } from 'viem'
 
 export default function Redirect() {
     const router = useRouter();
-    const { open } = useWeb3Modal()
+    // const { open } = useWeb3Modal()
     const { data: hash, sendTransaction } = useSendTransaction() 
 
     useEffect(() => {
@@ -33,7 +33,7 @@ export default function Redirect() {
 
     useEffect(() => {
         async function openWallet() {
-          open()
+          // open()
           
   
         }
@@ -51,7 +51,7 @@ export default function Redirect() {
     return (
         <div>
             
-            
+            <Connect />
             <button onClick={handleCloseButtonClick}>Close Tab</button>
         </div>
     );
