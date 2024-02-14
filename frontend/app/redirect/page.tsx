@@ -4,7 +4,7 @@ import {useRouter} from "next/navigation";
 import {useEffect} from "react";
 import Connect from '../../components/Connect'
 // import { useWeb3Modal } from '@web3modal/wagmi/react'
-import { useSendTransaction } from 'wagmi' 
+import { useSendTransaction, useSignMessage  } from 'wagmi' 
 import { parseEther } from 'viem' 
 
 
@@ -13,6 +13,9 @@ export default function Redirect() {
     const router = useRouter();
     // const { open } = useWeb3Modal()
     const { data: hash, sendTransaction } = useSendTransaction() 
+    const { signMessage } = useSignMessage()
+
+   
 
     useEffect(() => {
         const handleBeforeUnload = (event: BeforeUnloadEvent) => {
@@ -58,6 +61,7 @@ export default function Redirect() {
             <Connect />
             <button onClick={() => { submitTx() }}>Stake</button>
             <button onClick={handleCloseButtonClick}>Close Tab</button>
+            return <button onClick={() => signMessage({ message: 'hello world' })}>Sign message</button>
         </div>
     );
 }
