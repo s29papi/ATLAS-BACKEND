@@ -30,7 +30,7 @@ export default function Redirect() {
 
     useEffect(() => {
         async function openWallet() {
-            open()
+          open({ view: 'Account' })
             
   
         }
