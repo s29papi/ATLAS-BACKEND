@@ -4,8 +4,10 @@ import {useRouter} from "next/navigation";
 import {useEffect} from "react";
 import Connect from '../../components/Connect'
 // import { useWeb3Modal } from '@web3modal/wagmi/react'
-import { useSendTransaction, useSignMessage  } from 'wagmi' 
+import { useSendTransaction, useSignMessage, usePrepareTransactionRequest  } from 'wagmi' 
+import { prepareTransactionRequest } from '@wagmi/core'
 import { parseEther } from 'viem' 
+import { config } from "../../config"
 
 
 
@@ -14,6 +16,10 @@ export default function Redirect() {
     // const { open } = useWeb3Modal()
     const { data: hash, sendTransaction } = useSendTransaction() 
     const { signMessage } = useSignMessage()
+    const result = usePrepareTransactionRequest({
+      to: '0x70997970c51812dc3a010c7d01b50e0d17dc79c8',
+      value: parseEther('1'),
+    })
 
    
 
@@ -45,8 +51,11 @@ export default function Redirect() {
     //     sendTransaction({to: `0x${"47dEAF612F0769d99aDB653bA2d22bba79F26C42"}`, value: parseEther("0.1")})
     // })
 
-    function submitTx() {
-      sendTransaction({to: `0x${"47dEAF612F0769d99aDB653bA2d22bba79F26C42"}`, value: parseEther("0.1")})
+    async function submitTx() {
+      await  prepareTransactionRequest(config, {
+          to: '0x70997970c51812dc3a010c7d01b50e0d17dc79c8',
+          value: parseEther('1'),
+        })
     }
 
       const handleCloseButtonClick = () => {
@@ -59,7 +68,7 @@ export default function Redirect() {
         <div>
             
             <Connect />
-            <button onClick={() => { submitTx() }}>Stake</button>
+            <button onClick={async () => { await submitTx() }}>Stake</button>
             <button onClick={handleCloseButtonClick}>Close Tab</button>
             <button onClick={() => signMessage({ message: 'hello world' })}>Sign message</button>
             <button onClick={() => sendTransaction({ to: `0x${"47dEAF612F0769d99aDB653bA2d22bba79F26C42"}`, value: parseEther("0.2") })}>Send Tx</button>
