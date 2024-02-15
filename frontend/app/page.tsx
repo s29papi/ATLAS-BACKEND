@@ -46,7 +46,7 @@ export default function Page({
   searchParams?: { [key: string]: string | string[] | undefined };
 }) {
   return <h1>{searchParams?.gameid || "Hello!"}</h1>;
-
+}
 
 
 // ref: https://www.pinata.cloud/blog/how-to-make-a-frame-on-farcaster-using-ipfs
