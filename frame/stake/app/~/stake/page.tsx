@@ -36,7 +36,7 @@ export default function StakePage() {
       const ethersProvider = new BrowserProvider(walletProvider)
       const signer = await ethersProvider.getSigner()
       let estimateGas = await ethersProvider.estimateGas({ to: `0x${"47dEAF612F0769d99aDB653bA2d22bba79F26C42"}`, value: parseEther("0.2")})
-      let sentTx = await signer.sendTransaction({ to: `0x${"47dEAF612F0769d99aDB653bA2d22bba79F26C42"}`, value: parseEther("0.2"), gasLimit: estimateGas})
+      let sentTx = await signer.sendTransaction({ to: `0x${"47dEAF612F0769d99aDB653bA2d22bba79F26C42"}`, value: parseEther("0.0046"), gasLimit: estimateGas})
       let resolvedTx = await sentTx.wait()
       // we keep id in the cookie
       // db stores id and tx hash
