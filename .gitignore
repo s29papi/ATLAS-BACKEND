@@ -10,6 +10,11 @@ p
 
 
 # .gitignore on the frontend side 
-frontend/node_modules
-frontend/.DS_STORE
-frontend/.next/
+frame/match/node_modules
+frame/match/.DS_STORE
+frame/match/.next/
+
+# .gitignore on the frontend side 
+frame/stake/node_modules
+frame/stake/.DS_STORE
+frame/stake/.next/
