@@ -55,6 +55,7 @@ export default function Redirect() {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
         <div style={{ display: 'flex', gap: '20px', marginTop: '20px' }}>
+          Start By Clicking Connect To Connect your Wallet.
           <Connect />
             <button onClick={submitTx} style={{ borderRadius: '20px', backgroundColor: 'rgb(51, 204, 153)', color: 'white', padding: '10px 20px', border: 'none' }}>Stake</button>
             <button onClick={submitTx} style={{ borderRadius: '20px', backgroundColor: 'rgb(51, 204, 153)', color: 'white', padding: '10px 20px', border: 'none' }}>Unstake</button>
