@@ -43,7 +43,12 @@ export default function Redirect() {
     //     openWallet()
     //     sendTransaction({to: `0x${"47dEAF612F0769d99aDB653bA2d22bba79F26C42"}`, value: parseEther("0.1")})
     // })
-    async function submitTx() { console.log(walletProvider) }
+    async function submitTx() { 
+      if (!walletProvider) throw Error('Wallet Provider Abscent')
+      const ethersProvider = new BrowserProvider(walletProvider)
+      console.log(ethersProvider)
+      // console.log(walletProvider)
+     }
     
  
 
