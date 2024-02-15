@@ -5,7 +5,7 @@ import { createWeb3Modal, defaultConfig } from '@web3modal/ethers/react'
 // 1. Get projectId at https://cloud.walletconnect.com
 export const projectId = process.env.NEXT_PUBLIC_PROJECT_ID
 
-let baseRpcUrl = "https://base-mainnet.g.alchemy.com/v2/" + process.env.API_KEY
+let baseRpcUrl = "https://base-mainnet.g.alchemy.com/v2/" + process.env.NEXT_PUBLIC_API_KEY
 
 // 2. Set chains
 const mainnet = {
