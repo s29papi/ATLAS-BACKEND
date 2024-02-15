@@ -5,10 +5,10 @@ import type { Metadata } from 'next';
 
 const frameMetadata = getFrameMetadata({
   buttons: [
-      {label: 'Accept Challenge & Stake Tokens', action: 'post'},
+      {label: 'Accept Challenge & Stake Tokens', action: 'post_redirect'},
   ],
   image: 'https://wag3r-bot-stake.vercel.app/stadium-figma-test-1.png',
-  post_url: 'https://wag3r-bot.vercel.app/api/frame',
+  post_url: 'https://wag3r-bot-stake.vercel.app/api/frame',
 });
 
 export const metadata: Metadata = {
