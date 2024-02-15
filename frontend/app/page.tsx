@@ -28,7 +28,7 @@ export const metadata: Metadata = {
 export default async function Page() {
   return (
     <>
-      <h1>Refuel-Frame by socket.</h1>
+      <h1>Versus By Stadium</h1>
     </>
   );
 }

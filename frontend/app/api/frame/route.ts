@@ -1,21 +1,30 @@
 import { FrameRequest, getFrameMessage } from '@coinbase/onchainkit';
 import { NextRequest, NextResponse } from 'next/server';
+import { useSearchParams } from 'next/navigation'
 
 async function getResponse(req: NextRequest): Promise<NextResponse> {
   const body: FrameRequest = await req.json();
+  const searchParams = useSearchParams()
+  let gameId = searchParams.get("gameId")
+  
 
   const buttonId = body.untrustedData.buttonIndex;
 
   // wager: is the first buttonId
   if (buttonId == 1) {
-          return new NextResponse(`<!DOCTYPE html><html><head>
-          <title>Wager</title>
-          <meta property="fc:frame" content="vNext" />
-          <meta property="fc:frame:image" content="https://wag3r-bot.vercel.app/stadium-second-page.png"/>
-          <meta property="fc:frame:button:1" content="Wager" />
-          <meta property="fc:frame:button:1:action" content="post_redirect"/>
-          <meta property="fc:frame:post_url" content="https://wag3r-bot.vercel.app/api/frame/wager"/>
-      </head></html>`);
+    let postUrl = `https://wag3r-bot.vercel.app/api/frame/wager?gameId=${gameId}`;
+    let htmlResponse = `<!DOCTYPE html>
+      <html>
+      <head>
+        <title>Wager</title>
+        <meta property="fc:frame" content="vNext" />
+        <meta property="fc:frame:image" content="https://wag3r-bot.vercel.app/stadium-second-page.png"/>
+        <meta property="fc:frame:button:1" content="Wager" />
+        <meta property="fc:frame:button:1:action" content="post_redirect"/>
+        <meta property="fc:frame:post_url" content="${postUrl}" />
+      </head>
+      </html>`;
+    return new NextResponse(htmlResponse);
   }
   // wager: is the second buttonId
   if (buttonId == 2) {
