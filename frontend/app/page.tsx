@@ -1,9 +1,7 @@
 import { getFrameMetadata } from '@coinbase/onchainkit';
 import type { Metadata } from 'next';
-import { useSearchParams } from 'next/navigation'
-const searchParams = useSearchParams()
 
-const gameId = searchParams.get('game-id')
+
 const frameMetadata = getFrameMetadata({
   buttons: [
       {label: 'Wager', action: 'post'},
@@ -11,7 +9,7 @@ const frameMetadata = getFrameMetadata({
       {label: 'Info', action: 'post'},
   ],
   image: 'https://wag3r-bot.vercel.app/stadium-first-page.png',
-  post_url: 'https://wag3r-bot.vercel.app/api/frame?game-id=${gameId}',
+  post_url: 'https://wag3r-bot.vercel.app/api/frame',
 });
 
 export const metadata: Metadata = {
@@ -30,7 +28,7 @@ export const metadata: Metadata = {
 export default async function Page() {
   return (
     <>
-      <h1>Versus By Stadium</h1>
+      <h1>Refuel-Frame by socket.</h1>
     </>
   );
 }
