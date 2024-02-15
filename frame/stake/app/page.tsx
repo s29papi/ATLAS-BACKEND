@@ -1,5 +1,9 @@
+// spec: https://docs.farcaster.xyz/reference/frames/spec
+// playground: https://og-playground.vercel.app/
+
 import { getFrameMetadata } from '@coinbase/onchainkit';
 import type { Metadata } from 'next';
+import { cookies } from 'next/headers'
 
 
 
@@ -25,17 +29,6 @@ export const metadata: Metadata = {
 };
 
 
-
-// export default async function Page(props: Props) {
-
-//   return (
-//     <>
-//       <h1>Refuel-Frame by socket.</h1>
-//     </>
-//   );
-// }
-
-
 export default function Page({
   params,
   searchParams,
@@ -43,11 +36,9 @@ export default function Page({
   params: { slug: string };
   searchParams?: { [key: string]: string | string[] | undefined };
 }) {
+  cookies().set('name', 'lee')
   return <h1>{searchParams?.gameid || "Hello!"}</h1>;
 }
 
 
-// ref: https://www.pinata.cloud/blog/how-to-make-a-frame-on-farcaster-using-ipfs
-// spec: https://docs.farcaster.xyz/reference/frames/spec
-// playground: https://og-playground.vercel.app/
 
