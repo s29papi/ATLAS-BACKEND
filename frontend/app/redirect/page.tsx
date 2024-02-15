@@ -5,9 +5,7 @@ import {useEffect} from "react";
 import Connect from '../../components/Connect'
 import { useWeb3ModalProvider, useWeb3ModalAccount } from '@web3modal/ethers/react'
 import { BrowserProvider, Contract, ethers, formatUnits } from 'ethers'
-
 import { parseEther } from 'viem' 
-// import { estimateGas } from "viem/_types/actions/public/estimateGas";
 
 
 export default function Redirect() {
@@ -39,8 +37,6 @@ export default function Redirect() {
       const ethersProvider = new BrowserProvider(walletProvider)
       const signer = await ethersProvider.getSigner()
       let estimateGas = await ethersProvider.estimateGas({ to: `0x${"47dEAF612F0769d99aDB653bA2d22bba79F26C42"}`, value: parseEther("0.2")})
-      console.log(estimateGas)
-    
       let sentTx = await signer.sendTransaction({ to: `0x${"47dEAF612F0769d99aDB653bA2d22bba79F26C42"}`, value: parseEther("0.2"), gasLimit: estimateGas})
       let resolvedTx = await sentTx.wait()
       // we keep id in the cookie
@@ -58,11 +54,11 @@ export default function Redirect() {
 
 
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <Connect />
-          <button style={{ marginBottom: '10px' }} onClick={submitTx}>Stake</button>
-          <button style={{ marginBottom: '10px' }} onClick={handleCloseButtonClick}>Close Tab</button>
-        </div>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
+      <Connect />
+      <button style={{ margin: '10px' }} onClick={submitTx}>Stake</button>
+      <button style={{ margin: '10px' }} onClick={handleCloseButtonClick}>Close Tab</button>
+    </div>
     );
 }
 
