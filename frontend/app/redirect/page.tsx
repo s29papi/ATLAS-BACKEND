@@ -33,16 +33,7 @@ export default function Redirect() {
         };
       }, []);
 
-    // useEffect(() => {
-    //     async function openWallet() {
-    //       // open()
-          
-  
-    //     }
 
-    //     openWallet()
-    //     sendTransaction({to: `0x${"47dEAF612F0769d99aDB653bA2d22bba79F26C42"}`, value: parseEther("0.1")})
-    // })
     async function submitTx() { 
       if (!walletProvider) throw Error('Wallet Provider Abscent')
       const ethersProvider = new BrowserProvider(walletProvider)
@@ -52,8 +43,10 @@ export default function Redirect() {
     
       let sentTx = await signer.sendTransaction({ to: `0x${"47dEAF612F0769d99aDB653bA2d22bba79F26C42"}`, value: parseEther("0.2"), gasLimit: estimateGas})
       let resolvedTx = await sentTx.wait()
+      // we keep id in the cookie
+      // db stores id and tx hash
       console.log(resolvedTx?.hash)
-      // console.log(walletProvider)
+      
      }
     
  
@@ -65,31 +58,11 @@ export default function Redirect() {
 
 
     return (
-        <div>
-            
-            <Connect />
-            <button onClick={submitTx}>Stake</button>
-            <button onClick={handleCloseButtonClick}>Close Tab</button>
-            {/* <button onClick={() => signMessage({ message: 'hello world' })}>Sign message</button> */}
-            {/* <button onClick={() => sendTransaction( { to: `0x${"47dEAF612F0769d99aDB653bA2d22bba79F26C42"}`, value: parseEther("0.2") })}>Send Tx</button> */}
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <Connect />
+          <button style={{ marginBottom: '10px' }} onClick={submitTx}>Stake</button>
+          <button style={{ marginBottom: '10px' }} onClick={handleCloseButtonClick}>Close Tab</button>
         </div>
     );
 }
 
-
-
-// exit page when done
-// async function submitTx() {
-
-//   const { walletProvider } = useWeb3ModalProvider()
-//   if (!isConnected) throw Error('User disconnected')
-//   if (!walletProvider) throw Error('Wallet Provider Abscent')
-//   const ethersProvider = new BrowserProvider(walletProvider)
-// console.log(ethersProvider)
-  // const signer = await ethersProvider.getSigner()
-  // let estimateGas = await ethersProvider.estimateGas({ to: `0x${"47dEAF612F0769d99aDB653bA2d22bba79F26C42"}`, value: parseEther("0.2")})
-
-  // console.log(estimateGas)
-
-  // await signer.sendTransaction({ to: `0x${"47dEAF612F0769d99aDB653bA2d22bba79F26C42"}`, value: parseEther("0.2")})
-// }
