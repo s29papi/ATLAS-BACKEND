@@ -55,9 +55,11 @@ export default function Redirect() {
 
     return (
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
-      <Connect />
-      <button style={{ margin: '10px' }} onClick={submitTx}>Stake</button>
-      <button style={{ margin: '10px' }} onClick={handleCloseButtonClick}>Close Tab</button>
+        <Connect />
+          <div style={{ display: 'flex', gap: '20px', marginTop: '20px' }}>
+          <button onClick={submitTx}>Stake</button>
+          <button onClick={handleCloseButtonClick}>Close Tab</button>
+        </div>
     </div>
     );
 }
