@@ -12,11 +12,11 @@ export async function generateMetadata(
   parent: ResolvingMetadata
 ): Promise<Metadata> { 
   const gameid = searchParams["gameid"];
-  let postUrl = "https://wag3r-bot.vercel.app/api?gameId=" + `${gameid}`;
+  let postUrl = "https://wag3r-bot.vercel.app/api?gameid=" + `${gameid}`;
 
   const frameMetadata = getFrameMetadata({
     buttons: [
-        {label: 'Accept Challenge & Stake Tokens', action: 'post'},
+        {label: 'Accept Challenge & Stake Tokens', action: 'post_redirect'},
     ],
     image: 'https://wag3r-bot-stake.vercel.app/stadium-figma-test-1.png',
     post_url: postUrl,
@@ -37,24 +37,6 @@ export async function generateMetadata(
 }
 
 
-
-// export const metadata: Metadata = {
-//   title: 'Refuel-Frame by socket.',
-//   description: 'Follow this user, Like the post, and Refuel.',
-//   openGraph: {
-//     title: 'Refuel-Frame by socket.',
-//     description: 'Follow this user, Like the post, and Refuel.',
-//     images: [`https://wag3r-bot-stake.vercel.app/stadium-figma-test-1.png`],
-//   },
-//   other: {
-//     ...frameMetadata,
-//   },
-// };
-
-
-
-
-
 export default function Page({
   params,
   searchParams,
@@ -62,7 +44,7 @@ export default function Page({
   params: { slug: string };
   searchParams?: { [key: string]: string | string[] | undefined };
 }) {
-  return <h1>{searchParams?.gameid || "Hello!"}</h1>;
+  return <h1>Stake By Versus.</h1>;
 }
 
 
