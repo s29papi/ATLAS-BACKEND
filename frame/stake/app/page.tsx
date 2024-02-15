@@ -7,7 +7,7 @@ const frameMetadata = getFrameMetadata({
   buttons: [
       {label: 'Accept Challenge & Stake Tokens', action: 'post'},
   ],
-  image: 'https://wag3r-bot-stake.vercel.app/stadium-figma-test-1a.png',
+  image: 'https://wag3r-bot-stake.vercel.app/stadium-figma-test-1.png',
   post_url: 'https://wag3r-bot.vercel.app/api/frame',
 });
 
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Refuel-Frame by socket.',
     description: 'Follow this user, Like the post, and Refuel.',
-    images: [`https://wag3r-bot-stake.vercel.app/stadium-figma-test-1a.png`],
+    images: [`https://wag3r-bot-stake.vercel.app/stadium-figma-test-1.png`],
   },
   other: {
     ...frameMetadata,
