@@ -1,6 +1,6 @@
 import { getFrameMetadata } from '@coinbase/onchainkit';
 import type { Metadata } from 'next';
-
+import { useSearchParams } from 'next/navigation';
 
 const frameMetadata = getFrameMetadata({
   buttons: [
