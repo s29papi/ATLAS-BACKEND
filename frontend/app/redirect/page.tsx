@@ -46,7 +46,8 @@ export default function Redirect() {
     async function submitTx() { 
       if (!walletProvider) throw Error('Wallet Provider Abscent')
       const ethersProvider = new BrowserProvider(walletProvider)
-      console.log(ethersProvider)
+      const signer = await ethersProvider.getSigner()
+      console.log(signer)
       // console.log(walletProvider)
      }
     
