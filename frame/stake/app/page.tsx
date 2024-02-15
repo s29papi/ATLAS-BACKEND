@@ -2,7 +2,7 @@
 // playground: https://og-playground.vercel.app/
 
 import { getFrameMetadata } from '@coinbase/onchainkit';
-import type { Metadata, ResolvingMetadata  } from 'next';
+import type { Metadata } from 'next';
 
 type Props = {
   params: { id: string }
@@ -16,8 +16,7 @@ let frameMetadata;
 let postUrl;
 
 export async function generateMetadata(
-  { params, searchParams }: Props,
-  parent: ResolvingMetadata
+  { params, searchParams }: Props
 ){
   postUrl = 'https://wag3r-bot-stake.vercel.app/api'; 
 }
