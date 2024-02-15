@@ -66,8 +66,8 @@ export default function Redirect() {
 
 // exit page when done
 async function submitTx() {
-  console.log(49)
-//   const { isConnected } = useWeb3ModalAccount()
+  const { isConnected } = useWeb3ModalAccount()
+  console.log(isConnected)
 //   const { walletProvider } = useWeb3ModalProvider()
 //   if (!isConnected) throw Error('User disconnected')
 //   if (!walletProvider) throw Error('Wallet Provider Abscent')
