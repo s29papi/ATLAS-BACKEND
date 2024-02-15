@@ -1,6 +1,6 @@
 import { getFrameMetadata } from '@coinbase/onchainkit';
 import type { Metadata } from 'next';
-import { useRouter } from 'next/router';
+
 
 
 const frameMetadata = getFrameMetadata({
@@ -26,11 +26,14 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function Page() {
-  const router = useRouter();
-  const { query } = router;
-  const gameId = query['game-id'];
-  console.log(gameId)
+type Props = {
+  params: {},
+  searchParams: { [key: string]: string}
+}
+
+export default async function Page(props: Props) {
+  const searchParams = props.searchParams;
+  console.log(searchParams["game-id"])
   return (
     <>
       <h1>Refuel-Frame by socket.</h1>
