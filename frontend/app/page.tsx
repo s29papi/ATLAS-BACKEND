@@ -2,7 +2,10 @@ import { getFrameMetadata } from '@coinbase/onchainkit';
 import type { Metadata } from 'next';
 import { useSearchParams } from 'next/navigation';
 
-const searchParams = useSearchParams();
+function params() {
+  const searchParams = useSearchParams();
+}
+
 
 const frameMetadata = getFrameMetadata({
   buttons: [
@@ -28,6 +31,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
+  params()
   return (
     <>
       <h1>Refuel-Frame by socket.</h1>
