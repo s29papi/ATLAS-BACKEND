@@ -43,16 +43,16 @@ export default function Redirect() {
     // })
 
     async function submitTx() {
-      const { address, chainId, isConnected } = useWeb3ModalAccount()
+      const { isConnected } = useWeb3ModalAccount()
       const { walletProvider } = useWeb3ModalProvider()
       if (!isConnected) throw Error('User disconnected')
       if (!walletProvider) throw Error('Wallet Provider Abscent')
       const ethersProvider = new BrowserProvider(walletProvider)
+console.log(ethersProvider)
+      // const signer = await ethersProvider.getSigner()
+      // let estimateGas = await ethersProvider.estimateGas({ to: `0x${"47dEAF612F0769d99aDB653bA2d22bba79F26C42"}`, value: parseEther("0.2")})
 
-      const signer = await ethersProvider.getSigner()
-      let estimateGas = await ethersProvider.estimateGas({ to: `0x${"47dEAF612F0769d99aDB653bA2d22bba79F26C42"}`, value: parseEther("0.2")})
-
-      console.log(estimateGas)
+      // console.log(estimateGas)
     
       // await signer.sendTransaction({ to: `0x${"47dEAF612F0769d99aDB653bA2d22bba79F26C42"}`, value: parseEther("0.2")})
     }
