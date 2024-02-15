@@ -5,11 +5,9 @@ import type { Metadata } from 'next';
 
 const frameMetadata = getFrameMetadata({
   buttons: [
-      {label: 'Wager', action: 'post'},
-      {label: 'Un-Wager', action: 'post'},
-      {label: 'Info', action: 'post'},
+      {label: 'Accept Challenge & Stake Tokens', action: 'post'},
   ],
-  image: 'https://wag3r-bot.vercel.app/stadium-first-page.png',
+  image: 'https://wag3r-bot-stake.vercel.app/stadium-first-page.png',
   post_url: 'https://wag3r-bot.vercel.app/api/frame',
 });
 
@@ -19,7 +17,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Refuel-Frame by socket.',
     description: 'Follow this user, Like the post, and Refuel.',
-    images: [`https://wag3r-bot.vercel.app/stadium-first-page.png`],
+    images: [`https://wag3r-bot-stake.vercel.app/stadium-first-page.png`],
   },
   other: {
     ...frameMetadata,
