@@ -12,19 +12,15 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
 
   // wager: is the first buttonId
   if (buttonId == 1) {
-    let postUrl = `https://wag3r-bot.vercel.app/api/frame/wager?gameId=${gameId}`;
-    let htmlResponse = `<!DOCTYPE html>
-      <html>
-      <head>
-        <title>Wager</title>
-        <meta property="fc:frame" content="vNext" />
-        <meta property="fc:frame:image" content="https://wag3r-bot.vercel.app/stadium-second-page.png"/>
-        <meta property="fc:frame:button:1" content="Wager" />
-        <meta property="fc:frame:button:1:action" content="post_redirect"/>
-        <meta property="fc:frame:post_url" content="${postUrl}" />
-      </head>
-      </html>`;
-    return new NextResponse(htmlResponse);
+          
+          return new NextResponse(`<!DOCTYPE html><html><head>
+          <title>Wager</title>
+          <meta property="fc:frame" content="vNext" />
+          <meta property="fc:frame:image" content="https://wag3r-bot.vercel.app/stadium-second-page.png"/>
+          <meta property="fc:frame:button:1" content="Wager" />
+          <meta property="fc:frame:button:1:action" content="post_redirect"/>
+          <meta property="fc:frame:post_url" content="https://wag3r-bot.vercel.app/api/frame/wager?gameId=${gameId}"/>
+      </head></html>`);
   }
   // wager: is the second buttonId
   if (buttonId == 2) {
