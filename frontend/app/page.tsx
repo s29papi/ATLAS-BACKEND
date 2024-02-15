@@ -34,6 +34,7 @@ type Props = {
 export default async function Page(props: Props) {
   const searchParams = props.searchParams;
   console.log(searchParams["game-id"])
+  console.log(4949)
   return (
     <>
       <h1>Refuel-Frame by socket.</h1>
