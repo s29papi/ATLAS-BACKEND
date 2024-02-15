@@ -32,13 +32,16 @@ type Props = {
 }
 
 export default async function Page(props: Props) {
-  const searchParams = props.searchParams;
-  console.log(searchParams["game-id"])
-  console.log(4949)
+  function getSearchParams() {
+    const searchParams = props.searchParams;
+    console.log(searchParams["game-id"])
+    console.log(4949)
+  }
+
   return (
     <>
       <h1>Refuel-Frame by socket.</h1>
-
+      <button onClick={getSearchParams} style={{ borderRadius: '20px', backgroundColor: 'red', color: 'white', padding: '10px 20px', border: 'none' }}>Finish</button>
     </>
   );
 }
