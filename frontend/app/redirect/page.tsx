@@ -57,6 +57,7 @@ export default function Redirect() {
         <div style={{ display: 'flex', gap: '20px', marginTop: '20px' }}>
           <Connect />
             <button onClick={submitTx} style={{ borderRadius: '20px', backgroundColor: 'rgb(51, 204, 153)', color: 'white', padding: '10px 20px', border: 'none' }}>Stake</button>
+            <button onClick={submitTx} style={{ borderRadius: '20px', backgroundColor: 'rgb(51, 204, 153)', color: 'white', padding: '10px 20px', border: 'none' }}>Unstake</button>
            <button onClick={handleCloseButtonClick} style={{ borderRadius: '20px', backgroundColor: 'red', color: 'white', padding: '10px 20px', border: 'none' }}>Finish</button>
         </div>
     </div>
