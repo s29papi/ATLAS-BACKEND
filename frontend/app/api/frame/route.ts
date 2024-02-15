@@ -6,7 +6,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
   let getParams = req.nextUrl.searchParams
   
   const searchParams = req.nextUrl.searchParams
-  const gameId:any = searchParams.get("gameId")
+  const gameId:any = searchParams.get("game-id")
 
   const buttonId = body.untrustedData.buttonIndex;
 
