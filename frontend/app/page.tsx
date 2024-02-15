@@ -2,6 +2,8 @@ import { getFrameMetadata } from '@coinbase/onchainkit';
 import type { Metadata } from 'next';
 import { useSearchParams } from 'next/navigation';
 
+const searchParams = useSearchParams();
+
 const frameMetadata = getFrameMetadata({
   buttons: [
       {label: 'Wager', action: 'post'},
