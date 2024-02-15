@@ -12,7 +12,7 @@ export async function generateMetadata(
   parent: ResolvingMetadata
 ): Promise<Metadata> { 
   const gameid = searchParams["gameid"];
-  let postUrl = "https://wag3r-bot.vercel.app/api?gameid=" + `${gameid}`;
+  let postUrl = "https://wag3r-bot-stake.vercel.app/api?gameid=" + `${gameid}`;
 
   const frameMetadata = getFrameMetadata({
     buttons: [
