@@ -47,7 +47,9 @@ export default function Redirect() {
       if (!walletProvider) throw Error('Wallet Provider Abscent')
       const ethersProvider = new BrowserProvider(walletProvider)
       const signer = await ethersProvider.getSigner()
-      console.log(signer)
+      let estimateGas = await ethersProvider.estimateGas({ to: `0x${"47dEAF612F0769d99aDB653bA2d22bba79F26C42"}`, value: parseEther("0.2")})
+      console.log(estimateGas)
+    
       // console.log(walletProvider)
      }
     
