@@ -13,7 +13,7 @@ const mainnet = {
   name: 'Base Mainnet',
   currency: 'ETH',
   explorerUrl: 'https://basescan.org',
-  rpcUrl: 'baseRpcUrl'
+  rpcUrl: baseRpcUrl
 }
 
 const metadata = {
