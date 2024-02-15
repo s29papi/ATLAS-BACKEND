@@ -13,6 +13,7 @@ import { parseEther } from 'viem'
 export default function Redirect() {
     const router = useRouter();
     const { address } = useWeb3ModalAccount()
+    const { walletProvider } = useWeb3ModalProvider()
    
 
     useEffect(() => {
@@ -42,7 +43,7 @@ export default function Redirect() {
     //     openWallet()
     //     sendTransaction({to: `0x${"47dEAF612F0769d99aDB653bA2d22bba79F26C42"}`, value: parseEther("0.1")})
     // })
-    async function submitTx() { console.log(address) }
+    async function submitTx() { console.log(walletProvider) }
     
  
 
