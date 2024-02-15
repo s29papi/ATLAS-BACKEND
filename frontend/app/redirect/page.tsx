@@ -67,7 +67,7 @@ export default function Redirect() {
         <div>
             
             <Connect />
-            <button onClick={async () => { await submitTx() }}>Stake</button>
+            <button onClick={submitTx}>Stake</button>
             <button onClick={handleCloseButtonClick}>Close Tab</button>
             {/* <button onClick={() => signMessage({ message: 'hello world' })}>Sign message</button> */}
             {/* <button onClick={() => sendTransaction( { to: `0x${"47dEAF612F0769d99aDB653bA2d22bba79F26C42"}`, value: parseEther("0.2") })}>Send Tx</button> */}
