@@ -10,7 +10,6 @@ import { parseEther } from 'viem'
 
 export default function Redirect() {
     const router = useRouter();
-    const { address } = useWeb3ModalAccount()
     const { walletProvider } = useWeb3ModalProvider()
    
 
@@ -57,7 +56,7 @@ export default function Redirect() {
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
         <div style={{ display: 'flex', gap: '20px', marginTop: '20px' }}>
           <Connect />
-          <button onClick={submitTx} style={{ borderRadius: '20px', backgroundColor: 'green', color: 'white', padding: '10px 20px', border: 'none' }}>Stake</button>
+            <button onClick={submitTx} style={{ borderRadius: '20px', backgroundColor: 'rgb(51, 204, 153)', color: 'white', padding: '10px 20px', border: 'none' }}>Stake</button>
            <button onClick={handleCloseButtonClick} style={{ borderRadius: '20px', backgroundColor: 'red', color: 'white', padding: '10px 20px', border: 'none' }}>Finish</button>
         </div>
     </div>
