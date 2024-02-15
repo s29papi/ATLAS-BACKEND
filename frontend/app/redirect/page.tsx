@@ -12,6 +12,7 @@ import { parseEther } from 'viem'
 
 export default function Redirect() {
     const router = useRouter();
+    const { address } = useWeb3ModalAccount()
    
 
     useEffect(() => {
@@ -41,8 +42,8 @@ export default function Redirect() {
     //     openWallet()
     //     sendTransaction({to: `0x${"47dEAF612F0769d99aDB653bA2d22bba79F26C42"}`, value: parseEther("0.1")})
     // })
-    const { address } = useWeb3ModalAccount()
-    console.log(address)
+    async function submitTx() { console.log(address) }
+    
  
 
       const handleCloseButtonClick = () => {
@@ -66,7 +67,7 @@ export default function Redirect() {
 
 
 // exit page when done
-async function submitTx() {
+// async function submitTx() {
 
 //   const { walletProvider } = useWeb3ModalProvider()
 //   if (!isConnected) throw Error('User disconnected')
@@ -79,4 +80,4 @@ async function submitTx() {
   // console.log(estimateGas)
 
   // await signer.sendTransaction({ to: `0x${"47dEAF612F0769d99aDB653bA2d22bba79F26C42"}`, value: parseEther("0.2")})
-}
+// }
