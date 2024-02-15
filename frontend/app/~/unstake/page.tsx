@@ -2,13 +2,13 @@
 
 import {useRouter} from "next/navigation";
 import {useEffect} from "react";
-import Connect from '../../components/Connect'
+import Connect from '../../../components/Connect'
 import { useWeb3ModalProvider, useWeb3ModalAccount } from '@web3modal/ethers/react'
 import { BrowserProvider, Contract, ethers, formatUnits } from 'ethers'
 import { parseEther } from 'viem' 
 
 
-export default function Redirect() {
+export default function UnstakePage() {
     const router = useRouter();
     const { walletProvider } = useWeb3ModalProvider()
    
@@ -57,7 +57,6 @@ export default function Redirect() {
         <div style={{ display: 'flex', gap: '20px', marginTop: '20px' }}>
           Start By Clicking Connect To Connect your Wallet.
           <Connect />
-            <button onClick={submitTx} style={{ borderRadius: '20px', backgroundColor: 'rgb(51, 204, 153)', color: 'white', padding: '10px 20px', border: 'none' }}>Stake</button>
             <button onClick={submitTx} style={{ borderRadius: '20px', backgroundColor: 'rgb(51, 204, 153)', color: 'white', padding: '10px 20px', border: 'none' }}>Unstake</button>
            <button onClick={handleCloseButtonClick} style={{ borderRadius: '20px', backgroundColor: 'red', color: 'white', padding: '10px 20px', border: 'none' }}>Finish</button>
         </div>
