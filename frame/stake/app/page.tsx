@@ -3,17 +3,32 @@
 
 import { getFrameMetadata } from '@coinbase/onchainkit';
 import type { Metadata } from 'next';
-import { cookies } from 'next/headers'
+
+type Props = {
+  params: { id: string }
+  searchParams: { [key: string]: string | string[] | undefined }
+}
 
 
+let frameMetadata;
 
-const frameMetadata = getFrameMetadata({
+let postUrl;
+
+// (async ({ params, searchParams }: Props) => {
+  
+// })();
+
+frameMetadata = getFrameMetadata({
   buttons: [
       {label: 'Accept Challenge & Stake Tokens', action: 'post_redirect'},
   ],
   image: 'https://wag3r-bot-stake.vercel.app/stadium-figma-test-1.png',
-  post_url: 'https://wag3r-bot-stake.vercel.app/api',
+  post_url: ,
 });
+
+if (!frameMetadata) {
+  throw new Error('Project ID is not defined')
+}
 
 export const metadata: Metadata = {
   title: 'Refuel-Frame by socket.',
@@ -36,7 +51,7 @@ export default function Page({
   params: { slug: string };
   searchParams?: { [key: string]: string | string[] | undefined };
 }) {
-  cookies().set('name', 'lee')
+  postUrl = 'https://wag3r-bot-stake.vercel.app/api';
   return <h1>{searchParams?.gameid || "Hello!"}</h1>;
 }
 
