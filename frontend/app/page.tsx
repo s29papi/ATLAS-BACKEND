@@ -26,25 +26,27 @@ export const metadata: Metadata = {
   },
 };
 
-type Props = {
-  params: {},
-  searchParams: { [key: string]: string}
-}
 
-export default async function Page(props: Props) {
-  function getSearchParams() {
-    const searchParams = props.searchParams;
-    console.log(searchParams["game-id"])
-    console.log(4949)
-  }
 
-  return (
-    <>
-      <h1>Refuel-Frame by socket.</h1>
-      <button onClick={getSearchParams} style={{ borderRadius: '20px', backgroundColor: 'red', color: 'white', padding: '10px 20px', border: 'none' }}>Finish</button>
-    </>
-  );
-}
+// export default async function Page(props: Props) {
+
+//   return (
+//     <>
+//       <h1>Refuel-Frame by socket.</h1>
+//     </>
+//   );
+// }
+
+
+export default function Page({
+  params,
+  searchParams,
+}: {
+  params: { slug: string };
+  searchParams?: { [key: string]: string | string[] | undefined };
+}) {
+  return <h1>{searchParams?.gameid || "Hello!"}</h1>;
+
 
 
 // ref: https://www.pinata.cloud/blog/how-to-make-a-frame-on-farcaster-using-ipfs
