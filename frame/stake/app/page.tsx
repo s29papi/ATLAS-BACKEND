@@ -1,38 +1,15 @@
-// spec: https://docs.farcaster.xyz/reference/frames/spec
-// playground: https://og-playground.vercel.app/
-
 import { getFrameMetadata } from '@coinbase/onchainkit';
 import type { Metadata } from 'next';
 
-type Props = {
-  params: { id: string }
-  searchParams: { [key: string]: string | string[] | undefined }
-}
 
 
-
-let frameMetadata;
-
-let postUrl;
-
-export async function generateMetadata(
-  { params, searchParams }: Props
-){
-  postUrl = 'https://wag3r-bot-stake.vercel.app/api'; 
-}
-
-
-frameMetadata = getFrameMetadata({
+const frameMetadata = getFrameMetadata({
   buttons: [
-      {label: 'Accept Challenge & Stake Tokens', action: 'post_redirect'},
+      {label: 'Accept Challenge & Stake Tokens', action: 'post'},
   ],
   image: 'https://wag3r-bot-stake.vercel.app/stadium-figma-test-1.png',
-  post_url: postUrl,
+  post_url: 'https://wag3r-bot.vercel.app/api/frame',
 });
-
-if (!frameMetadata) {
-  throw new Error('Project ID is not defined')
-}
 
 export const metadata: Metadata = {
   title: 'Refuel-Frame by socket.',
@@ -40,12 +17,23 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Refuel-Frame by socket.',
     description: 'Follow this user, Like the post, and Refuel.',
-    images: [`https://wag3r-bot-stake.vercel.app/stadium-figma-test-1.png`],
+    images: [`https://wag3r-bot-stake.vercel.app/stadium-figma-test-1a.png`],
   },
   other: {
     ...frameMetadata,
   },
 };
+
+
+
+// export default async function Page(props: Props) {
+
+//   return (
+//     <>
+//       <h1>Refuel-Frame by socket.</h1>
+//     </>
+//   );
+// }
 
 
 export default function Page({
@@ -55,9 +43,11 @@ export default function Page({
   params: { slug: string };
   searchParams?: { [key: string]: string | string[] | undefined };
 }) {
-  
   return <h1>{searchParams?.gameid || "Hello!"}</h1>;
 }
 
 
+// ref: https://www.pinata.cloud/blog/how-to-make-a-frame-on-farcaster-using-ipfs
+// spec: https://docs.farcaster.xyz/reference/frames/spec
+// playground: https://og-playground.vercel.app/
 
