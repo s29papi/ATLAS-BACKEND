@@ -9,17 +9,10 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
   const gameId:any = searchParams.get("game-id")
 
   const buttonId = body.untrustedData.buttonIndex;
-  let bixi = "56"
-  // wager: is the first buttonId
+  
+  
   if (buttonId == 1) {
-          return new NextResponse(`<!DOCTYPE html><html><head>
-          <title>Wager</title>
-          <meta property="fc:frame" content="vNext" />
-          <meta property="fc:frame:image" content="https://wag3r-bot.vercel.app/stadium-second-page.png"/>
-          <meta property="fc:frame:button:1" content="${bixi}" />
-          <meta property="fc:frame:button:1:action" content="post"/>
-          <meta property="fc:frame:post_url" content="https://wag3r-bot.vercel.app/api/frame/wager?gameId=${gameId}"/>
-      </head></html>`);
+    return NextResponse.redirect("https://socket-pay.vercel.app/viewtx", {status: 302});
   }
   // wager: is the second buttonId
   if (buttonId == 2) {

@@ -12,14 +12,15 @@ export async function generateMetadata(
   parent: ResolvingMetadata
 ): Promise<Metadata> { 
   const gameid = searchParams["gameid"];
-  let postUrl = "https://wag3r-bot-stake.vercel.app/api?gameid=" + `${gameid}`;
+  // work on this
+  let postUrl = "https://wag3r-bot.vercel.app/api/frame?gameid=" + `${gameid}`;
 
   const frameMetadata = getFrameMetadata({
     buttons: [
         {label: 'View Txn', action: 'post_redirect'},
         {label: 'Continue', action: 'post'},
     ],
-    image: 'https://wag3r-bot.vercel.app/stadium-figma-test-2b.png',
+    image: 'https://wag3r-bot.vercel.app/stadium-figma-test-2.png',
     post_url: postUrl,
   });
 
@@ -29,7 +30,7 @@ export async function generateMetadata(
     openGraph: {
       title: 'Match By Versus.',
       description: 'Frontend Match Management for Versus App.',
-      images: [`https://wag3r-bot.vercel.app/stadium-figma-test-2b.png`],
+      images: [`https://wag3r-bot.vercel.app/stadium-figma-test-2.png`],
     },
     other: {
       ...frameMetadata,
