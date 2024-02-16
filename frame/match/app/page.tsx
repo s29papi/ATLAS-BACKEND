@@ -23,11 +23,11 @@ export async function generateMetadata(
   });
 
   return {
-    title: 'Stake By Versus.',
-    description: 'Frontend Stake Management for Versus App.',
+    title: 'Match By Versus.',
+    description: 'Frontend Match Management for Versus App.',
     openGraph: {
-      title: 'Stake By Versus.',
-      description: 'Frontend Stake Management for Versus App.',
+      title: 'Match By Versus.',
+      description: 'Frontend Match Management for Versus App.',
       images: [`https://wag3r-bot-stake.vercel.app/stadium-figma-test-1.png`],
     },
     other: {
@@ -44,7 +44,7 @@ export default function Page({
   params: { slug: string };
   searchParams?: { [key: string]: string | string[] | undefined };
 }) {
-  return <h1>Stake By Versus.</h1>;
+  return <h1>Match By Versus.</h1>;
 }
 
 
