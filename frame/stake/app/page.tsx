@@ -48,7 +48,7 @@ export default function Page({
 }
 
 
-// ref: https://www.pinata.cloud/blog/how-to-make-a-frame-on-farcaster-using-ipfs
+
 // spec: https://docs.farcaster.xyz/reference/frames/spec
 // playground: https://og-playground.vercel.app/
 
