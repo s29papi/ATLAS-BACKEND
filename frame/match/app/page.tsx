@@ -16,9 +16,10 @@ export async function generateMetadata(
 
   const frameMetadata = getFrameMetadata({
     buttons: [
-        {label: 'Accept Challenge & Stake Tokens', action: 'post_redirect'},
+        {label: 'View Txn', action: 'post_redirect'},
+        {label: 'Continue', action: 'post'},
     ],
-    image: 'https://wag3r-bot.vercel.app//stadium-figma-test-2b.png',
+    image: 'https://wag3r-bot.vercel.app/stadium-figma-test-2b.png',
     post_url: postUrl,
   });
 
@@ -28,7 +29,7 @@ export async function generateMetadata(
     openGraph: {
       title: 'Match By Versus.',
       description: 'Frontend Match Management for Versus App.',
-      images: [`https://wag3r-bot.vercel.app//stadium-figma-test-2b.png`],
+      images: [`https://wag3r-bot.vercel.app/stadium-figma-test-2b.png`],
     },
     other: {
       ...frameMetadata,
