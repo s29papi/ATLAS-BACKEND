@@ -12,7 +12,25 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
   
   
   if (buttonId == 1) {
-    return NextResponse.redirect("https://wag3r-bot.vercel.app/~/viewtx", {status: 302});
+    // this is in one of three states
+
+    // get the value from the bot of the user
+    // get the value of the game stake amount
+
+    // if it hasn't staked (this values are fetched from golang)
+
+    // if already staked and value is >= game amount
+
+    // if already taked and value is less than 
+    return new NextResponse(`<!DOCTYPE html><html><head>
+                <title>Start My Match</title>
+                <meta property="fc:frame" content="vNext" />
+                <meta property="fc:frame:image" content="https://wag3r-bot.vercel.app/stadium-figma-test-1.png"/>
+                <meta property="fc:frame:button:1" content="Start My Match" />
+                <meta property="fc:frame:button:1:action" content="post"/>
+                <meta property="fc:frame:post_url" content=""/>
+            </head></html>`);
+    // return NextResponse.redirect("https://wag3r-bot.vercel.app/~/viewtx", {status: 302});
   }
   // wager: is the second buttonId
   if (buttonId == 2) {
@@ -25,6 +43,24 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
           <meta property="fc:frame:post_url" content=""/>
       </head></html>`);
   }
+
+return new NextResponse(`<!DOCTYPE html><html><head>
+  <title>Button doesnt exist</title>
+</head></html>`);
+}
+
+export async function POST(req: NextRequest): Promise<Response> {
+  return getResponse(req);
+}
+
+export const dynamic = 'force-dynamic';
+
+
+
+
+
+
+
 
 //   // Step 3. Validate the message
 //   const { isValid, message } = await getFrameMessage(body, {neynarApiKey: "NEYNAR_ONCHAIN_KIT"});
@@ -77,13 +113,3 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
 //   //             <meta property="fc:frame:post_url" content="https://frames-follow-like-refuel.vercel.app/api/frame/refuel"/>
 //   // </head></html>`);
 
-  return new NextResponse(`<!DOCTYPE html><html><head>
-  <title>Button doesnt exist</title>
-</head></html>`);
-}
-
-export async function POST(req: NextRequest): Promise<Response> {
-  return getResponse(req);
-}
-
-export const dynamic = 'force-dynamic';
