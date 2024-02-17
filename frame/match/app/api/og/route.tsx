@@ -4,7 +4,7 @@ import { ImageResponse } from 'next/server'
  
 export const runtime = 'edge';
 
-export default function () {
+export async function GET() {
     return new ImageResponse(
       (
         <div
