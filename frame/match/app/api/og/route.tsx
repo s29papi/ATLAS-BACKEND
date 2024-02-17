@@ -1,6 +1,6 @@
 import { ImageResponse } from 'next/server'
 import Image from 'next/image'
-import stakeBG from '../../../public/stake.svg'
+import baseStake from '../../../public/Base-Stake-Image-rescale.png'
 // App router includes @vercel/og.
 // No need to install it.
 
@@ -11,7 +11,7 @@ export async function GET() {
       (
             <Image
             alt="Mountains"
-            src={stakeBG}
+            src={baseStake}
             placeholder="blur"
             quality={100}
             fill
