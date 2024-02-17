@@ -25,8 +25,14 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
     return ifAccountBalanceIsEqualGreaterStakeAmount()
     // return NextResponse.redirect("https://wag3r-bot.vercel.app/~/viewtx", {status: 302});
   }
-  // wager: is the second buttonId
-  if (buttonId == 2) {
+
+
+
+
+
+  
+
+  // handles accounts
     return new NextResponse(`<!DOCTYPE html><html><head>
           <title>Start My Match</title>
           <meta property="fc:frame" content="vNext" />
@@ -35,11 +41,6 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
           <meta property="fc:frame:button:1:action" content="post"/>
           <meta property="fc:frame:post_url" content=""/>
       </head></html>`);
-  }
-
-return new NextResponse(`<!DOCTYPE html><html><head>
-  <title>Button doesnt exist</title>
-</head></html>`);
 }
 
 export async function POST(req: NextRequest): Promise<Response> {
