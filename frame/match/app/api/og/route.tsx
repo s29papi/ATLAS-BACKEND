@@ -19,7 +19,7 @@ export async function GET() {
             backgroundImage: `url(${"https://wag3r-bot.vercel.app/stake.svg"}),`
           }}
         >
-          Hello!
+          
         </div>
       )
     )
