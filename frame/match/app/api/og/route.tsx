@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/server'
 // App router includes @vercel/og.
 // No need to install it.
-import stakeBg from '../../../public/stake.svg'
+
 export const runtime = 'edge';
 
 export async function GET() {
@@ -16,7 +16,7 @@ export async function GET() {
             justifyContent: 'center',
             fontSize: 128,
             background: 'lavender',
-            backgroundImage: `url(${stakeBg}),`
+            backgroundImage: `url(${"https://wag3r-bot.vercel.app/stake.svg"}),`
           }}
         >
           Hello!
