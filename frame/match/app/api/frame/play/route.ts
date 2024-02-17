@@ -11,7 +11,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
             <meta property="fc:frame:image" content="https://wag3r-bot.vercel.app/You-Vs-Me-Rescale.png"/>
             <meta property="fc:frame:button:1" content="You are now ready to play!" />
             <meta property="fc:frame:button:1:action" content="post"/>
-            <meta property="fc:frame:post_url" content="https://wag3r-bot.vercel.app/"/>
+           
             </head></html>`);
 }
 
@@ -23,3 +23,4 @@ export const dynamic = 'force-dynamic';
 
 
 
+// <meta property="fc:frame:post_url" content="https://wag3r-bot.vercel.app/"/>
