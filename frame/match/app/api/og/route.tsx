@@ -9,17 +9,15 @@ export const runtime = 'edge';
 export async function GET() {
     return new ImageResponse(
       (
-            <Image
-            alt="Mountains"
-            src={baseStake}
-            placeholder="blur"
-            quality={100}
-            fill
-            sizes="100vw"
-            style={{
-            objectFit: 'cover',
-            }}
-        />
+        <Image
+        src={baseStake}
+        alt="Picture of the author"
+        sizes="100vw"
+        style={{
+          width: '100%',
+          height: 'auto',
+        }}
+         />
       )
     )
   }
