@@ -55,9 +55,11 @@ function ifAccountBalanceIsEqualGreaterStakeAmount() {
             <title>Start My Match</title>
             <meta property="fc:frame" content="vNext" />
             <meta property="fc:frame:image" content="https://wag3r-bot.vercel.app/api/og"/>
-            <meta property="fc:frame:button:1" content="Start My Match" />
+            <meta property="fc:frame:button:1" content="Back" />
             <meta property="fc:frame:button:1:action" content="post"/>
-            <meta property="fc:frame:post_url" content=""/>
+            <meta property="fc:frame:button:1" content="Stake" />
+            <meta property="fc:frame:button:1:action" content="post"/>
+            <meta property="fc:frame:post_url" content="https://wag3r-bot.vercel.app/api/frame/stake"/>
         </head></html>`);
 }
 
