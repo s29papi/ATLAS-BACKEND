@@ -16,7 +16,7 @@ export async function GET() {
             justifyContent: 'center',
             fontSize: 128,
             background: 'lavender',
-            backgroundImage: `url(${stakeBg.src}),`
+            backgroundImage: `url(${stakeBg}),`
           }}
         >
           Hello!
