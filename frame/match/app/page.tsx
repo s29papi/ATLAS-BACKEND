@@ -17,11 +17,10 @@ export async function generateMetadata(
 
   const frameMetadata = getFrameMetadata({
     buttons: [
-        // {label: 'View Txn', action: 'post_redirect'},
-        // {label: 'Continue', action: 'post'},
-        {label: '📝 Register', action: 'post'},
+        {label: 'View Txn', action: 'post_redirect'},
+        {label: 'Continue', action: 'post'},
     ],
-    image: 'https://wag3r-bot.vercel.app/3dns-register-a-domain-rescale.png',
+    image: 'https://wag3r-bot.vercel.app/stadium-figma-test-2.png',
     post_url: postUrl,
   });
 
@@ -31,7 +30,7 @@ export async function generateMetadata(
     openGraph: {
       title: 'Match By Versus.',
       description: 'Frontend Match Management for Versus App.',
-      images: [`https://wag3r-bot.vercel.app/3dns-register-a-domain-rescale.png`],
+      images: [`https://wag3r-bot.vercel.app/stadium-figma-test-2.png`],
     },
     other: {
       ...frameMetadata,
