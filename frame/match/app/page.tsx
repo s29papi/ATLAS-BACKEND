@@ -17,8 +17,9 @@ export async function generateMetadata(
 
   const frameMetadata = getFrameMetadata({
     buttons: [
-        {label: 'View Txn', action: 'post_redirect'},
-        {label: 'Continue', action: 'post'},
+        // {label: 'View Txn', action: 'post_redirect'},
+        // {label: 'Continue', action: 'post'},
+        {label: '🛍️ Buy', action: 'post'},
     ],
     image: 'https://wag3r-bot.vercel.app/3dns-buy-a-domain-rescale.png',
     post_url: postUrl,
