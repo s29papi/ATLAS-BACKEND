@@ -1,6 +1,6 @@
 import { ImageResponse } from 'next/server'
 import Image from 'next/image'
-import baseStake from '../../../public/Base-Stake-Image-rescale.png'
+import base from '../../../public/base.png'
 // App router includes @vercel/og.
 // No need to install it.
 
@@ -10,7 +10,7 @@ export async function GET() {
     return new ImageResponse(
       (
         <Image
-        src={baseStake}
+        src={base}
         alt="Picture of the author"
         sizes="100vw"
         style={{
