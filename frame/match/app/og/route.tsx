@@ -18,14 +18,19 @@ export async function GET() {
       (
         <div
           style={{
-            width: '100%',
-            height: '100%',
+            width: "100vw",
+            height: "100vh",
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             fontSize: 128,
             // background: 'lavender',
             // backgroundImage: `url(${}),`
+            backgroundPosition: "center",
+            backgroundSize: "cover",
+            backgroundRepeat: "no-repeat",
+           
+
           }}
         >
           Bizzy
