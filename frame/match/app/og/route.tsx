@@ -19,7 +19,7 @@ export async function GET() {
       (
 
         <>
-          <Image src='/base.png' alt='lok' layout='fill' objectFit='cover'/>
+          <Image src='../../public/base.png' alt='lok' layout='fill' objectFit='cover'/>
           Hiss 
         </>
         // <div
