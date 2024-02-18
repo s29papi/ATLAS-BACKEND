@@ -30,6 +30,10 @@ export async function GET() {
         >
           <img width="256" height="256" src={imageData} />
         </div>
-      )
+      ),
+      {
+        width: 1200,
+        height: 630,
+      }
     )
   }
