@@ -15,8 +15,8 @@ export async function GET(req: Request) {
                 <img 
                     src={imageData}
                  />
-                <div style={{display: 'flex', position: 'absolute', top: '65%', left: '50%', transform: 'translate(-50%, -50%)', textAlign: 'center', color: '#66757F', fontSize: '72px', fontWeight: '900'}}> 
-                        <span style={{fontStyle: 'italic'}}>STAKE 20 $ USDC</span>
+                <div style={{display: 'flex', position: 'absolute', top: '65%', left: '50%', transform: 'translate(-50%, -50%)', textAlign: 'center', color: '#66757F', fontSize: '72px', fontWeight: '1200'}}> 
+                        <span style={{fontStyle: 'italic'}}>STAKE $ 20 USDC</span>
                 </div>
               </div>
     )
