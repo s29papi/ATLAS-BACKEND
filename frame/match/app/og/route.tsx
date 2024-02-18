@@ -28,7 +28,7 @@ export async function GET() {
             // backgroundImage: `url(${}),`
           }}
         >
-          <img width="256" height="256" src={imageData} />
+          <img width="1200" height="630" src={imageData} />
         </div>
       ),
       {
