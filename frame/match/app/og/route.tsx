@@ -24,7 +24,7 @@ export async function GET() {
             alignItems: 'center',
             justifyContent: 'center',
             fontSize: 128,
-            background: 'lavender',
+            // background: 'lavender',
             // backgroundImage: `url(${}),`
           }}
         >
