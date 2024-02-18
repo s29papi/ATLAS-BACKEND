@@ -18,10 +18,10 @@ export async function GET() {
     return new ImageResponse(
       (
 
-        <>
+        <div>
           <Image src='../../public/base.png' alt='lok' layout='fill' objectFit='cover'/>
           Hiss 
-        </>
+        </div>
         // <div
           // style={{
           //   width: "100vw",
