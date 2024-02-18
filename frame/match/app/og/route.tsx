@@ -28,12 +28,12 @@ export async function GET() {
             // backgroundImage: `url(${}),`
           }}
         >
-          <img width="1200" height="630" src={imageData} />
+          <img width="800" height="419" src={imageData} />
         </div>
       ),
       {
-        width: 1200,
-        height: 630,
+        width: 800,
+        height: 419,
       }
     )
   }
