@@ -18,3 +18,7 @@ frame/match/.next/
 frame/stake/node_modules
 frame/stake/.DS_STORE
 frame/stake/.next/
+
+
+framesjs-starter
+framesjs-starter/node_modules

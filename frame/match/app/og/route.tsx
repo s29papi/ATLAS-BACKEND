@@ -11,11 +11,42 @@ export async function GET(req: Request) {
     (res) => res.arrayBuffer(),
   );
   return new ImageResponse (
-        (
-          <div>
-              <img src={imageData} width={300} height={217} />
-              <div> Stake 20 usdc</div>
-            </div>
-        )
+            <div style={{position: 'relative', display: 'flex'}}>
+                <img 
+                    src={imageData}
+                 />
+                <div style={{display: 'flex', position: 'absolute', top: '65%', left: '50%', transform: 'translate(-50%, -50%)', textAlign: 'center', color: '#66757F', fontSize: '72px', fontWeight: '900'}}> 
+                        <span style={{fontStyle: 'italic'}}>STAKE 20 $ USDC</span>
+                </div>
+              </div>
     )
   }
+
+
+
+
+/* eslint-disable @next/next/no-img-element  */
+/* eslint-disable jsx-ally/alt-text */
+// @ts-nocheck
+// import { ImageResponse } from 'next/og'
+
+// export const runtime = 'edge';
+
+
+// export async function GET(req: Request) {
+//     const imageData = await fetch(new URL('../../public/Base-Stake-Image-rescale.png', import.meta.url)).then(
+//       (res) => res.arrayBuffer(),
+//     );
+//     return new ImageResponse (
+          
+//             <div style={{position: 'relative', display: 'flex'}}>
+//                 <img 
+//                     src={imageData}
+//                  />
+//                 <div style={{display: 'flex', position: 'absolute', top: '65%', left: '50%', transform: 'translate(-50%, -50%)', textAlign: 'center', color: '#66757F', fontSize: '72px', fontWeight: '900'}}> 
+//                         <span style={{fontStyle: 'italic'}}>STAKE 20 $ USDC</span>
+//                 </div>
+//               </div>
+          
+//       )
+//     }
