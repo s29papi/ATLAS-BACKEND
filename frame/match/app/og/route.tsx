@@ -2,6 +2,7 @@
 /* eslint-disable jsx-ally/alt-text */
 // @ts-nocheck
 import { ImageResponse } from 'next/server'
+import Image from 'next/image'
 // App router includes @vercel/og.
 // No need to install it.
 // import base from '../../public/base.png'
@@ -16,26 +17,30 @@ export async function GET() {
   console.log(imageData)
     return new ImageResponse(
       (
-        <div
-          style={{
-            width: "100vw",
-            height: "100vh",
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontSize: 128,
-            // background: 'lavender',
-            backgroundImage: `url(${"../../public/base.png"})`,
-            backgroundPosition: "center",
-            backgroundSize: "cover",
-            backgroundRepeat: "no-repeat",
+
+        <>
+          <Image src='/base.png' alt='lok' layout='fill' objectFit='cover'/>
+        </>
+        // <div
+          // style={{
+          //   width: "100vw",
+          //   height: "100vh",
+          //   display: 'flex',
+          //   alignItems: 'center',
+          //   justifyContent: 'center',
+          //   fontSize: 128,
+          //   // background: 'lavender',
+          //   backgroundImage: `url(${"../../public/base.png"})`,
+          //   backgroundPosition: "center",
+          //   backgroundSize: "cover",
+          //   backgroundRepeat: "no-repeat",
            
 
-          }}
-        >
-          Bizzy
-          {/* <img width="800" height="419" src={imageData}  /> */}
-        </div>
+          // }}
+        // >
+        //   Bizzy
+        //   {/* <img width="800" height="419" src={imageData}  /> */}
+        // </div>
       ),
       {
         width: 800,
