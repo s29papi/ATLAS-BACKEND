@@ -1,10 +1,11 @@
 import { ImageResponse } from 'next/server'
 // App router includes @vercel/og.
 // No need to install it.
-
+import base from '../../public/base.png'
 export const runtime = 'edge';
 
 export async function GET() {
+  console.log(base)
     return new ImageResponse(
       (
         <div
@@ -19,7 +20,7 @@ export async function GET() {
             // backgroundImage: `url(${}),`
           }}
         >
-          I TOO LIKE WOMAN!
+          
         </div>
       )
     )
