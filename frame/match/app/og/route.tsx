@@ -28,6 +28,7 @@ export async function GET() {
             // backgroundImage: `url(${}),`
           }}
         >
+          Bizzy
           <img width="800" height="419" src={imageData} />
         </div>
       ),
