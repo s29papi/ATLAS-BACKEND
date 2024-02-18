@@ -25,7 +25,7 @@ export async function GET() {
             justifyContent: 'center',
             fontSize: 128,
             // background: 'lavender',
-            backgroundImage: imageData,
+            backgroundImage: `url(${"../../public/base.png"})`,
             backgroundPosition: "center",
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
