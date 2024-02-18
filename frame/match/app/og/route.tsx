@@ -13,7 +13,7 @@ export async function GET(req: Request) {
   return new ImageResponse (
     <div>
        <img src={imageData} width={300} height={217} />
-       <div> Stake 250</div>
+       <div> Stake 20 usdc</div>
     </div> 
     )
   }
