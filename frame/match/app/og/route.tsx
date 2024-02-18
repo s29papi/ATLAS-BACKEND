@@ -3,7 +3,7 @@
 // @ts-nocheck
 import { ImageResponse } from 'next/server'
 
-import { Image } from 'next/image'
+import Image  from 'next/image'
 
 import base from '../../public/base.png'
 // App router includes @vercel/og.
