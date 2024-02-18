@@ -11,9 +11,9 @@ export async function GET(req: Request) {
     (res) => res.arrayBuffer(),
   );
   return new ImageResponse (
-
-
-      <div>bij</div>
-   
+    <div>
+       <img src={imageData} width={300} height={217} />
+       <div> Stake </div>
+    </div> 
     )
   }
