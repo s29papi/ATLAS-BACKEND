@@ -19,7 +19,7 @@ export async function GET() {
             // backgroundImage: `url(${}),`
           }}
         >
-          EARTH DAY! EARTH DAY! EARTH DAY! EARTH DAY!
+          I TOO LIKE WOMAN!
         </div>
       )
     )
