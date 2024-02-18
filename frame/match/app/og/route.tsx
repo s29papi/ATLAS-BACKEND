@@ -25,7 +25,7 @@ export async function GET() {
             justifyContent: 'center',
             fontSize: 128,
             // background: 'lavender',
-            // backgroundImage: `url(${}),`
+            backgroundImage: imageData,
             backgroundPosition: "center",
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
@@ -34,7 +34,7 @@ export async function GET() {
           }}
         >
           Bizzy
-          <img width="800" height="419" src={imageData} />
+          {/* <img width="800" height="419" src={imageData}  /> */}
         </div>
       ),
       {
