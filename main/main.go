@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	startBot()
+	// startBot()
 	startServer()
 }
 
