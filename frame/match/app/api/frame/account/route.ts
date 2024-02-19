@@ -18,12 +18,12 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
   }
   // withdraw
   if (buttonId == 2) {
-    const unstakeUrl = `https://wag3r-bot.vercel.app/~/unstake?${message?.interactor.fid}`
+    const unstakeUrl = `https://wag3r-bot.vercel.app/~/unstake?fid=${message?.interactor.fid}`
     return NextResponse.redirect(unstakeUrl, {status: 302});
   }
   // deposit
   if (buttonId == 3) {
-    const stakeUrl = `https://wag3r-bot.vercel.app/~/stake?${message?.interactor.fid}`
+    const stakeUrl = `https://wag3r-bot.vercel.app/~/stake?fid=${message?.interactor.fid}`
     return NextResponse.redirect(stakeUrl, {status: 302});
   }
 

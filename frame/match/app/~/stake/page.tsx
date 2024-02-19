@@ -37,7 +37,7 @@ export default function StakePage({ params, searchParams }: Props) {
 
 
     async function submitTx() { 
-      console.log(searchParams["gameId"])
+      console.log(searchParams["fid"])
       // if (!walletProvider) throw Error('Wallet Provider Abscent')
       // const ethersProvider = new BrowserProvider(walletProvider)
       // const signer = await ethersProvider.getSigner()
