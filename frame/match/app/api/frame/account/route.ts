@@ -13,7 +13,8 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
   });
    // back 
   if (buttonId == 1) {
-    return NextResponse.redirect("https://wag3r-bot.vercel.app/?gameId=${gameId}");
+    const baseUrl = `https://wag3r-bot.vercel.app/?gameId=${gameId}`
+    return NextResponse.redirect(baseUrl);
   }
   // withdraw
   if (buttonId == 2) {
