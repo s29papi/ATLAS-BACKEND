@@ -35,7 +35,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
          <meta property="fc:frame:button:3" content="Deposit" />
          <meta property="fc:frame:button:3:action" content="post_redirect"/>
          <meta property="fc:frame:button:4" content="Refresh" />
-         <meta property="fc:frame:button:4:action" content="post_redirect"/>
+         <meta property="fc:frame:button:4:action" content="post"/>
          <meta property="fc:frame:post_url" content="https://wag3r-bot.vercel.app/api/frame/account?gameId=${gameId}"/>
         </head></html>`);
   }

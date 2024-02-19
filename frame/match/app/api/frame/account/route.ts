@@ -18,11 +18,13 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
   }
   // withdraw
   if (buttonId == 2) {
-    return NextResponse.redirect('https://wag3r-bot.vercel.app/~/unstake?${message.fid}', {status: 302});
+    const unstakeUrl = `https://wag3r-bot.vercel.app/~/unstake?${message?.interactor.fid}`
+    return NextResponse.redirect(unstakeUrl, {status: 302});
   }
   // deposit
   if (buttonId == 3) {
-    return NextResponse.redirect('https://wag3r-bot.vercel.app/~/stake?${message.fid}', {status: 302});
+    const stakeUrl = `https://wag3r-bot.vercel.app/~/stake?${message?.interactor.fid}`
+    return NextResponse.redirect(stakeUrl, {status: 302});
   }
 
   // refresh 
@@ -37,7 +39,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
         <meta property="fc:frame:button:3" content="Deposit" />
         <meta property="fc:frame:button:3:action" content="post_redirect"/>
         <meta property="fc:frame:button:4" content="Refresh" />
-        <meta property="fc:frame:button:4:action" content="post_redirect"/>
+        <meta property="fc:frame:button:4:action" content="post"/>
         <meta property="fc:frame:post_url" content="https://wag3r-bot.vercel.app/api/frame/account?gameId=${gameId}"/>
         </head></html>`);
 }
