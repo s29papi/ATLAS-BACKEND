@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from 'next/server';
 async function getResponse(req: NextRequest): Promise<NextResponse> {
   const body: FrameRequest = await req.json();
   const searchParams = req.nextUrl.searchParams;
-  const gameId:any = searchParams.get("game-id");
+  const gameId:any = searchParams.get("gameId");
   const buttonId = body.untrustedData.buttonIndex;
   
   
@@ -34,7 +34,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
          <meta property="fc:frame:button:2:action" content="post_redirect"/>
          <meta property="fc:frame:button:3" content="Deposit" />
          <meta property="fc:frame:button:3:action" content="post_redirect"/>
-         <meta property="fc:frame:post_url" content="https://wag3r-bot.vercel.app/api/frame/account"/>
+         <meta property="fc:frame:post_url" content="https://wag3r-bot.vercel.app/api/frame/account?gameId=${gameId}"/>
         </head></html>`);
   }
 
