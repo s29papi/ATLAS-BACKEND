@@ -10,11 +10,10 @@ import (
 	"github.com/s29papi/wag3r-bot/service/utils"
 )
 
-var dev = os.Args[1]
-
 // memory_db
 // api
 func main() {
+	dev := os.Args[len(os.Args)-1]
 	if dev == "true" {
 		err := godotenv.Load()
 		if err != nil {
