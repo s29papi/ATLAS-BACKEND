@@ -176,14 +176,25 @@ func timestamp2secs(t string) int64 {
 }
 
 func buildCastReply(payload *types.Payload) *strings.Reader {
-	payloadString := fmt.Sprintf(`
-						{
-						"parent": "%s",
-						"channel_id": "%s",
-						"signer_uuid": "%s",
-						"text": "%s",
-						"embeds": [{"url": "%s"}]
-						}`, payload.Parent, payload.Channel_Id, payload.Signer_uuid, payload.Text, payload.Embeds_url)
+	var payloadString string
+	if len(payload.Embeds_url) == 0 {
+		payloadString = fmt.Sprintf(`
+		{
+		"parent": "%s",
+		"channel_id": "%s",
+		"signer_uuid": "%s",
+		"text": "%s"
+		}`, payload.Parent, payload.Channel_Id, payload.Signer_uuid, payload.Text)
+	} else {
+		payloadString = fmt.Sprintf(`
+		{
+		"parent": "%s",
+		"channel_id": "%s",
+		"signer_uuid": "%s",
+		"text": "%s",
+		"embeds": [{"url": "%s"}]
+		}`, payload.Parent, payload.Channel_Id, payload.Signer_uuid, payload.Text, payload.Embeds_url)
+	}
 
 	return strings.NewReader(payloadString)
 }
