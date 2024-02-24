@@ -1,14 +1,14 @@
 package api
 
 import (
-	"fmt"
+	"log"
 )
 
 func StartBot() {
-	fmt.Println("Start")
+	log.Println("Start")
 }
 func StopBot() {
-	fmt.Println("Stop")
+	log.Println("Stop")
 }
 
 type CallBack struct {
