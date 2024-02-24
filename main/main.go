@@ -1,9 +1,15 @@
 package main
 
 import (
+	"log"
 	"net/http"
+
+	"github.com/s29papi/wag3r-bot/service"
+	"github.com/s29papi/wag3r-bot/service/utils"
 )
 
+// memory_db
+// api
 func main() {
 	// startBot()
 	startServer()
@@ -19,5 +25,18 @@ var id = 318902
 // }
 
 func startServer() {
-	http.ListenAndServe(":8090", nil)
+	a := service.AuthHandler{
+		KeyFunc:     utils.KeyFunc,
+		HttpHandler: service.Mux,
+	}
+	server := http.Server{
+		Addr:    ":8345",
+		Handler: a,
+	}
+
+	if err := server.ListenAndServe(); err != nil {
+		log.Fatal(err)
+	}
 }
+
+// https://dashboard.render.com/web/srv-cn9tbvuv3ddc73d88a20/settings
