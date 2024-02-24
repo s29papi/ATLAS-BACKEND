@@ -30,7 +30,7 @@ func startServer() {
 		HttpHandler: service.Mux,
 	}
 	server := http.Server{
-		Addr:    ":8345",
+		Addr:    ":8080",
 		Handler: a,
 	}
 
