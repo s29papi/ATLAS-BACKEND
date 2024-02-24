@@ -58,7 +58,7 @@ func (w *Worker) process(d []byte) {
 		}
 
 		if errNo == 0 {
-			payload.Text = "Open /stadium Challenge Accepted: \r\n"
+			payload.Text = "Open /stadium Challenge Accepted: "
 			payload.Embeds_url = "https://wag3r-bot-gamma.vercel.app/"
 		}
 
