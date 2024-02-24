@@ -2,6 +2,7 @@ hub
 
 main/r.go
 main/try.go
+main/db.go
 
 .env
 

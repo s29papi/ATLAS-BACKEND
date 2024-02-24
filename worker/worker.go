@@ -1,9 +1,7 @@
 package worker
 
 import (
-	"fmt"
 	"log"
-	"os"
 	"strconv"
 	"time"
 
@@ -12,22 +10,20 @@ import (
 )
 
 type Worker struct {
-	T *time.Ticker
-
+	T               *time.Ticker
+	stopped         bool
 	lastProcReqTime *int64
 	s               *client.HTTPService
 	Req             chan struct{}
-	interrupt       <-chan os.Signal
-	interruptTicker chan struct{}
-	pauseFn         chan struct{}
-	startStopFn     chan struct{}
-	done            chan struct{}
+	pauseTickerFn   chan struct{}
+
+	done chan struct{}
 }
 
-func NewWorker(signalChan <-chan os.Signal) *Worker {
+func NewWorker() *Worker {
 	val, err := strconv.Atoi(env.DURATION_STR)
 	if err != nil {
-		log.Fatal("Error: conversion of DURATION_STR to int")
+		log.Fatalln("Error: conversion of DURATION_STR to int")
 	}
 	dur := time.Duration(val) * time.Second
 	t := time.NewTicker(dur)
@@ -35,62 +31,55 @@ func NewWorker(signalChan <-chan os.Signal) *Worker {
 	return &Worker{
 		T:               t,
 		s:               s,
-		Req:             make(chan struct{}, 1),
+		Req:             make(chan struct{}),
 		lastProcReqTime: new(int64),
-		interrupt:       signalChan,
-		interruptTicker: make(chan struct{}),
-		startStopFn:     make(chan struct{}),
-		pauseFn:         make(chan struct{}),
-		done:            make(chan struct{}),
+		pauseTickerFn:   make(chan struct{}),
+
+		done: make(chan struct{}),
 	}
 }
 
 func (w *Worker) Start() {
 	go w.tick(w.T.C)
 	go w.workloop()
-	go w.Stop()
 	<-w.done
-	os.Exit(0)
+
+	log.Println("Bot Stopping")
+	w.stopped = true
+
 }
 
 // update tick to start after processing is don
 func (w *Worker) tick(t <-chan time.Time) {
 	for {
-		select {
-		case <-t:
-			log.Println("Tick go-routine:, new request initiated")
-			w.Req <- struct{}{}
-			log.Println("Tick go-routine: paused.")
-			<-w.pauseFn
-		case <-w.interruptTicker:
-			w.T.Stop()
-			log.Println("Tick go-routine: stopped.")
-			return
-		}
+		<-t
+		log.Println("Tick go-routine:, new request initiated")
+		w.Req <- struct{}{}
+		log.Println("Tick go-routine: paused.")
+		<-w.pauseTickerFn
 	}
-
 }
 
+// stopping workloop mean stop processing requests
 func (w *Worker) workloop() {
 	for {
-		select {
-		case <-w.Req:
-			fmt.Println("sent a request")
-			mentions := GetMentions(w.s)
-			w.process(mentions)
-		case <-w.interrupt:
-			log.Printf("Received Interrupt signal.")
-			w.startStopFn <- struct{}{}
-		}
+		<-w.Req
+		log.Println("Initiating a new request")
+		mentions := GetMentions(w.s)
+		w.process(mentions)
+		w.pauseTickerFn <- struct{}{}
+		log.Println("Tick go-routine: un-paused.")
 	}
 }
 
 func (w *Worker) Stop() {
-	<-w.startStopFn
+	if w.stopped {
+		log.Println("Can't stop Bot, Bot was just stopped")
+		return
+	}
+	w.T.Stop()
 
-	w.interruptTicker <- struct{}{}
-	close(w.Req)
-	close(w.startStopFn)
+	log.Println("Tick go-routine: stopped.")
 	log.Println("Exiting...")
 	w.done <- struct{}{}
 }

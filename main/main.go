@@ -10,8 +10,6 @@ import (
 	"github.com/s29papi/wag3r-bot/service/utils"
 )
 
-// memory_db
-// api
 func main() {
 	dev := os.Args[len(os.Args)-1]
 	if dev == "true" {
@@ -20,7 +18,6 @@ func main() {
 			log.Fatal("Error loading .env file")
 		}
 	}
-	// startBot()
 	startServer()
 }
 

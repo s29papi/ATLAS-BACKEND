@@ -2,7 +2,6 @@ package client
 
 import (
 	"bytes"
-	"fmt"
 	"log"
 	"net"
 	"net/http"
@@ -68,7 +67,7 @@ func (h *HTTPService) SendRequest(method string, request *http.Request) []byte {
 		log.Printf("Error reading response body: %+v", err)
 		return nil
 	}
-	fmt.Println(string(buf.Bytes()))
+	// fmt.Println(string(buf.Bytes()))
 
 	return buf.Bytes()
 }

@@ -2,13 +2,30 @@ package api
 
 import (
 	"log"
+
+	"github.com/s29papi/wag3r-bot/worker"
 )
 
+var bot *worker.Worker
+
 func StartBot() {
-	log.Println("Start")
+	if bot != nil {
+		log.Println("Cant start Bot. Bot is currently running")
+		return
+	}
+	bot = worker.NewWorker()
+	log.Println("Starting")
+	go bot.Start()
 }
+
 func StopBot() {
-	log.Println("Stop")
+	if bot == nil {
+		log.Println("Cant stop Bot. Bot is not running")
+		return
+	}
+	bot.Stop()
+	bot = nil
+	log.Println("Stopped")
 }
 
 type CallBack struct {

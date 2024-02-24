@@ -25,4 +25,5 @@ type Payload struct {
 	Channel_Id  string
 	Signer_uuid string
 	Text        string
+	Embeds_url  string
 }

@@ -18,14 +18,16 @@ import (
 
 // check if a new cast has been added
 // sunday
+// query new game Id
+// query previous time
 func (w *Worker) process(d []byte) {
 	var userMentions types.UserMentions
 	if err := json.Unmarshal(d, &userMentions); err != nil {
 		log.Println(err)
-		// handle a return here
+		return
 	}
 
-	var currentTime int64
+	var currentTime int64 // move to db
 	var wg sync.WaitGroup
 	for idx, notifs := range userMentions.Notifications {
 		t := timestamp2secs(notifs.Cast.Timestamp)
@@ -56,19 +58,19 @@ func (w *Worker) process(d []byte) {
 		}
 
 		if errNo == 0 {
-			payload.Text = "Open /stadium Challenge Accepted"
+			payload.Text = "Open /stadium Challenge Accepted: \r\n"
+			payload.Embeds_url = "https://wag3r-bot-gamma.vercel.app/"
 		}
 
 		if errNo != 0 {
 			payload.Text = "Wrong Message Format."
 		}
 
-		fmt.Println(errNo)
-
 		wg.Add(1)
 		go func(p *types.Payload) {
 			defer wg.Done()
 			data := buildCastReply(p)
+			fmt.Println(data)
 			castNewReply(w.s, data)
 		}(payload)
 
@@ -77,8 +79,6 @@ func (w *Worker) process(d []byte) {
 	if currentTime > *w.lastProcReqTime {
 		w.lastProcReqTime = &currentTime
 	}
-
-	w.pauseFn <- struct{}{}
 }
 
 // process takes a cast's text and returns either nil if successful and error
@@ -102,7 +102,6 @@ func process(text string, info *types.Game) int64 {
 		}
 
 		if !challengeStarted {
-			fmt.Println(len(textLine))
 			if textLine == "Open /stadium Challenge:" {
 				challengeStarted = true
 			}
@@ -182,8 +181,9 @@ func buildCastReply(payload *types.Payload) *strings.Reader {
 						"parent": "%s",
 						"channel_id": "%s",
 						"signer_uuid": "%s",
-						"text": "%s"
-						}`, payload.Parent, payload.Channel_Id, payload.Signer_uuid, payload.Text)
+						"text": "%s",
+						"embeds": [{"url": "%s"}]
+						}`, payload.Parent, payload.Channel_Id, payload.Signer_uuid, payload.Text, payload.Embeds_url)
 
 	return strings.NewReader(payloadString)
 }
