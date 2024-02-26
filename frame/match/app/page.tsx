@@ -53,7 +53,7 @@ export default function Page({
 
 
 
-// spec: https://docs.farcaster.xyz/reference/frames/spec
+// spec: https://docs.farcaster.xyz/reference/frames/spec  
 // playground: https://og-playground.vercel.app/
 
 
