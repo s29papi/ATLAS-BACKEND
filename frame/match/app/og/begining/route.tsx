@@ -7,13 +7,13 @@ export const runtime = 'edge';
 
 
 export async function GET(req: Request) {
-    const imageData = await fetch(new URL('../../public/You-Vs-Me-Rescale.png', import.meta.url)).then(
+    const imageData = await fetch(new URL('../../../public/You-Vs-Me-Rescale.png', import.meta.url)).then(
         (res) => res.arrayBuffer(),
       );
     const pfpData = await fetch(new URL('https://i.imgur.com/bwzJfrR.jpg', import.meta.url)).then(
         (res) => res.arrayBuffer(),
       );
-    const interData = await fetch(new URL('../../public/Inter-Regular.ttf', import.meta.url)).then(
+    const interData = await fetch(new URL('../../../public/Inter-Regular.ttf', import.meta.url)).then(
         (res) => res.arrayBuffer(),
       );
     let stakeAmount = "25 USDC"
