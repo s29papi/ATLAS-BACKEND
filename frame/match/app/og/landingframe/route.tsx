@@ -14,8 +14,8 @@ export async function GET(req: Request) {
         (res) => res.arrayBuffer(),
       );
     const { searchParams } = new URL(request.url);
-    const gameName = searchParams.get('gameName');
-    console.log(gameName)
+    const gameNamie = searchParams.get('gameName');
+    console.log(gameNamie)
     let stakeAmount = "25 USDC"
     let gameName = "Tekken 8"
     let gameSetup = "Best of 4"
