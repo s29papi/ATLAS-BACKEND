@@ -16,7 +16,7 @@ export async function GET(req: Request) {
     const { searchParams } = new URL(req.url);
     const gameNamie = searchParams.get('gameName');
     console.log(gameNamie)
-    let stakeAmount = "25 USDC"
+    let stakeAmount = searchParams.get('stakeAmount');
     let gameName = "Tekken 8"
     let gameSetup = "Best of 4"
     return new ImageResponse( 
