@@ -4,6 +4,8 @@ main/r.go
 main/try.go
 main/db.go
 
+db/main
+
 .env
 
 ./signature/.env
