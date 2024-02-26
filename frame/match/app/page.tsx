@@ -63,3 +63,4 @@ export default function Page({
 // playground: https://og-playground.vercel.app/
 
 
+// https://wag3r-bot-gamma.vercel.app/?gameId=1&&gameName=Tekken%208&&gameSetup=Best%20of%205&&stakeAmount=250%20USDC&&creatorFid=9452
