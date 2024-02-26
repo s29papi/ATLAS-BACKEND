@@ -5,9 +5,15 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
   const body: FrameRequest = await req.json();
   const searchParams = req.nextUrl.searchParams;
   const gameId:any = searchParams.get("gameId");
+  const gameName:any = searchParams.get("gameName");
+  const gameSetup:any = searchParams.get("gameSetup");
+  const stakeAmount:any = searchParams.get("stakeAmount");
+  const creatorFid:any = searchParams.get("creatorFid");
   const buttonId = body.untrustedData.buttonIndex;
   
-  
+  let queryParams = `gameId=${gameId}&&gameName=${gameName}&&gameSetup=${gameSetup}&&stakeAmount=${stakeAmount}&&creatorFid=${creatorFid}`
+  let button2ImageUrl = "https://wag3r-bot-gamma.vercel.app/og/account?" + `${queryParams}`
+  let button2PostUrl = "https://wag3r-bot-gamma.vercel.app/api/frame/account?" + `${queryParams}`
   if (buttonId == 1) {
     // this is in one of three states
 
@@ -27,7 +33,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
     return new NextResponse(`<!DOCTYPE html><html><head>
          <title>Account</title>
          <meta property="fc:frame" content="vNext" />
-         <meta property="fc:frame:image" content="https://wag3r-bot.vercel.app/og/account"/>
+         <meta property="fc:frame:image" content="${button2ImageUrl}"/>
          <meta property="fc:frame:button:1" content="Back" />
          <meta property="fc:frame:button:1:action" content="post"/>
          <meta property="fc:frame:button:2" content="Withdraw" />
@@ -36,7 +42,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
          <meta property="fc:frame:button:3:action" content="post_redirect"/>
          <meta property="fc:frame:button:4" content="Refresh" />
          <meta property="fc:frame:button:4:action" content="post"/>
-         <meta property="fc:frame:post_url" content="https://wag3r-bot.vercel.app/api/frame/account?gameId=${gameId}"/>
+         <meta property="fc:frame:post_url" content="${button2PostUrl}"/>
         </head></html>`);
   }
 

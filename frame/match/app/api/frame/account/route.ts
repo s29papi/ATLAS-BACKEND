@@ -5,6 +5,12 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
   const body: FrameRequest = await req.json();
   const searchParams = req.nextUrl.searchParams;
   const gameId:any = searchParams.get("gameId");
+  const gameName:any = searchParams.get("gameName");
+  const gameSetup:any = searchParams.get("gameSetup");
+  const stakeAmount:any = searchParams.get("stakeAmount");
+  const creatorFid:any = searchParams.get("creatorFid");
+  
+  let queryParams = `gameId=${gameId}&&gameName=${gameName}&&gameSetup=${gameSetup}&&stakeAmount=${stakeAmount}&&creatorFid=${creatorFid}`
   const buttonId = body.untrustedData.buttonIndex;
   // pass in facaster Id + hash of transaction generated from the tx
   // bot would resolve the balance
@@ -13,7 +19,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
   });
    // back 
   if (buttonId == 1) {
-    const baseUrl = `https://wag3r-bot.vercel.app/?gameId=${gameId}`
+    let baseUrl = "https://wag3r-bot-gamma.vercel.app?" + `${queryParams}`
     return NextResponse.redirect(baseUrl);
   }
   // withdraw
@@ -28,10 +34,12 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
   }
 
   // refresh 
+  let refreshImageUrl = "https://wag3r-bot-gamma.vercel.app/og/account?" + `${queryParams}`
+  let refreshPostUrl = "https://wag3r-bot-gamma.vercel.app/api/frame/account?" + `${queryParams}`
   return new NextResponse(`<!DOCTYPE html><html><head>
         <title>Account</title>
         <meta property="fc:frame" content="vNext" />
-        <meta property="fc:frame:image" content="https://wag3r-bot.vercel.app/og/account"/>
+        <meta property="fc:frame:image" content="${refreshImageUrl}"/>
         <meta property="fc:frame:button:1" content="Back" />
         <meta property="fc:frame:button:1:action" content="post"/>
         <meta property="fc:frame:button:2" content="Withdraw" />
