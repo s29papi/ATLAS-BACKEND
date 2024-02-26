@@ -11,16 +11,7 @@ export async function GET(req: Request) {
     return new ImageResponse( 
         (
             <div>Hello eooieo kjjdjdjdj</div>
-        ),
-            {
-                fonts: [
-                    {
-                        name: "Inter-Regular",
-                        data: interData,
-                        style: "normal"
-                    }
-                ]
-            }
+        )
     )
 }
 
