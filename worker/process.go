@@ -26,27 +26,32 @@ func (w *Worker) process(d []byte) {
 		log.Println(err)
 		return
 	}
+	lastProcReqTime := w.db.GetLastProcReqTime()
+	lastProcReqGameId := w.db.GetLastProcReqGameId()
+	fmt.Println(lastProcReqGameId)
 
 	var currentTime int64 // move to db
 	var wg sync.WaitGroup
 	for idx, notifs := range userMentions.Notifications {
 		t := timestamp2secs(notifs.Cast.Timestamp)
 
-		if idx == 0 && t > *w.lastProcReqTime {
+		if idx == 0 && t > lastProcReqTime {
 			currentTime = t
 		}
 
-		if t <= *w.lastProcReqTime {
-			break
-		}
+		// if t <= lastProcReqTime {
+		// 	break
+		// }
 
 		if notifs.Type != "mention" {
 			continue
 		}
 
 		// parse text
-		var info = &types.Game{}
-		errNo := process(notifs.Cast.Text, info)
+		var game = &types.Game{}
+		errNo := process(notifs.Cast.Text, game)
+
+		// handle errors properly
 		switch errNo {
 		case ERR_MAX_NUMBER_LINES_NO:
 		}
@@ -58,8 +63,11 @@ func (w *Worker) process(d []byte) {
 		}
 
 		if errNo == 0 {
+			game.Id = lastProcReqGameId + 1
+			game.Url = "https://wag3r-bot-gamma.vercel.app/?gameId=" + strconv.Itoa(game.Id)
 			payload.Text = "Open /stadium Challenge Accepted: "
-			payload.Embeds_url = "https://wag3r-bot-gamma.vercel.app/?gameId=1"
+			payload.Embeds_url = game.Url
+			lastProcReqGameId += game.Id
 		}
 
 		if errNo != 0 {
@@ -71,13 +79,17 @@ func (w *Worker) process(d []byte) {
 			defer wg.Done()
 			data := buildCastReply(p)
 			fmt.Println(data)
-			castNewReply(w.s, data)
+			// castNewReply(w.s, data)
+			// after success save game
+			// add gameid save here
 		}(payload)
 
 	}
 	wg.Wait()
-	if currentTime > *w.lastProcReqTime {
-		w.lastProcReqTime = &currentTime
+
+	if currentTime > lastProcReqTime {
+		w.db.UpdateLastProcReqTime(currentTime, lastProcReqTime)
+		w.db.UpdateLastProcReqGameId(lastProcReqGameId)
 	}
 }
 
@@ -124,18 +136,16 @@ func process(text string, info *types.Game) int64 {
 				case "Match Date":
 					info.Date = value
 				case "Wager Amount":
-					wagerAmountStr := strings.TrimSpace(value)
-					if !strings.HasPrefix(wagerAmountStr, "$") {
-						return ERR_MISSING_CURRENCY_SYMBOL_NO
+					var wagerAmount string
+					if wagerAmountStr := strings.TrimSpace(value); strings.HasPrefix(wagerAmountStr, "$") {
+						wagerAmount = strings.TrimPrefix(wagerAmountStr, "$")
 					}
-
-					wagerAmountParts := strings.Fields(value)
-					if len(wagerAmountParts) != 3 {
+					wagerAmountParts := strings.Fields(wagerAmount)
+					if len(wagerAmountParts) == 0 {
 						return ERR_INVALID_LENGTH_WAGERAMOUNT_NO
 					}
-
-					amountStr := wagerAmountParts[1]
-					token := wagerAmountParts[2]
+					amountStr := wagerAmountParts[0]
+					token := wagerAmountParts[1]
 					amount, err := strconv.ParseFloat(amountStr, 64)
 					if err != nil {
 						return ERR_INVALID_AMOUNT_NO

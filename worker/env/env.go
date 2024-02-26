@@ -7,13 +7,14 @@ import (
 )
 
 var (
-	DURATION_STR       string
-	CHANNEL_CAST_URL   string
-	USER_MENTIONS_URL  string
-	MENTIONS_REPLY_URL string
-	API_KEY            string
-	CHANNEL_ID         string
-	SIGNER_UUID        string
+	DURATION_STR        string
+	CHANNEL_CAST_URL    string
+	USER_MENTIONS_URL   string
+	MENTIONS_REPLY_URL  string
+	API_KEY             string
+	CHANNEL_ID          string
+	SIGNER_UUID         string
+	RENDER_POSTGRES_URL string
 )
 
 func loadEnv() {
@@ -37,4 +38,6 @@ func init() {
 	CHANNEL_ID = os.Getenv("CHANNEL_ID")
 
 	SIGNER_UUID = os.Getenv("SIGNER_UUID")
+
+	RENDER_POSTGRES_URL = os.Getenv("RENDER_POSTGRES_URL")
 }

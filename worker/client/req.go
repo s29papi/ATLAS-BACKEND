@@ -41,5 +41,3 @@ func MentionReplyRequest(s *strings.Reader) *http.Request {
 	req.Header.Add("content-type", "application/json")
 	return req
 }
-
-// Delete Reply Cast
