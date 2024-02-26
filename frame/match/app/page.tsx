@@ -12,15 +12,20 @@ export async function generateMetadata(
   parent: ResolvingMetadata
 ): Promise<Metadata> { 
   const gameid = searchParams["gameId"];
+  const gameName = searchParams["gameName"]
+  const gameSetup = searchParams["gameSetup"]
+  const stakeAmount = searchParams["stakeAmount"]
+  const creatorFid = searchParams["creatorFid"]
   // work on this
   let postUrl = "https://wag3r-bot.vercel.app/api/frame?gameId=" + `${gameid}`;
+  let imageUrl = `https://wag3r-bot-gamma.vercel.app/og/landingframe?gameName=${gameName}&&gameSetup=${gameSetup}&&stakeAmount=${stakeAmount}&&creatorFid=${creatorFid}`
 
   const frameMetadata = getFrameMetadata({
     buttons: [
         {label: 'Accept Challenge', action: 'post'},
         {label: 'Acount', action: 'post'},
     ],
-    image: 'https://wag3r-bot-gamma.vercel.app/og/landingframe',
+    image: imageUrl,
     post_url: postUrl,
   });
 
@@ -30,7 +35,7 @@ export async function generateMetadata(
     openGraph: {
       title: 'Match By Versus.',
       description: 'Frontend Match Management for Versus App.',
-      images: [`https://wag3r-bot-gamma.vercel.app/og/landingframe`],
+      images: [imageUrl],
     },
     other: {
       ...frameMetadata,
