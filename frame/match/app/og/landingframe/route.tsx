@@ -17,12 +17,13 @@ export async function GET(req: Request) {
     let stakeAmount = searchParams.get('stakeAmount');
     let gameName = searchParams.get('gameName');
     let gameSetup = searchParams.get('gameSetup');
+    let creatorFid = searchParams.get('creatorFid');
     const options = {
         method: 'GET',
         headers: {accept: 'application/json', api_key: 'NEYNAR_API_DOCS'}
       };
       
-    const userJson = await fetch('https://api.neynar.com/v2/farcaster/user/bulk?fids=3&viewer_fid=3', options)
+    const userJson = await fetch(`https://api.neynar.com/v2/farcaster/user/bulk?fids=3&viewer_fid=${creatorFid}`, options)
         .then(response => response.json())
         .catch(err => console.error(err));
 
