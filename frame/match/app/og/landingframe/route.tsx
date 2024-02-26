@@ -17,6 +17,16 @@ export async function GET(req: Request) {
     let stakeAmount = searchParams.get('stakeAmount');
     let gameName = searchParams.get('gameName');
     let gameSetup = searchParams.get('gameSetup');
+    const options = {
+        method: 'GET',
+        headers: {accept: 'application/json', api_key: 'NEYNAR_API_DOCS'}
+      };
+      
+    const userJson = await fetch('https://api.neynar.com/v2/farcaster/user/bulk?fids=3&viewer_fid=3', options)
+        .then(response => response.json())
+        .catch(err => console.error(err));
+
+    const pfpUrl = userJson.users[0].pfp_url;
     return new ImageResponse( 
         (
         <div style={{position: 'relative', display: 'flex'}}>
@@ -30,13 +40,14 @@ export async function GET(req: Request) {
                                     <span tw="flex flex-col text-lg sm:text-xl md:flex-row w-full py-12 px-4 justify-between p-8" style={{fontFamily: 'Inter-Bold'}}>
                                         <span tw="bottom-16 right-11" style={{fontFamily: 'Inter-Bold', borderRadius: "50%", overflow: 'hidden'}}>
                                             <img tw="w-[180px] h-[182px]"
-                                                    src={'https://i.imgur.com/bwzJfrR.jpg'}
+                                                    src={pfpUrl}
                                             /> 
                                         
                                         </span>  
                                         <span tw="flex flex-col bottom-7" style={{fontFamily: 'Inter-Regular'}}>
                                            <span tw="text-5xl text-gray-400">{stakeAmount} open challenge</span>
                                            <span tw="text-7xl top-[0.95]">{gameName}{" "}/{" "}{gameSetup}</span>
+                                       
                                         </span>  
                                     </span>  
                                 
