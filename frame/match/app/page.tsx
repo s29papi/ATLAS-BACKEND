@@ -20,7 +20,7 @@ export async function generateMetadata(
         {label: 'Accept Challenge', action: 'post'},
         {label: 'Acount', action: 'post'},
     ],
-    image: 'https://wag3r-bot.vercel.app/You-Vs-Me-Rescale.png',
+    image: 'https://wag3r-bot-gamma.vercel.app/og/landingframe',
     post_url: postUrl,
   });
 
@@ -30,7 +30,7 @@ export async function generateMetadata(
     openGraph: {
       title: 'Match By Versus.',
       description: 'Frontend Match Management for Versus App.',
-      images: [`https://wag3r-bot.vercel.app/You-Vs-Me-Rescale.png`],
+      images: [`https://wag3r-bot-gamma.vercel.app/og/landingframe`],
     },
     other: {
       ...frameMetadata,
