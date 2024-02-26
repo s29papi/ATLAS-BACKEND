@@ -18,7 +18,7 @@ export async function GET(req: Request) {
       );
     let stakeAmount = "25 USDC"
     let gameName = "Tekken 8"
-    let gameSetup = "Best of 5"
+    let gameSetup = "Best of 4"
     return new ImageResponse( 
         (
         <div style={{position: 'relative', display: 'flex'}}>
