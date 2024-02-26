@@ -16,9 +16,11 @@ export async function generateMetadata(
   const gameSetup = searchParams["gameSetup"]
   const stakeAmount = searchParams["stakeAmount"]
   const creatorFid = searchParams["creatorFid"]
+
+  let queryParams = `gameId=${gameid}&&gameName=${gameName}&&gameSetup=${gameSetup}&&stakeAmount=${stakeAmount}&&creatorFid=${creatorFid}`
   // work on this
-  let postUrl = "https://wag3r-bot.vercel.app/api/frame?gameId=" + `${gameid}`;
-  let imageUrl = `https://wag3r-bot-gamma.vercel.app/og/landingframe?gameName=${gameName}&&gameSetup=${gameSetup}&&stakeAmount=${stakeAmount}&&creatorFid=${creatorFid}`
+  let postUrl = "https://wag3r-bot.vercel.app/api/frame?" + `${queryParams}`;
+  let imageUrl = "https://wag3r-bot-gamma.vercel.app/og/landingframe?" + `${queryParams}`;
 
   const frameMetadata = getFrameMetadata({
     buttons: [
