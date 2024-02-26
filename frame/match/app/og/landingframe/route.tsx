@@ -13,7 +13,7 @@ export async function GET(req: Request) {
     const interData = await fetch(new URL('../../../public/Inter-Regular.ttf', import.meta.url)).then(
         (res) => res.arrayBuffer(),
       );
-    const { searchParams } = new URL(request.url);
+    const { searchParams } = new URL(req.url);
     const gameNamie = searchParams.get('gameName');
     console.log(gameNamie)
     let stakeAmount = "25 USDC"
