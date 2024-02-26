@@ -14,11 +14,9 @@ export async function GET(req: Request) {
         (res) => res.arrayBuffer(),
       );
     const { searchParams } = new URL(req.url);
-    const gameNamie = searchParams.get('gameName');
-    console.log(gameNamie)
     let stakeAmount = searchParams.get('stakeAmount');
-    let gameName = "Tekken 8"
-    let gameSetup = "Best of 4"
+    let gameName = searchParams.get('gameName');
+    let gameSetup = searchParams.get('gameSetup');
     return new ImageResponse( 
         (
         <div style={{position: 'relative', display: 'flex'}}>
