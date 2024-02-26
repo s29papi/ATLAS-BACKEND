@@ -10,7 +10,9 @@ export async function GET(req: Request) {
 
     return new ImageResponse( 
         (
-            <div>Hello eooieo kjjdjdjdj</div>
+            <div style={{position: 'relative', display: 'flex'}}>
+                Hello eooieo kjjdjdjdj
+            </div>
         )
     )
 }
