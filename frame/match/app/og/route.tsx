@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element  */
 /* eslint-disable jsx-ally/alt-text */
 // @ts-nocheck
-import { ImageResponse } from 'next/og'
+import { ImageResponse } from 'next/server'
 
 export const runtime = 'edge';
 
@@ -9,12 +9,12 @@ const imageData = await fetch(new URL('../../public/base.png', import.meta.url))
   (res) => res.arrayBuffer(),
 );
 
-export async function GET(req: Request) {
+export async function GET(req: Request) : Promise<Response> {
 
   return stakingTing()
   }
 
-function stakingTing() {
+function stakingTing() : Promise<ImageResponse> {
   return new ImageResponse (
     <div style={{position: 'relative', display: 'flex'}}>
         <img 
