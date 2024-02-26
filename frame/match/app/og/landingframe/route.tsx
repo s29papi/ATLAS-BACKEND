@@ -13,9 +13,10 @@ export async function GET(req: Request) {
     const interData = await fetch(new URL('../../../public/Inter-Regular.ttf', import.meta.url)).then(
         (res) => res.arrayBuffer(),
       );
-    let stakeAmount = "25 USDC"
-    let gameName = "Tekken 8"
-    let gameSetup = "Best of 4"
+    const { searchParams } = new URL(request.url);
+    let stakeAmount = searchParams.get('stakeAmount');
+    let gameName = searchParams.get('gameName');
+    let gameSetup = searchParams.get('gameSetup');
     let pfp = 'https://i.imgur.com/bwzJfrR.jpg'
     return new ImageResponse( 
         (
