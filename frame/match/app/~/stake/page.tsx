@@ -50,7 +50,7 @@ export default async function StakePage({ params, searchParams }: Props) {
       
      }
 
-     submitTx()
+    
     
  
 
