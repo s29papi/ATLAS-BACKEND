@@ -16,9 +16,11 @@ type Props = {
 export default function StakePage({ params, searchParams }: Props) {
     const router = useRouter();
     const { walletProvider } = useWeb3ModalProvider()
+    let fid: any;
    
 
     useEffect(() => {
+      fid = searchParams["fid"];
         const handleBeforeUnload = (event: BeforeUnloadEvent) => {
           // Cancel the default behavior of closing the tab
           event.preventDefault();
@@ -37,7 +39,7 @@ export default function StakePage({ params, searchParams }: Props) {
 
 
     async function submitTx() { 
-      console.log(searchParams["fid"])
+      console.log(fid)
       // if (!walletProvider) throw Error('Wallet Provider Abscent')
       // const ethersProvider = new BrowserProvider(walletProvider)
       // const signer = await ethersProvider.getSigner()
