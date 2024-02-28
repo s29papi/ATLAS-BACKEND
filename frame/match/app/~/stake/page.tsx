@@ -13,10 +13,10 @@ type Props = {
 }
 
 
-export default function StakePage({ params, searchParams }: Props) {
+export default async function StakePage({ params, searchParams }: Props) {
     const router = useRouter();
     const { walletProvider } = useWeb3ModalProvider()
-   
+    let fid = searchParams["fid"];
 
     useEffect(() => {
         const handleBeforeUnload = (event: BeforeUnloadEvent) => {
@@ -37,7 +37,7 @@ export default function StakePage({ params, searchParams }: Props) {
 
 
     async function submitTx() { 
-      console.log(searchParams["fid"])
+      console.log(fid)
       // if (!walletProvider) throw Error('Wallet Provider Abscent')
       // const ethersProvider = new BrowserProvider(walletProvider)
       // const signer = await ethersProvider.getSigner()
