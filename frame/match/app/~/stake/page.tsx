@@ -49,6 +49,8 @@ export default async function StakePage({ params, searchParams }: Props) {
       // console.log(resolvedTx?.hash)
       
      }
+
+     submitTx()
     
  
 
