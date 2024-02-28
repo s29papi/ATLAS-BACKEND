@@ -16,11 +16,11 @@ type Props = {
 export default function StakePage({ params, searchParams }: Props) {
     const router = useRouter();
     const { walletProvider } = useWeb3ModalProvider()
-    let fid: any;
+    let fid = searchParams["fid"];
    
 
     useEffect(() => {
-      fid = searchParams["fid"];
+      
         const handleBeforeUnload = (event: BeforeUnloadEvent) => {
           // Cancel the default behavior of closing the tab
           event.preventDefault();
