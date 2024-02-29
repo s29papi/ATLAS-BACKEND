@@ -80,9 +80,7 @@ export default function StakePage({ params, searchParams }: Props) {
               <p style={{ color: '#546168', fontWeight: '700', fontSize: '20px' }}>by STADIUM</p>
             </div>
 
-            <div>
-                          <Connect  />
-            </div>
+            <div><Connect /></div>
           </div>
 
           <div>
@@ -97,9 +95,7 @@ export default function StakePage({ params, searchParams }: Props) {
               </div>
 
               <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px', marginRight: '20px' }}>
-                <div style={{ backgroundColor: '#223F53', padding: '10px', paddingLeft: '20px', paddingRight: '20px', borderRadius: '8px' }}>
-                  <p style={{ color: '#A8B0B4' }}>DEPOSIT</p>
-                </div>
+                  <button onClick={submitTx} style={{ borderRadius: '8px', backgroundColor: '#223F53', color: '#A8B0B4', padding: '10px 20px', border: 'none' }}>Deposit</button>
                 <div style={{ backgroundColor: '#223F53', padding: '10px', paddingLeft: '20px', paddingRight: '20px', borderRadius: '8px' }}>
                   <p style={{ color: '#A8B0B4' }}>WITHDRAW</p>
                 </div>
@@ -160,7 +156,7 @@ export default function StakePage({ params, searchParams }: Props) {
 Start By Clicking Connect To Connect your Wallet..
 <div style={{ display: 'flex', gap: '20px', marginTop: '20px' }}>
   <Connect />
-    <button onClick={submitTx} style={{ borderRadius: '20px', backgroundColor: 'rgb(51, 204, 153)', color: 'white', padding: '10px 20px', border: 'none' }}>Stake</button>
+   
    <button onClick={handleCloseButtonClick} style={{ borderRadius: '20px', backgroundColor: 'red', color: 'white', padding: '10px 20px', border: 'none' }}>Finish</button>
 </div>
 </div> */}
