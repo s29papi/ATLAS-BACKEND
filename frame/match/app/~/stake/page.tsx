@@ -14,7 +14,7 @@ type Props = {
 }
 
 
-export async function StakePage({ params, searchParams }: Props) {
+export default async function StakePage({ params, searchParams }: Props) {
     const router = useRouter();
     const { walletProvider } = useWeb3ModalProvider()
     let fid = searchParams["fid"];
