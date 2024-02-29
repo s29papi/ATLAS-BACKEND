@@ -17,7 +17,12 @@ type Props = {
 export default function StakePage({ params, searchParams }: Props) {
     const router = useRouter();
     const { walletProvider } = useWeb3ModalProvider()
-    let fid = searchParams["fid"];
+    let paramsFid = searchParams["fid"];
+    let fid: string;
+    if (paramsFid) {
+      fid = paramsFid.toString()
+    }
+    // let fid = searchParams["fid"];
    
 
     useEffect(() => {
@@ -46,12 +51,12 @@ export default function StakePage({ params, searchParams }: Props) {
       let estimateGas = await ethersProvider.estimateGas({
          to: `0x${"47dEAF612F0769d99aDB653bA2d22bba79F26C42"}`,
          value: parseEther("0.2"), 
-         data: fid?.toString()
+         data: fid
         });
       let sentTx = await signer.sendTransaction({
          to: `0x${"47dEAF612F0769d99aDB653bA2d22bba79F26C42"}`, 
          value: parseEther("0.2"), 
-         data: fid?.toString(),
+         data: fid,
          gasLimit: estimateGas
         });
       let resolvedTx = await sentTx.wait()
