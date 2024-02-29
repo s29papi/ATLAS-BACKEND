@@ -120,7 +120,7 @@ export default function StakePage({ params, searchParams }: Props) {
 
               <div>
                 <div style={{ border: '2px solid #223F53', textAlign: 'center', padding: '10px', borderRadius: '8px' }}>
-                  <p style={{ fontSize: '18px', fontWeight: '500', color: '#708794' }}>RETURN TO FRAME</p>
+                  <button onClick={handleCloseButtonClick} style={{ fontSize: '18px', fontWeight: '500', borderRadius: '20px', backgroundColor: 'red', color: '#708794', padding: '10px 20px', border: 'none' }}>RETURN TO FRAME</button>
                 </div>
 
                 <div style={{ width: '100%', height: '200px', backgroundRepeat: 'no-repeat', backgroundSize: 'cover', marginTop: '50px', borderRadius: '12px', position: 'relative', backgroundImage: `url(${Image})`, backgroundPosition: 'center' }}>
@@ -155,6 +155,6 @@ Start By Clicking Connect To Connect your Wallet..
 <div style={{ display: 'flex', gap: '20px', marginTop: '20px' }}>
   <Connect />
    
-   <button onClick={handleCloseButtonClick} style={{ borderRadius: '20px', backgroundColor: 'red', color: 'white', padding: '10px 20px', border: 'none' }}>Finish</button>
+   
 </div>
 </div> */}
