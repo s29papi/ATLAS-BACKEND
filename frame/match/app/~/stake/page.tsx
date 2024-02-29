@@ -120,7 +120,7 @@ export default function StakePage({ params, searchParams }: Props) {
 
               <div>
                 <div style={{ border: '2px solid #223F53', textAlign: 'center', padding: '10px', borderRadius: '8px' }}>
-                  <p>RETURN TO FRAME</p>
+                  <p style={{ fontSize: '18px', fontWeight: '500', color: '#708794' }}>RETURN TO FRAME</p>
                 </div>
 
                 <div style={{ width: '100%', height: '200px', backgroundRepeat: 'no-repeat', backgroundSize: 'cover', marginTop: '50px', borderRadius: '12px', position: 'relative', backgroundImage: `url(${Image})`, backgroundPosition: 'center' }}>
