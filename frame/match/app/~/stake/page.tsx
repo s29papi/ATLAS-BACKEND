@@ -95,10 +95,8 @@ export default function StakePage({ params, searchParams }: Props) {
               </div>
 
               <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px', marginRight: '20px' }}>
-                  <button onClick={submitTx} style={{ borderRadius: '8px', backgroundColor: '#223F53', color: '#A8B0B4', padding: '10px 20px', border: 'none' }}>Deposit</button>
-                <div style={{ backgroundColor: '#223F53', padding: '10px', paddingLeft: '20px', paddingRight: '20px', borderRadius: '8px' }}>
-                  <p style={{ color: '#A8B0B4' }}>WITHDRAW</p>
-                </div>
+                  <button onClick={submitTx} style={{ borderRadius: '8px', backgroundColor: '#223F53', color: '#A8B0B4', padding: '10px 20px', border: 'none' }}>DEPOSIT</button>
+                  <button onClick={submitTx} style={{ borderRadius: '8px', backgroundColor: '#223F53', color: '#A8B0B4', padding: '10px 20px', border: 'none' }}>WITHDRAW</button>
               </div>
 
               <div style={{ marginTop: '50px', marginBottom: '50px' }}>
