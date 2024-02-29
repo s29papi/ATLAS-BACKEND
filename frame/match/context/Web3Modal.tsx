@@ -31,7 +31,11 @@ createWeb3Modal({
   ethersConfig: defaultConfig({ metadata }),
   chains: [mainnet],
   projectId,
-  enableAnalytics: true // Optional - defaults to your Cloud configuration
+  enableAnalytics: true, // Optional - defaults to your Cloud configuration,
+  themeVariables: {
+    '--w3m-color-mix': '#00BB7F',
+    '--w3m-color-mix-strength': 40
+  }
 })
 
 export function Web3ModalProvider({ children }: any )  {
