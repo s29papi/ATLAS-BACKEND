@@ -81,9 +81,7 @@ export default function StakePage({ params, searchParams }: Props) {
             </div>
 
             <div>
-              <div style={{ backgroundColor: '#28353D', padding: '10px', paddingLeft: '20px', paddingRight: '20px', borderRadius: '8px' }}>
                           <Connect  />
-              </div>
             </div>
           </div>
 
