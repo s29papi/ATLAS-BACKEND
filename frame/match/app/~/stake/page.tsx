@@ -97,7 +97,7 @@ export default function StakePage({ params, searchParams }: Props) {
                     <p style={{ fontSize: "20px" }}>$</p>
                     <p style={{ fontSize: "60px" }}>0</p>
           </div>
-          <div style={{display: "flex", justifyContent: "center", marginTop: "20px", marginRight: "20px",}}>
+          <div style={{display: "flex", justifyContent: "center", marginTop: "20px", marginRight: "18px",}}>
               <button onClick={submitTx} style={{borderRadius: "8px", backgroundColor: "#223F53",  color: "#A8B0B4", padding: "10px 20px", border: "none",  marginRight: 10, marginLeft: 10,}}>
                          DEPOSIT
               </button>
