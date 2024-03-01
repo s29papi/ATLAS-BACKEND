@@ -130,16 +130,31 @@ export default function StakePage({ params, searchParams }: Props) {
                         RETURN TO FRAME
                       </button>
                   </div>
+                  <div style={{width: "100%", height: "200px", backgroundRepeat: "no-repeat", backgroundSize: "cover", marginTop: "50px", borderRadius: "12px", position: "relative", backgroundImage: `url(${Image})`, backgroundPosition: "center",}}>
+                      <div style={{ position: "absolute", top: "0", left: "0", width: "100%", height: "100%", borderRadius: "12px", padding: "20px", display: "flex", flexDirection: "column", justifyContent: "space-between", backgroundImage: "linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8))",}}>
+                           <p style={{width: "189px", color: "white", fontStyle: "italic", fontWeight: "600",}}>PROVE YOUR SKILL GET YOUR SKIN IN THE GAME</p>
+
+                           <div style={{ color: "white", fontSize: "12px" }}>
+                              <p>🔎 Create or find a challenge</p>
+                              <p>💰 Stake your tokens</p>
+                              <p>🎮 Compete in the challenge</p>
+                              <p>🏆 Earn tokens by winning</p>
+                           </div>
+                      </div>
+                  </div>
               </div>
           </div>
-  
+        </div>
+        <div style={{backgroundColor: "#1F2A32", width: "100%", color: "white", padding: "8px", paddingTop: "16px", paddingBottom: "16px", display: "flex", alignItems: "center", justifyContent: "space-between",}}>
+              <p>
+                Follow @versus | Support @sirsu + @hidd3n Powered by Base, BLVKHVND,
+                Stadium
+              </p>
+              <img src={FooterIcon} alt="" />
         </div>
       </div>
     );
 }
-
-
-     
 
 
 
