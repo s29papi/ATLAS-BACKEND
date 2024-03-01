@@ -124,10 +124,15 @@ export default function StakePage({ params, searchParams }: Props) {
                       <p style={{fontSize: "18px", fontWeight: "500", color: "#708794",}}>$ 0.00</p>
                   </div>
               </div>
+              <div>
+                  <div style={{border: "2px solid #223F53", textAlign: "center", padding: "10px", borderRadius: "8px", }}> 
+                      <button onClick={handleCloseButtonClick} style={{fontSize: "18px", fontWeight: "500", borderRadius: "20px", color: "#708794", padding: "10px 20px", border: "none", borderWidth: 3,}}>
+                        RETURN TO FRAME
+                      </button>
+                  </div>
+              </div>
           </div>
-          <div>
-
-          </div>
+  
         </div>
       </div>
     );
