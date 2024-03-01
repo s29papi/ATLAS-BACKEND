@@ -110,14 +110,19 @@ export default function StakePage({ params, searchParams }: Props) {
                   <p style={{ fontStyle: "italic", fontSize: "20px", fontWeight: "600", color: "#223F53", }}>ETH</p>
                   <p style={{fontSize: "18px", fontWeight: "500", color: "#708794",}}>$ 0.00</p>           
               </div>
+              <div style={{display: "flex", justifyContent: "space-between", alignItems: "center",}}>
+                  <p style={{fontStyle: "italic", fontSize: "20px", fontWeight: "600", color: "#223F53",}}>USDC</p>
+                  <p style={{fontSize: "18px", fontWeight: "500", color: "#708794",}}>$ 0.00</p>
+              </div>
           </div>
         </div>
       </div>
     );
 }
 
+
      
-          
+
 
 
 
