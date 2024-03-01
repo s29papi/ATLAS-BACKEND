@@ -94,7 +94,7 @@ export default function StakePage({ params, searchParams }: Props) {
               <h1 style={{textAlign: "center", color: "#A8B0B4", fontStyle: "italic", fontSize: "20px", fontWeight: "700"}}>STADIUM FUNDS</h1>
           </div>
           <div style={{backgroundColor: "#fff", padding: "20px", marginTop: "20px", borderTopLeftRadius: "40px", borderTopRightRadius: "40px",}}>
-              <div style={{color: "#203F54", display: "flex", justifyContent: "center", alignItems: "center",fontWeight: "700", marginRight: "10px", marginTop: "14px"}}>
+              <div style={{color: "#203F54", display: "flex", justifyContent: "center", alignItems: "center",fontWeight: "700", marginRight: "10px",}}>
                         <p style={{ fontSize: "20px" }}>$</p>
                         <p style={{ fontSize: "60px" }}>0</p>
               </div>
@@ -106,32 +106,23 @@ export default function StakePage({ params, searchParams }: Props) {
                             WITHDRAW
                   </button>
               </div>
-          </div>
-     
-          <div style={{display: "flex", justifyContent: "center", marginTop: "20px", marginRight: "18px",}}>
-              <button onClick={submitTx} style={{borderRadius: "8px", backgroundColor: "#223F53",  color: "#A8B0B4", padding: "10px 20px", border: "none",  marginRight: 10, marginLeft: 10,}}>
-                         DEPOSIT
-              </button>
-              <button onClick={submitTx} style={{borderRadius: "8px", backgroundColor: "#223F53",  color: "#A8B0B4", padding: "10px 20px", border: "none",  marginRight: 10, marginLeft: 10,}}>
-                         WITHDRAW
-              </button>
-          </div>
-          <div style={{ marginTop: "50px", marginBottom: "50px" }}>
-              <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", }}>
-                  <p style={{ fontStyle: "italic", fontSize: "20px", fontWeight: "600", color: "#223F53", }}>ETH</p>
-                  <p style={{fontSize: "18px", fontWeight: "500", color: "#708794",}}>$ 0.00</p>           
-              </div>
-              <div style={{display: "flex", justifyContent: "space-between", alignItems: "center",}}>
-                  <p style={{fontStyle: "italic", fontSize: "20px", fontWeight: "600", color: "#223F53",}}>USDC</p>
-                  <p style={{fontSize: "18px", fontWeight: "500", color: "#708794",}}>$ 0.00</p>
-              </div>
-              <div style={{display: "flex", justifyContent: "space-between", alignItems: "center",}}>
-                  <p style={{fontStyle: "italic", fontSize: "20px", fontWeight: "600", color: "#223F53",}}>DEGEN</p>
-                  <p style={{fontSize: "18px", fontWeight: "500", color: "#708794",}}>$ 0.00</p>
-              </div>
-              <div style={{display: "flex", justifyContent: "space-between", alignItems: "center",}}>
-                  <p style={{fontStyle: "italic", fontSize: "20px", fontWeight: "600", color: "#223F53",}}>PRIME</p>
-                  <p style={{fontSize: "18px", fontWeight: "500", color: "#708794",}}>$ 0.00</p>
+              <div style={{ marginTop: "50px", marginBottom: "50px" }}>
+                  <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", }}>
+                      <p style={{ fontStyle: "italic", fontSize: "20px", fontWeight: "600", color: "#223F53", }}>ETH</p>
+                      <p style={{fontSize: "18px", fontWeight: "500", color: "#708794",}}>$ 0.00</p>           
+                  </div>
+                  <div style={{display: "flex", justifyContent: "space-between", alignItems: "center",}}>
+                      <p style={{fontStyle: "italic", fontSize: "20px", fontWeight: "600", color: "#223F53",}}>USDC</p>
+                      <p style={{fontSize: "18px", fontWeight: "500", color: "#708794",}}>$ 0.00</p>
+                  </div>
+                  <div style={{display: "flex", justifyContent: "space-between", alignItems: "center",}}>
+                      <p style={{fontStyle: "italic", fontSize: "20px", fontWeight: "600", color: "#223F53",}}>DEGEN</p>
+                      <p style={{fontSize: "18px", fontWeight: "500", color: "#708794",}}>$ 0.00</p>
+                  </div>
+                  <div style={{display: "flex", justifyContent: "space-between", alignItems: "center",}}>
+                      <p style={{fontStyle: "italic", fontSize: "20px", fontWeight: "600", color: "#223F53",}}>PRIME</p>
+                      <p style={{fontSize: "18px", fontWeight: "500", color: "#708794",}}>$ 0.00</p>
+                  </div>
               </div>
           </div>
           <div>
