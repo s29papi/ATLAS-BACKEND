@@ -76,8 +76,8 @@ export default function StakePage({ params, searchParams }: Props) {
 
     return (
 <div className="bg-[#2D3941]">
-<div className="mx-auto text-[#213D52] md:w-[660px]">
-  <div className="mb-[150px] h-full bg-[#1F2A32]">
+<div className="mx-auto text-[#213D52] md:w-[660px] overflow-hidden">
+  <div className="h-full bg-[#1F2A32]">
     <div className="flex justify-between pb-[35px] pl-[24px] pr-[16px] pt-[18px]">
       <div className="flex items-center gap-2">
         <p className="rounded-[10px] bg-[#FF8F00] p-2 font-bold text-[white] shadow-xl">VS</p>
@@ -160,7 +160,7 @@ export default function StakePage({ params, searchParams }: Props) {
         </div>
       </div>
 
-      <div onClick={handleCloseButtonClick} className="mx-[24px] mb-[16px] mt-[38px] rounded-[8px] border-[2px] border-[#223F53] text-center">
+      <div onClick={handleCloseButtonClick} className="mx-[24px] cursor-pointer hover:bg-[#223F53] hover:text-white mb-[16px] mt-[38px] rounded-[8px] border-[2px] border-[#223F53] text-center">
         <p className="text-[18px] font-bold">RETURN TO FRAME</p>
       </div>
 
