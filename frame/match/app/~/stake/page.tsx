@@ -85,15 +85,14 @@ export default function StakePage({ params, searchParams }: Props) {
           </div>
           <div>
             <div className="bg-[#28353D] p-[10px] px-[20px] rounded-[8px]"> 
-                  <Connect /> 
+                  <Connect /> {" "}
             </div>
-
-            <div>
+          </div>
+              <div>
               <div style={{ marginTop: "20px"}}>
                 <h1 style={{textAlign: "center", color: "#A8B0B4", fontStyle: "italic", fontSize: "20px", fontWeight: "700"}}>STADIUM FUNDS</h1>
               </div>
             </div>
-          </div>
         </div>
       </div>
     );
@@ -101,6 +100,7 @@ export default function StakePage({ params, searchParams }: Props) {
 
 
    
+          
 
 
 {/* <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
