@@ -81,7 +81,7 @@ export default function StakePage({ params, searchParams }: Props) {
              <div style={{ backgroundColor: "#FD8800", color: "white", padding: "8px", borderRadius: "10px", }}>
                   <p style={{ fontSize: "20px", fontWeight: "700" }}>VS</p>
              </div>
-                  <p style={{ color: "#546168", fontWeight: "700", fontSize: "20px" }}>by STADIUM</p>
+                  <p style={{ color: "#546168", fontWeight: "700", fontSize: "20px", padding: "6px" }}>by STADIUM</p>
           </div>
           <div>
             <div className="bg-[#28353D] p-[10px] px-[20px] rounded-[8px]"> 
