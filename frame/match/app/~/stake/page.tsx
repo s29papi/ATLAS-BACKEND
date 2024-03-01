@@ -92,6 +92,10 @@ export default function StakePage({ params, searchParams }: Props) {
               <div style={{ marginTop: "20px"}}>
                 <h1 style={{textAlign: "center", color: "#A8B0B4", fontStyle: "italic", fontSize: "20px", fontWeight: "700"}}>STADIUM FUNDS</h1>
               </div>
+              <div style={{color: "#203F54", display: "flex", justifyContent: "center", alignItems: "center",fontWeight: "700", marginRight: "10px",}}>
+                        <p style={{ fontSize: "20px" }}>$</p>
+                        <p style={{ fontSize: "60px" }}>0</p>
+              </div>
             </div>
         </div>
       </div>
