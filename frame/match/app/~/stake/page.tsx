@@ -77,7 +77,7 @@ export default function StakePage({ params, searchParams }: Props) {
     return (
 <div className="bg-[#2D3941]">
 <div className="mx-auto text-[#213D52] md:w-[660px] overflow-hidden">
-  <div className="h-full bg-[#1F2A32]">
+  <div className="bg-[#1F2A32]">
     <div className="flex justify-between pb-[35px] pl-[24px] pr-[16px] pt-[18px]">
       <div className="flex items-center gap-2">
         <p className="rounded-[10px] bg-[#FF8F00] p-2 font-bold text-[white] shadow-xl">VS</p>
