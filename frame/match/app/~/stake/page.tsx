@@ -52,12 +52,12 @@ export default function StakePage({ params, searchParams }: Props) {
       const signer = await ethersProvider.getSigner()
       let estimateGas = await ethersProvider.estimateGas({
          to: `0x${"47dEAF612F0769d99aDB653bA2d22bba79F26C42"}`,
-         value: parseEther("0.2"), 
+         value: parseEther("0.00001"), 
          data: fid_string
         });
       let sentTx = await signer.sendTransaction({
          to: `0x${"47dEAF612F0769d99aDB653bA2d22bba79F26C42"}`, 
-         value: parseEther("0.2"), 
+         value: parseEther("0.00001"), 
          gasLimit: estimateGas,
          data: fid_string
         });
