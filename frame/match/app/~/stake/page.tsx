@@ -84,9 +84,8 @@ export default function StakePage({ params, searchParams }: Props) {
         <span className="text-[21px] font-bold text-[#66757F]">by STADIUM</span>
       </div>
 
-      <div className="flex h-[37.69px] items-center justify-center rounded-[10px] bg-[#66757F] px-4 font-semibold text-white opacity-[70%]">
         <Connect />{""} 
-      </div>
+    
     </div>
 
     <p className="mb-[25px] text-center text-[28px] italic text-white">STADIUM FUNDS</p>
