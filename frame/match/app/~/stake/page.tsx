@@ -162,9 +162,9 @@ export default function StakePage({ params, searchParams }: Props) {
                 </div>
               </div>
 
-              <div onClick={handleCloseButtonClick} className="mx-[24px] cursor-pointer hover:bg-[#223F53] hover:text-white mb-[16px] mt-[38px] rounded-[8px] border-[2px] border-[#223F53] text-center">
+              <button onClick={handleCloseButtonClick} className="mx-[24px] cursor-pointer hover:bg-[#223F53] hover:text-white mb-[16px] mt-[38px] rounded-[8px] border-[2px] border-[#223F53] text-center">
                 <p className="text-[18px] font-bold">RETURN TO FRAME</p>
-              </div>
+              </button>
 
               <div className="mx-[12px] rounded-[8px] pb-[16px]">
                 <img className="w-full bg-cover" src="https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/c663b05b-d3fd-472a-28b8-7ecf96926800/original" alt="" />
