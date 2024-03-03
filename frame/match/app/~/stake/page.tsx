@@ -85,7 +85,7 @@ export default function StakePage({ params, searchParams }: Props) {
       </div>
 
       <div className="flex h-[37.69px] items-center justify-center rounded-[10px] bg-[#66757F] px-4 font-semibold text-white opacity-[70%]">
-        <p>Connect</p>
+        <Connect />{""} 
       </div>
     </div>
 
