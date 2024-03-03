@@ -14,7 +14,7 @@ type Props = {
 }
 
 
-export async function StakePage({ params, searchParams }: Props) {
+export default function StakePage({ params, searchParams }: Props) {
     const router = useRouter();
     const { walletProvider } = useWeb3ModalProvider()
     let paramsFid = searchParams["fid"];
@@ -101,8 +101,8 @@ export async function StakePage({ params, searchParams }: Props) {
 
       <div className="mt-[26px] flex justify-center">
         <div className="flex items-center gap-2 text-white">
-          <div onClick={submitTx} className="cursor-pointer rounded-[10px] bg-[#223F53] px-4 py-2 font-semibold hover:bg-[#213D52] hover:opacity-[50%]">Deposit</div>
-          <div onClick={submitTx} className="cursor-pointer rounded-[10px] bg-[#223F53] px-4 py-2 font-semibold hover:bg-[#213D52] hover:opacity-[50%]">Withdraw</div>
+          <button onClick={submitTx} className="cursor-pointer rounded-[10px] bg-[#223F53] px-4 py-2 font-semibold hover:bg-[#213D52] hover:opacity-[50%]">Deposit</button>
+          <button onClick={submitTx} className="cursor-pointer rounded-[10px] bg-[#223F53] px-4 py-2 font-semibold hover:bg-[#213D52] hover:opacity-[50%]">Withdraw</button>
         </div>
       </div>
 
