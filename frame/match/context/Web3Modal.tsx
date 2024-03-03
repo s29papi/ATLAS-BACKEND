@@ -6,7 +6,7 @@ import { createWeb3Modal, defaultConfig } from '@web3modal/ethers/react'
 export const projectId = process.env.NEXT_PUBLIC_PROJECT_ID
 
 let baseRpcUrl = "https://base-mainnet.g.alchemy.com/v2/" + process.env.NEXT_PUBLIC_API_KEY
-
+let testBaseRpcUrl = "https://base-sepolia.g.alchemy.com/v2/" + process.env.NEXT_PUBLIC_TESTNET_API_KEY
 // 2. Set chains
 const mainnet = {
   chainId: 8453,
@@ -15,6 +15,15 @@ const mainnet = {
   explorerUrl: 'https://basescan.org',
   rpcUrl: baseRpcUrl
 }
+
+const base_testnet = {
+  chainId: 84532,
+  name: 'Base Sepolia',
+  currency: 'ETH',
+  explorerUrl: 'https://sepolia-explorer.base.org',
+  rpcUrl: testBaseRpcUrl
+}
+
 
 const metadata = {
     name: 'Versus',
@@ -29,7 +38,7 @@ const metadata = {
 
 createWeb3Modal({
   ethersConfig: defaultConfig({ metadata }),
-  chains: [mainnet],
+  chains: [mainnet, base_testnet],
   projectId,
   enableAnalytics: true, // Optional - defaults to your Cloud configuration,
   themeVariables: {
