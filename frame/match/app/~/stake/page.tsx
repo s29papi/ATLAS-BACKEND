@@ -22,6 +22,7 @@ export default function StakePage({ params, searchParams }: Props) {
     if (paramsFid) {
       fid = paramsFid.toString()
     }
+    if (!paramsFid) return (<div>Resource does not exist</div>);
     // let fid = searchParams["fid"];
    
 
