@@ -74,7 +74,7 @@ export default function StakePage({ params, searchParams }: Props) {
       const handleCloseButtonClick = () => {
         console.log("uyhry4677838")
         // Close the current tab
-        window.close();
+        // window.close();
       };
 
 
