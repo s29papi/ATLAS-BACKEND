@@ -12,7 +12,7 @@ type Props = {
   params: { gameId: string }
   searchParams: { [key: string]: string | string[] | undefined }
 }
-
+import PrizePool from "./contracts/PrizePool.json"
 
 export default function StakePage({ params, searchParams }: Props) {
     const router = useRouter();
@@ -44,26 +44,33 @@ export default function StakePage({ params, searchParams }: Props) {
 
 
     async function submitTx() { 
+
+      
       console.log(fid)
       let fid_string = ethers.hexlify(ethers.toUtf8Bytes(fid));
       if (!walletProvider) throw Error('Wallet Provider Abscent')
       const ethersProvider = new BrowserProvider(walletProvider)
       const signer = await ethersProvider.getSigner()
-      let estimateGas = await ethersProvider.estimateGas({
-         to: `0x${"47dEAF612F0769d99aDB653bA2d22bba79F26C42"}`,
-         value: parseEther("0.00001"), 
-         data: fid_string
-        });
-      let sentTx = await signer.sendTransaction({
-         to: `0x${"47dEAF612F0769d99aDB653bA2d22bba79F26C42"}`, 
-         value: parseEther("0.00001"), 
-         gasLimit: estimateGas,
-         data: fid_string
-        });
-      let resolvedTx = await sentTx.wait()
-      // we keep id in the cookie
-      // db stores id and tx hash
-      console.log(resolvedTx?.hash)
+      let stadiumPrizePool = new ethers.Contract("0x3725db93a289Fdc9b2Fb9606a71952AB7cfbD14a", PrizePool.abi, signer)
+      const tx = await stadiumPrizePool.depositEth(fid, {value: parseEther("0.00001")});
+      await tx.wait();
+    
+      console.log(`Tx successful with hash: ${tx.hash}`);
+      // let estimateGas = await ethersProvider.estimateGas({
+      //    to: `0x${"47dEAF612F0769d99aDB653bA2d22bba79F26C42"}`,
+      //    value: parseEther("0.00001"), 
+      //    data: fid_string
+      //   });
+      // let sentTx = await signer.sendTransaction({
+      //    to: `0x${"47dEAF612F0769d99aDB653bA2d22bba79F26C42"}`, 
+      //    value: parseEther("0.00001"), 
+      //    gasLimit: estimateGas,
+      //    data: fid_string
+      //   });
+      // let resolvedTx = await sentTx.wait()
+      // // we keep id in the cookie
+      // // db stores id and tx hash
+      // console.log(resolvedTx?.hash)
       
      }
     
