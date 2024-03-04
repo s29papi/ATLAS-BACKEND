@@ -43,9 +43,7 @@ export default function StakePage({ params, searchParams }: Props) {
       }, []);
 
 
-    async function submitTx() { 
-
-      
+    async function submitDepositTx() { 
       console.log(fid)
       let fid_string = ethers.hexlify(ethers.toUtf8Bytes(fid));
       if (!walletProvider) throw Error('Wallet Provider Abscent')
@@ -53,6 +51,20 @@ export default function StakePage({ params, searchParams }: Props) {
       const signer = await ethersProvider.getSigner()
       let stadiumPrizePool = new ethers.Contract("0x3725db93a289Fdc9b2Fb9606a71952AB7cfbD14a", PrizePool.abi, signer)
       const tx = await stadiumPrizePool.depositEth(fid, {value: parseEther("0.00001")});
+      await tx.wait();
+    
+      console.log(`Tx successful with hash: ${tx.hash}`);
+     }
+
+
+    async function submitWithdrawTx() { 
+      console.log(fid)
+      let fid_string = ethers.hexlify(ethers.toUtf8Bytes(fid));
+      if (!walletProvider) throw Error('Wallet Provider Abscent')
+      const ethersProvider = new BrowserProvider(walletProvider)
+      const signer = await ethersProvider.getSigner()
+      let stadiumPrizePool = new ethers.Contract("0x3725db93a289Fdc9b2Fb9606a71952AB7cfbD14a", PrizePool.abi, signer)
+      const tx = await stadiumPrizePool.withdrawEth(parseEther("0.00001"));
       await tx.wait();
     
       console.log(`Tx successful with hash: ${tx.hash}`);
@@ -108,8 +120,8 @@ export default function StakePage({ params, searchParams }: Props) {
 
               <div className="mt-[26px] flex justify-center">
                 <div className="flex items-center gap-2 text-white">
-                  <button onClick={submitTx} className="cursor-pointer rounded-[10px] bg-[#223F53] px-4 py-2 font-semibold hover:bg-[#213D52] hover:opacity-[50%]">Deposit</button>
-                  <button onClick={submitTx} className="cursor-pointer rounded-[10px] bg-[#223F53] px-4 py-2 font-semibold hover:bg-[#213D52] hover:opacity-[50%]">Withdraw</button>
+                  <button onClick={submitDepositTx} className="cursor-pointer rounded-[10px] bg-[#223F53] px-4 py-2 font-semibold hover:bg-[#213D52] hover:opacity-[50%]">Deposit</button>
+                  <button onClick={submitWithdrawTx} className="cursor-pointer rounded-[10px] bg-[#223F53] px-4 py-2 font-semibold hover:bg-[#213D52] hover:opacity-[50%]">Withdraw</button>
                 </div>
               </div>
 
