@@ -1,9 +1,11 @@
 package worker
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"log"
+	"math/big"
 	"net/http"
 	"regexp"
 	"strconv"
@@ -11,6 +13,9 @@ import (
 	"sync"
 	"time"
 
+	"github.com/ethereum/go-ethereum"
+	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/ethclient"
 	"github.com/s29papi/wag3r-bot/worker/client"
 	"github.com/s29papi/wag3r-bot/worker/env"
 	"github.com/s29papi/wag3r-bot/worker/types"
@@ -213,3 +218,77 @@ func castNewReply(service *client.HTTPService, data *strings.Reader) {
 	req := client.MentionReplyRequest(data)
 	service.SendRequest(http.MethodPost, req)
 }
+
+func fetchUserMentions(service *client.HTTPService) types.UserMentions {
+	req := client.UserMentionsRequest()
+	resp := service.SendRequest(http.MethodGet, req)
+	var userMentions types.UserMentions
+	if err := json.Unmarshal(resp, &userMentions); err != nil {
+		log.Println(err)
+		return types.UserMentions{}
+	}
+	return userMentions
+}
+
+// we create a table that we update for last user mention, we fetch the time from here
+func filterUserMentionsByLastUpdate(m types.UserMentions, lastUserMentionUpdateTime int64) types.UserMentions {
+	var notifications []types.Notification
+	for _, notif := range m.Notifications {
+		notifTimeInt64 := timestamp2secs(notif.Cast.Timestamp)
+		if notifTimeInt64 <= lastUserMentionUpdateTime {
+			continue
+		}
+		notifications = append(notifications, notif)
+	}
+	return types.UserMentions{Notifications: notifications}
+}
+
+func (w *Worker) buildUserMentionToTx() []types.Tx {
+	var txs []types.Tx
+	userMentions := fetchUserMentions(w.s)
+	lastusermentionsupdatetime := w.db.GetLastUserMentionUpdateTime()
+	userMentionsByLastUpdate := filterUserMentionsByLastUpdate(userMentions, lastusermentionsupdatetime)
+	for _, notif := range userMentionsByLastUpdate.Notifications {
+		tx := types.Tx{
+			Timestamp: timestamp2secs(notif.Cast.Timestamp),
+			Type:      types.USERMENTION_TX,
+			CastText:  notif.Cast.Text,
+			CastHash:  notif.Cast.Hash,
+		}
+		txs = append(txs, tx)
+	}
+	return txs
+}
+
+// func
+
+func fetchEthDepositsFromLastUpdate(c *ethclient.Client, ctx context.Context, lastEthDepositBlock *big.Int, lastEthDepositTime int64) {
+	latestBlockNo, err := c.BlockNumber(ctx)
+	if err != nil {
+		log.Printf("Error Getting the Current Block Time Stamp: %v", err)
+	}
+	latestBlockNoBig := big.NewInt(0)
+	latestBlockNoBig.SetUint64(latestBlockNo)
+	latestBlock, err := c.BlockByNumber(ctx, latestBlockNoBig)
+	if err != nil {
+		log.Printf("Error Getting the Latest Block: %v", err)
+	}
+	latestBlockHash := latestBlock.Hash()
+	// starting
+	if lastEthDepositBlock == nil && lastEthDepositTime == 0 {
+		filterQuery := ethereum.FilterQuery{
+			BlockHash: &latestBlockHash,
+			Addresses: []common.Address{env.PRIZE_POOL_ADDRESS},
+			Topics:    [][]common.Hash{[]common.Hash{env.EVENT_ETH_DEP_SIG}},
+		}
+
+		logs, err := c.FilterLogs(ctx, filterQuery)
+		if err != nil {
+			fmt.Println(err)
+		}
+
+		fmt.Println(logs)
+	}
+}
+
+// func build usermentions to tx

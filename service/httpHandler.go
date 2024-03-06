@@ -18,13 +18,36 @@ func init() {
 
 	for _, patternHandler := range patternHandlers {
 		for pattern, handler := range patternHandler {
-			handlerFunc := func(h interface{}) func(w http.ResponseWriter, r *http.Request) {
-				return func(w http.ResponseWriter, r *http.Request) {
-					reflect.ValueOf(h).FieldByIndex([]int{0}).Call([]reflect.Value{})
-				}
-			}(handler)
+			handlerFunc := muxHandlerFunc(handler)
 			mux.HandleFunc(pattern, handlerFunc)
 		}
 	}
 	Mux = mux
+}
+
+func muxHandlerFunc(h interface{}) func(w http.ResponseWriter, r *http.Request) {
+
+	return func(w http.ResponseWriter, r *http.Request) {
+
+		result := reflect.ValueOf(h).FieldByIndex([]int{0}).Call([]reflect.Value{reflect.ValueOf(r)})
+
+		if len(result) > 0 {
+
+			if httpError, ok := result[1].Interface().(wApi.HttpError); ok {
+				http.Error(w, httpError.ErrorString, httpError.ErrorCode)
+			}
+
+			if bytesResult, ok := result[0].Interface().([]byte); ok {
+				// retval := fmt.Sprintf("%v", `{ "ooo": 1 }`)
+				// w.Write([]byte(retval))
+				// w.Header().Set("Content-Type", "application/octet-stream")
+				// w.Header().Set("accept", "application/json")
+				w.WriteHeader(http.StatusOK)
+				w.Write(bytesResult)
+
+				// fmt.Fprintf(w, "Value of 'ooo': %v", bytesResult)
+			}
+
+		}
+	}
 }

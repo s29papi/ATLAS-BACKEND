@@ -74,3 +74,28 @@ func (db *DB) GetLastProcReqGameId() int {
 	}
 	return lastProcReqGameIds[0]
 }
+
+func (db *DB) GetLastUserMentionUpdateTime() int64 {
+	query := `SELECT lastusermentionsupdatetime FROM versus_state WHERE idx = 0`
+	var rows *sql.Rows
+	var err error
+
+	for {
+		rows, err = db.Query(query)
+		if rows != nil && err == nil {
+			break
+		}
+
+		log.Printf("Error: GetLastUserMentionUpdateTime Failed %v\n", err)
+	}
+
+	var lastusermentionsupdatetimes []int64
+	for rows.Next() {
+		var lastusermentionsupdatetime int64
+		if err := rows.Scan(&lastusermentionsupdatetime); err != nil {
+			log.Printf("Error: GetLastUserMentionUpdateTime Failed %v\n", err)
+		}
+		lastusermentionsupdatetimes = append(lastusermentionsupdatetimes, lastusermentionsupdatetime)
+	}
+	return lastusermentionsupdatetimes[0]
+}

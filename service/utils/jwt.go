@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"fmt"
 	"log"
 	"time"
 
@@ -9,6 +10,7 @@ import (
 
 func GenerateNewJWT() string {
 	key, err := getKey()
+	fmt.Println(key)
 	if err != nil {
 		log.Fatal(err)
 	}

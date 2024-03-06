@@ -4,12 +4,14 @@ pragma solidity ^0.8.13;
 import "forge-std/Test.sol";
 import "forge-std/console.sol";
 import {PrizePool} from "../src/PrizePool.sol"; 
+import {VersusUSDC} from "../src/usdc.sol"; 
 
 contract PrizePoolTest is Test {
             PrizePool public prizepool;
+            VersusUSDC public versusUSDC;
 
             function setUp() public {
-                prizepool = new PrizePool();
+                prizepool = new PrizePool(address(versusUSDC));
             }
 
             // Receive ETH from wallet

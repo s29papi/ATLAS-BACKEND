@@ -3,6 +3,7 @@ package env
 import (
 	"os"
 
+	"github.com/ethereum/go-ethereum/common"
 	"github.com/joho/godotenv"
 )
 
@@ -15,6 +16,9 @@ var (
 	CHANNEL_ID          string
 	SIGNER_UUID         string
 	RENDER_POSTGRES_URL string
+	STARTING_BLOCK_HASH common.Hash
+	PRIZE_POOL_ADDRESS  common.Address
+	EVENT_ETH_DEP_SIG   common.Hash
 )
 
 func loadEnv() {
@@ -40,4 +44,10 @@ func init() {
 	SIGNER_UUID = os.Getenv("SIGNER_UUID")
 
 	RENDER_POSTGRES_URL = os.Getenv("RENDER_POSTGRES_URL")
+
+	STARTING_BLOCK_HASH = common.HexToHash(os.Getenv("STARTING_BLOCK_HASH"))
+
+	PRIZE_POOL_ADDRESS = common.HexToAddress(os.Getenv("PRIZE_POOL_ADDRESS"))
+
+	EVENT_ETH_DEP_SIG = common.HexToHash(os.Getenv("EVENT_ETH_DEP_SIG"))
 }

@@ -13,6 +13,7 @@ type Props = {
   searchParams: { [key: string]: string | string[] | undefined }
 }
 import PrizePool from "./contracts/PrizePool.json"
+import IERC20 from "./contracts/IERC20.json"
 
 export default function StakePage({ params, searchParams }: Props) {
     const router = useRouter();
@@ -49,17 +50,21 @@ export default function StakePage({ params, searchParams }: Props) {
       if (!walletProvider) throw Error('Wallet Provider Abscent')
       const ethersProvider = new BrowserProvider(walletProvider)
       const signer = await ethersProvider.getSigner()
-      let stadiumPrizePool = new ethers.Contract("0x3725db93a289Fdc9b2Fb9606a71952AB7cfbD14a", PrizePool.abi, signer)
-      const tx = await stadiumPrizePool.depositEth(fid, {value: parseEther("0.00001")});
-      await tx.wait();
+      let versusUsdc = new ethers.Contract("0x4dd745f5aca5b63999cb097c0c11cc4338e2febf", IERC20.abi, signer)
+      const txApprove = await versusUsdc.approve("0xd9D454387F1cF48DB5b7D40C5De9d5bD9a92C1F8", 1000000)
+      await txApprove.wait();
+      // let stadiumPrizePool = new ethers.Contract("0xd9D454387F1cF48DB5b7D40C5De9d5bD9a92C1F8", PrizePool.abi, signer)
+      // const tx = await stadiumPrizePool.depositEth(fid, {value: parseEther("0.00001")});
+      // await tx.wait();
     
-      console.log(`Tx successful with hash: ${tx.hash}`);
+      console.log(`Tx successful with hash: ${txApprove.hash}`);
      }
 
 
     async function submitWithdrawTx() { 
       console.log(fid)
       let fid_string = ethers.hexlify(ethers.toUtf8Bytes(fid));
+
       if (!walletProvider) throw Error('Wallet Provider Abscent')
       const ethersProvider = new BrowserProvider(walletProvider)
       const signer = await ethersProvider.getSigner()

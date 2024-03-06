@@ -40,6 +40,9 @@ func startServer() {
 		Handler: a,
 	}
 
+	log.SetOutput(os.Stdout)
+	log.SetFlags(log.LstdFlags)
+
 	if err := server.ListenAndServe(); err != nil {
 		log.Fatal(err)
 	}

@@ -27,3 +27,22 @@ type Payload struct {
 	Text        string
 	Embeds_url  string
 }
+
+type TxType int64
+
+const (
+	USERMENTION_TX TxType = iota + 1
+	STAKE_TX
+	UNSTAKE_TX
+	DEPOSIT_TX
+	WITHDRAW_TX
+)
+
+type Tx struct {
+	BatchNo   int64
+	BatchIdx  int64
+	Timestamp int64
+	Type      TxType
+	CastText  string
+	CastHash  string
+}
