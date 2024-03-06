@@ -53,11 +53,11 @@ export default function StakePage({ params, searchParams }: Props) {
       let versusUsdc = new ethers.Contract("0x4dd745f5aca5b63999cb097c0c11cc4338e2febf", IERC20.abi, signer)
       const txApprove = await versusUsdc.approve("0xd9D454387F1cF48DB5b7D40C5De9d5bD9a92C1F8", 1000000)
       await txApprove.wait();
-      // let stadiumPrizePool = new ethers.Contract("0xd9D454387F1cF48DB5b7D40C5De9d5bD9a92C1F8", PrizePool.abi, signer)
-      // const tx = await stadiumPrizePool.depositEth(fid, {value: parseEther("0.00001")});
-      // await tx.wait();
-    
       console.log(`Tx successful with hash: ${txApprove.hash}`);
+      let stadiumPrizePool = new ethers.Contract("0xd9D454387F1cF48DB5b7D40C5De9d5bD9a92C1F8", PrizePool.abi, signer)
+      const tx = await stadiumPrizePool.depositVusdc(fid, 1000000);
+      await tx.wait();
+      console.log(`Tx successful with hash: ${tx.hash}`);
      }
 
 
