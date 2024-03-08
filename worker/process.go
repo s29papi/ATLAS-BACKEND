@@ -260,7 +260,11 @@ func (w *Worker) buildUserMentionToTx() []types.Tx {
 	return txs
 }
 
-// func
+// user mention process work every 6 secs
+// deposits are controlled by the loop
+func fetchDepositRequests(d <-chan DepositRequestData) []DepositRequestData {
+
+}
 
 func fetchEthDepositsFromLastUpdate(c *ethclient.Client, ctx context.Context, lastEthDepositBlock *big.Int, lastEthDepositTime int64) {
 	latestBlockNo, err := c.BlockNumber(ctx)

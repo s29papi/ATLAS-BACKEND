@@ -4,10 +4,10 @@ import (
 	"context"
 	"database/sql"
 	_ "database/sql"
-	"fmt"
 	"log"
 	"math/big"
 	"strconv"
+	"sync/atomic"
 	"time"
 
 	"github.com/ethereum/go-ethereum/ethclient"
@@ -18,11 +18,24 @@ import (
 )
 
 type DepositRequestData struct {
+	Fid            int64
+	Address        string
+	TxHash         string // use txHash to validate the values here, then use the events emitted to validate fid
+	timestamp      int64
+	finalizedState bool
+	Amount         *big.Int
+}
+
+// for withdrawal requests tx hash is pending we confirm it or revert the account balance
+// so different behaviour from deposit
+type WithdrawalRequestData struct {
 	Fid     int64
 	Address string
 	TxHash  string
 	Amount  *big.Int
 }
+
+type idx int64
 
 type Worker struct {
 	ctx                         context.Context
@@ -35,7 +48,10 @@ type Worker struct {
 	s                           *client.HTTPService
 	Req                         chan struct{}
 	pauseTickerFn               chan struct{}
-	depositRequests             []DepositRequestData
+	depositRequestIdx           *int64
+	withdrawalRequestIdx        *int64
+	depositRequests             map[idx]*DepositRequestData
+	withdrawalRequests          map[idx]*WithdrawalRequestData
 
 	ethclient *ethclient.Client
 
@@ -70,16 +86,17 @@ func NewWorker() *Worker {
 	s := client.NewHTTPService()
 
 	return &Worker{
-		ctx:             ctx,
-		T:               t,
-		db:              db,
-		s:               s,
-		Req:             make(chan struct{}),
-		depositRequests: make([]DepositRequestData, 0),
-		lastProcReqTime: new(int64),
-		pauseTickerFn:   make(chan struct{}),
-		ethclient:       ethclient,
-		done:            make(chan struct{}),
+		ctx:                ctx,
+		T:                  t,
+		db:                 db,
+		s:                  s,
+		Req:                make(chan struct{}),
+		depositRequests:    make(map[idx]*DepositRequestData),
+		withdrawalRequests: make(map[idx]*WithdrawalRequestData),
+		lastProcReqTime:    new(int64),
+		pauseTickerFn:      make(chan struct{}),
+		ethclient:          ethclient,
+		done:               make(chan struct{}),
 	}
 }
 
@@ -107,26 +124,31 @@ func (w *Worker) Start() {
 // starts a process, then completes it by starting a tick
 // stopping workloop mean stop processing requests
 func (w *Worker) workloop() {
-	txs := w.buildUserMentionToTx()
-	fmt.Println(txs[0].CastHash)
-	// for {
-	// 	if w.stopped {
-	// 		break
-	// 	}
-
-	// 	if !w.StoppedFrameEvents {
-	// 		fmt.Println("Hello world")
-	// 	}
-
-	// 	if !w.StoppedDepositAndWithdrawal {
-	// 		fmt.Println(3944884)
-	// 	}
-
-	// 	fmt.Println("Sleeping for 2 seconds...")
-	// 	time.Sleep(2 * time.Second)
-	// 	fmt.Println("Awake after 2 seconds!")
-	// }
+	// a for loop that processes user mentions every 6 secs
+	// a for loop that constantly processes (deposits, withdrawals, staking and unstaking )
+	// this for loops pauses and then sends service unavailable then processes every thing inside ``
 }
+
+// w.buildDepositToTx()
+// txs := w.buildUserMentionToTx()
+// fmt.Println(txs[0].CastHash)
+// for {
+// 	if w.stopped {
+// 		break
+// 	}
+
+// 	if !w.StoppedFrameEvents {
+// 		fmt.Println("Hello world")
+// 	}
+
+// 	if !w.StoppedDepositAndWithdrawal {
+// 		fmt.Println(3944884)
+// 	}
+
+// 	fmt.Println("Sleeping for 2 seconds...")
+// 	time.Sleep(2 * time.Second)
+// 	fmt.Println("Awake after 2 seconds!")
+// }
 
 func fetchEthDepositTx() {
 
@@ -166,7 +188,21 @@ func (w *Worker) Stop() {
 // w.pauseTickerFn <- struct{}{}
 // log.Println("Tick go-routine: un-paused.")
 
+// SendDepositRequest by idx
 func (w *Worker) SendDepositRequest(d DepositRequestData) {
-	w.depositRequests = append(w.depositRequests, d)
+	idxNo := atomic.AddInt64(w.depositRequestIdx, 1)
+	w.depositRequests[idx(idxNo)] = &d
+
 	log.Println("SendDepositRequest: New Pending Deposit")
 }
+
+// func (w *Worker) SendWithdrawalRequest(d WithdrawalRequestData) {
+// 	w.withdrawalRequests <- d
+// 	log.Println("SendWithdrawalRequest: New Pending Deposit")
+// }
+
+// // we create an account service that has queue's
+// func (w *Worker) buildDepositToTx() []types.Tx {
+// 	// var txs []types.Tx
+// 	fetchDepositRequests(w.depositRequests)
+// }

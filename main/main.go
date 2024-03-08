@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/joho/godotenv"
+	"github.com/rs/cors"
 	"github.com/s29papi/wag3r-bot/service"
 	"github.com/s29papi/wag3r-bot/service/utils"
 )
@@ -31,13 +32,23 @@ var id = 318902
 // }
 
 func startServer() {
+	cors := cors.New(cors.Options{
+		AllowedOrigins: []string{"*"},
+		AllowedMethods: []string{
+			http.MethodPost,
+			http.MethodGet,
+		},
+		AllowedHeaders:   []string{"*"},
+		AllowCredentials: false,
+	})
 	a := service.AuthHandler{
 		KeyFunc:     utils.KeyFunc,
 		HttpHandler: service.Mux,
 	}
+	corsHandler := cors.Handler(a)
 	server := http.Server{
 		Addr:    ":8080",
-		Handler: a,
+		Handler: corsHandler,
 	}
 
 	log.SetOutput(os.Stdout)

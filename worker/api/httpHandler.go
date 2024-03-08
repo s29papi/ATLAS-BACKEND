@@ -37,6 +37,7 @@ func DepositRequestHandleFunc(r *http.Request) ([]byte, *HttpError) {
 	if r.Method != http.MethodPost {
 		return nil, &HttpError{ErrorString: "Method not allowed", ErrorCode: http.StatusMethodNotAllowed}
 	}
+
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		return nil, &HttpError{ErrorString: "Error reading request body", ErrorCode: http.StatusInternalServerError}
@@ -48,6 +49,25 @@ func DepositRequestHandleFunc(r *http.Request) ([]byte, *HttpError) {
 	}
 
 	depositRequest(requestData)
+
+	return SUCCESS_MESSAGE, nil
+}
+
+func WithdrawalRequestHandleFunc(r *http.Request) ([]byte, *HttpError) {
+	if r.Method != http.MethodPost {
+		return nil, &HttpError{ErrorString: "Method not allowed", ErrorCode: http.StatusMethodNotAllowed}
+	}
+	body, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		return nil, &HttpError{ErrorString: "Error reading request body", ErrorCode: http.StatusInternalServerError}
+	}
+	var requestData worker.WithdrawalRequestData
+	err = json.Unmarshal(body, &requestData)
+	if err != nil {
+		return nil, &HttpError{ErrorString: "Error decoding JSON", ErrorCode: http.StatusBadRequest}
+	}
+
+	withdrawRequest(requestData)
 
 	return SUCCESS_MESSAGE, nil
 }

@@ -1,13 +1,15 @@
 'use client';
 
 import {useRouter} from "next/navigation";
-import {useEffect} from "react";
+import {useState, useEffect} from "react";
 import Connect from '../../../components/Connect';
 import { useWeb3ModalProvider, useWeb3ModalAccount } from '@web3modal/ethers/react';
 import { BrowserProvider, Contract, ethers, formatUnits } from 'ethers';
 import { parseEther } from 'viem';
 import Image from "./assets/image.svg";
 import FooterIcon from "./assets/footer-icon.svg";
+
+
 type Props = {
   params: { gameId: string }
   searchParams: { [key: string]: string | string[] | undefined }
@@ -16,6 +18,8 @@ import PrizePool from "./contracts/PrizePool.json"
 import IERC20 from "./contracts/IERC20.json"
 
 export default function StakePage({ params, searchParams }: Props) {
+    let prizePoolAddr = "0xd9D454387F1cF48DB5b7D40C5De9d5bD9a92C1F8";
+    let vusdcAddr = "0x4dd745f5aca5b63999cb097c0c11cc4338e2febf";
     const router = useRouter();
     const { walletProvider } = useWeb3ModalProvider()
     let paramsFid = searchParams["fid"];
@@ -24,9 +28,12 @@ export default function StakePage({ params, searchParams }: Props) {
       fid = paramsFid.toString()
     }
     if (!paramsFid) return (<div>Resource does not exist</div>);
+    const [newDeposit, setNewDeposit] = useState(false);
+    const [depositData, setDepositData] = useState("");
+
+
 
     useEffect(() => {
-      
         const handleBeforeUnload = (event: BeforeUnloadEvent) => {
           // Cancel the default behavior of closing the tab
           event.preventDefault();
@@ -41,39 +48,63 @@ export default function StakePage({ params, searchParams }: Props) {
           // Remove the event listener when component unmounts
           window.removeEventListener('beforeunload', handleBeforeUnload);
         };
-      }, []);
+    }, []);
 
 
+   
     async function submitDepositTx() { 
-      console.log(fid)
-      let fid_string = ethers.hexlify(ethers.toUtf8Bytes(fid));
+      let amount = 1000000;
+            // let fid_string = ethers.hexlify(ethers.toUtf8Bytes(fid));
       if (!walletProvider) throw Error('Wallet Provider Abscent')
       const ethersProvider = new BrowserProvider(walletProvider)
       const signer = await ethersProvider.getSigner()
-      let versusUsdc = new ethers.Contract("0x4dd745f5aca5b63999cb097c0c11cc4338e2febf", IERC20.abi, signer)
-      const txApprove = await versusUsdc.approve("0xd9D454387F1cF48DB5b7D40C5De9d5bD9a92C1F8", 1000000)
+      let versusUsdc = new ethers.Contract(vusdcAddr, IERC20.abi, signer)
+      const txApprove = await versusUsdc.approve(prizePoolAddr, amount)
       await txApprove.wait();
       console.log(`Tx successful with hash: ${txApprove.hash}`);
-      let stadiumPrizePool = new ethers.Contract("0xd9D454387F1cF48DB5b7D40C5De9d5bD9a92C1F8", PrizePool.abi, signer)
+      let stadiumPrizePool = new ethers.Contract(prizePoolAddr, PrizePool.abi, signer)
       const tx = await stadiumPrizePool.depositVusdc(fid, 1000000);
       await tx.wait();
       console.log(`Tx successful with hash: ${tx.hash}`);
-     }
-
-
+     let jsonData = JSON.stringify({ "fid": parseInt(fid), "address": signer.address, "txhash": tx.hash, "amount": amount });
+      setDepositData(jsonData)
+      setNewDeposit(true);
+    }
+    useEffect(() => {
+      if (newDeposit) {
+        fetch("http://localhost:8080/api/worker/deposit-request", {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDk2MDc1MjV9.QQlkhaYpdeFhpYV7W2AP2hxdCfy4o3KkScB-ODxtnAc'
+            },
+            body: depositData
+        }).then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            console.log('POST request successful');
+          }).catch(error => {
+              console.error('There was a problem with your fetch operation:', error);
+          });
+            setNewDeposit(false);
+      }
+  }, [newDeposit, depositData]);
+    
     async function submitWithdrawTx() { 
-      console.log(fid)
-      let fid_string = ethers.hexlify(ethers.toUtf8Bytes(fid));
+      // let fid_string = ethers.hexlify(ethers.toUtf8Bytes(fid));
 
       if (!walletProvider) throw Error('Wallet Provider Abscent')
       const ethersProvider = new BrowserProvider(walletProvider)
       const signer = await ethersProvider.getSigner()
-      let stadiumPrizePool = new ethers.Contract("0xd9D454387F1cF48DB5b7D40C5De9d5bD9a92C1F8", PrizePool.abi, signer)
-      const tx = await stadiumPrizePool.withdrawVusdc(1000000);
+      let stadiumPrizePool = new ethers.Contract(prizePoolAddr, PrizePool.abi, signer)
+      const tx = await stadiumPrizePool.withdrawVusdc(2000000);
       await tx.wait();
     
       console.log(`Tx successful with hash: ${tx.hash}`);
      }
+
+
     
  
 
@@ -186,3 +217,6 @@ export default function StakePage({ params, searchParams }: Props) {
     );
 }
 
+
+
+      // curl -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDk2MDc1MjV9.QQlkhaYpdeFhpYV7W2AP2hxdCfy4o3KkScB-ODxtnAc" http://localhost:8080/api/worker/deposit-request --data '{ "fid": 3, "address": "0x67123a", "txhash": "0x3773828", "amount": 930}'

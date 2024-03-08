@@ -91,3 +91,7 @@ func Register() map[string]interface{} {
 func depositRequest(d worker.DepositRequestData) {
 	bot.SendDepositRequest(d)
 }
+
+func withdrawRequest(d worker.WithdrawalRequestData) {
+	bot.SendWithdrawalRequest(d)
+}

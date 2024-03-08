@@ -24,7 +24,7 @@ export async function generateMetadata(
   const frameMetadata = getFrameMetadata({
     buttons: [
         {label: 'Accept Challenge', action: 'post'},
-        {label: 'Account', action: 'post'},
+        // {label: 'Account', action: 'post'},
     ],
     image: imageUrl,
     post_url: postUrl,
@@ -54,7 +54,7 @@ export default function Page({
   params: { slug: string };
   searchParams?: { [key: string]: string | string[] | undefined };
 }) {
-  return <h1>Match By Versus iiiooo.</h1>;
+  return <h1>Match By Versus</h1>;
 }
 
 

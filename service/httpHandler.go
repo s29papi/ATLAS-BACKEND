@@ -1,6 +1,7 @@
 package service
 
 import (
+	"fmt"
 	"net/http"
 	"reflect"
 
@@ -32,8 +33,9 @@ func muxHandlerFunc(h interface{}) func(w http.ResponseWriter, r *http.Request) 
 		result := reflect.ValueOf(h).FieldByIndex([]int{0}).Call([]reflect.Value{reflect.ValueOf(r)})
 
 		if len(result) > 0 {
-
+			fmt.Println(38774646)
 			if httpError, ok := result[1].Interface().(wApi.HttpError); ok {
+
 				http.Error(w, httpError.ErrorString, httpError.ErrorCode)
 			}
 
@@ -42,6 +44,10 @@ func muxHandlerFunc(h interface{}) func(w http.ResponseWriter, r *http.Request) 
 				// w.Write([]byte(retval))
 				// w.Header().Set("Content-Type", "application/octet-stream")
 				// w.Header().Set("accept", "application/json")
+				w.Header().Set("Access-Control-Allow-Origin", "http://127.0.0.1:3001")
+				w.Header().Set("Access-Control-Allow-Methods", "POST")
+
+				w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
 				w.WriteHeader(http.StatusOK)
 				w.Write(bytesResult)
 
