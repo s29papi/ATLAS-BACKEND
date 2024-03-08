@@ -19,7 +19,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
   const buttonId = body.untrustedData.buttonIndex;
 
   if (buttonId == 2) {
-    return handlesStake2StartMatch(vusdcAddr, vusdcAddr)
+    return handlesStake2StartMatch()
   }
 
   return NextResponse.redirect("https://wag3r-bot.vercel.app/")
