@@ -12,13 +12,13 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
   // const buttonId = body.untrustedData.buttonIndex;
   
   let queryParams = `gameId=${gameId}&&gameName=${gameName}&&gameSetup=${gameSetup}&&stakeAmount=${stakeAmount}&&creatorFid=${creatorFid}`
-  let button2ImageUrl = "https://wag3r-bot-gamma.vercel.app/og/approve?" + `${queryParams}`
+  let imageUrl = "https://wag3r-bot-gamma.vercel.app/og/approve?" + `${queryParams}`
   let postUrl = "https://wag3r-bot-gamma.vercel.app/api/frame/stake?" + `${queryParams}`
 
     return new NextResponse(`<!DOCTYPE html><html><head>
           <title>Start My Match</title>
           <meta property="fc:frame" content="vNext" />        
-          <meta property="fc:frame:image" content="${button2ImageUrl}"/>
+          <meta property="fc:frame:image" content="${imageUrl}"/>
           <meta property="fc:frame:button:1" content="Back" />
           <meta property="fc:frame:button:1:action" content="post"/>
           <meta property="fc:frame:button:2" content="Approve" />
