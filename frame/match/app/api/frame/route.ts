@@ -12,7 +12,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
   const buttonId = body.untrustedData.buttonIndex;
   
   let queryParams = `gameId=${gameId}&&gameName=${gameName}&&gameSetup=${gameSetup}&&stakeAmount=${stakeAmount}&&creatorFid=${creatorFid}`
-  let button2ImageUrl = "https://wag3r-bot-gamma.vercel.app/og/account?" + `${queryParams}`
+  let button2ImageUrl = "https://wag3r-bot-gamma.vercel.app/og/approve?" + `${queryParams}`
   let postUrl = "https://wag3r-bot-gamma.vercel.app/api/frame/stake?" + `${queryParams}`
   // let button2PostUrl = "https://wag3r-bot-gamma.vercel.app/api/frame/account?" + `${queryParams}`
   // if (buttonId == 1) {
@@ -22,7 +22,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
           <meta property="fc:frame:image" content="${button2ImageUrl}"/>
           <meta property="fc:frame:button:1" content="Back" />
           <meta property="fc:frame:button:1:action" content="post"/>
-          <meta property="fc:frame:button:2" content="Approve Stake" />
+          <meta property="fc:frame:button:2" content="Approve" />
           <meta property="fc:frame:button:2:action" content="tx"/>
           <meta property="fc:frame:button:2:target" content="https://wag3r-bot-gamma.vercel.app/api/frame/stake"/>
           <meta property="fc:frame:post_url" content="${postUrl}"/>

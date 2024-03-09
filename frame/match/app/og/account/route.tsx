@@ -20,7 +20,7 @@ export async function GET(req: Request) {
                         src={imageData}
                     />
                     <div style={{display: 'flex', position: 'absolute', top: '65%', left: '50%', transform: 'translate(-50%, -50%)', textAlign: 'center', color: '#66757F', fontSize: '72px', fontWeight: '1200'}}> 
-                            <span style={{fontStyle: 'italic'}}>BALANCE $ 20 USDC</span>
+                            <span style={{fontStyle: 'italic'}}>Appro $ 20 USDC Stake</span>
                     </div>
              </div>
         ),
