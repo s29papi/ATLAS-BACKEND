@@ -1,0 +1,4 @@
+[ZoneTransfer]
+ZoneId=3
+ReferrerUrl=https://cloudconvert.com/
+HostUrl=https://eu-central.storage.cloudconvert.com/tasks/2589c8b4-eebf-456c-bc65-e57ed6e47bd7/Geist-Bold-BF6569491da5a14.ttf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=cloudconvert-production%2F20240309%2Ffra%2Fs3%2Faws4_request&X-Amz-Date=20240309T125806Z&X-Amz-Expires=86400&X-Amz-Signature=c89f2062a88a764745a06ae1844f8a892129ea2e20755be661cbf1d63ff3f4d0&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3B%20filename%3D%22Geist-Bold-BF6569491da5a14.ttf%22&response-content-type=font%2Fttf&x-id=GetObject

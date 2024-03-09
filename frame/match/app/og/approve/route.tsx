@@ -13,6 +13,9 @@ export async function GET(req: Request) {
     const interData = await fetch(new URL('../../../public/Inter-Regular.ttf', import.meta.url)).then(
         (res) => res.arrayBuffer(),
       );
+    const geistBoldData = await fetch(new URL('../../../public/Geist-Bold-BF6569491da5a14.ttf', import.meta.url)).then(
+        (res) => res.arrayBuffer(),
+      );
     const { searchParams } = new URL(req.url);
     let stakeAmount = searchParams.get('stakeAmount');
     let gameName = searchParams.get('gameName');
@@ -52,7 +55,7 @@ export async function GET(req: Request) {
                                 </div>
                                 <div style={{display: 'flex', position: 'absolute', top: '65%', left: '50%', transform: 'translate(-50%, -50%)', textAlign: 'center', color: '#66757F', fontSize: '72px', fontWeight: '1400'}}> 
                                         <span tw="flex flex-col text-lg sm:text-xl md:flex-row w-full py-12 px-4 justify-between p-8" style={{fontFamily: 'Inter-Bold'}}>
-                                                <span tw="flex flex-col bottom-7" style={{fontFamily: 'Inter-Regular', fontStyle: 'italic'}}>
+                                                <span tw="flex flex-col bottom-7" style={{fontFamily: 'Geist Bold', fontStyle: 'italic'}}>
                                                 <span tw="text-7xl top-[15.95] left-[10] text-gray-500">Approve {stakeAmount} Stake</span>
                                                 </span>  
                                         </span> 
@@ -68,6 +71,11 @@ export async function GET(req: Request) {
                     {
                         name: "Inter-Regular",
                         data: interData,
+                        style: "normal"
+                    },
+                    {
+                        name: "Geist Bold",
+                        data: geistBoldData,
                         style: "normal"
                     }
                 ]
