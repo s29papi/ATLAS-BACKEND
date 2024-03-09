@@ -11,11 +11,20 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
   let prizePoolAddr = '0xd9D454387F1cF48DB5b7D40C5De9d5bD9a92C1F8';
   let vusdcAddr = '0x4dd745f5aca5b63999cb097c0c11cc4338e2febf';
   const body: FrameRequest = await req.json();
+  const searchParams = req.nextUrl.searchParams;
+  const gameId:any = searchParams.get("gameId");
+  const gameName:any = searchParams.get("gameName");
+  const gameSetup:any = searchParams.get("gameSetup");
+  const stakeAmount:any = searchParams.get("stakeAmount");
+  const creatorFid:any = searchParams.get("creatorFid");
+  
+  let queryParams = `gameId=${gameId}&&gameName=${gameName}&&gameSetup=${gameSetup}&&stakeAmount=${stakeAmount}&&creatorFid=${creatorFid}`
+  let baseUrl = "https://wag3r-bot-gamma.vercel.app/?" + queryParams;
   const { isValid } = await getFrameMessage(body, { neynarApiKey: 'NEYNAR_ONCHAIN_KIT' });
 
 
   const buttonId = body.untrustedData.buttonIndex;
-  if (buttonId == 1) return NextResponse.redirect("https://wag3r-bot-gamma.vercel.app/");
+  if (buttonId == 1) return NextResponse.redirect(baseUrl);
 
   if (!isValid) {
     return new NextResponse('Message not valid', { status: 500 });
@@ -25,7 +34,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
     return handlesStake2StartMatch()
   }
 
-  return NextResponse.redirect("https://wag3r-bot-gamma.vercel.app/")
+  return NextResponse.redirect(baseUrl)
 }
 
 export async function POST(req: NextRequest): Promise<Response> {

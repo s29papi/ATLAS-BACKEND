@@ -13,7 +13,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
   
   let queryParams = `gameId=${gameId}&&gameName=${gameName}&&gameSetup=${gameSetup}&&stakeAmount=${stakeAmount}&&creatorFid=${creatorFid}`
   let button2ImageUrl = "https://wag3r-bot-gamma.vercel.app/og/account?" + `${queryParams}`
-  let button2PostUrl = "https://wag3r-bot-gamma.vercel.app/api/frame/stake?" + `${queryParams}`
+  let postUrl = "https://wag3r-bot-gamma.vercel.app/api/frame/stake?" + `${queryParams}`
   // let button2PostUrl = "https://wag3r-bot-gamma.vercel.app/api/frame/account?" + `${queryParams}`
   // if (buttonId == 1) {
     return new NextResponse(`<!DOCTYPE html><html><head>
@@ -25,7 +25,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
           <meta property="fc:frame:button:2" content="Approve Stake" />
           <meta property="fc:frame:button:2:action" content="tx"/>
           <meta property="fc:frame:button:2:target" content="https://wag3r-bot-gamma.vercel.app/api/frame/stake"/>
-          <meta property="fc:frame:post_url" content="https://wag3r-bot-gamma.vercel.app/api/frame/stake"/>
+          <meta property="fc:frame:post_url" content="${postUrl}"/>
       </head></html>`);
   // }
 
