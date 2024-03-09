@@ -19,7 +19,7 @@ import IERC20 from "./contracts/IERC20.json"
 
 export default function StakePage({ params, searchParams }: Props) {
     let prizePoolAddr = "0xd9D454387F1cF48DB5b7D40C5De9d5bD9a92C1F8";
-    let vusdcAddr = "0x4dd745f5aca5b63999cb097c0c11cc4338e2febf";
+    let vusdcAddr = "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913";
     const router = useRouter();
     const { walletProvider } = useWeb3ModalProvider()
     let paramsFid = searchParams["fid"];

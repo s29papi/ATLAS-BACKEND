@@ -50,7 +50,7 @@ function handlesStake2StartMatch() {
     const data = encodeFunctionData({
       abi: IERC20.abi,
       functionName: 'approve',
-      args: [prizePoolAddr, 1000000],
+      args: [prizePoolAddr, 100000],
     });
 
     const txData: FrameTransactionResponse = {
@@ -59,8 +59,8 @@ function handlesStake2StartMatch() {
       params: {
         abi: [],
         data,
-        to: '0x4dd745f5aca5b63999cb097c0c11cc4338e2febf',
-        value: parseEther('0.00').toString(), // 0.01 ETH
+        to: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913',
+        value: parseEther('0.00000').toString(), // 0.01 ETH
       },
     };
     return NextResponse.json(txData);
