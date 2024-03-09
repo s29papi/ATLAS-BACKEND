@@ -51,7 +51,7 @@ export async function GET(req: Request) {
                                     </span>  
                                     <span tw="flex flex-col text-lg sm:text-xl md:flex-row w-full py-12 px-4 justify-between p-8" style={{fontFamily: 'Inter-Bold'}}>
                                         <span tw="flex flex-col bottom-7" style={{fontFamily: 'Inter-Regular', fontStyle: 'italic'}}>
-                                           <span tw="text-7xl top-[6.95] left-[19.5] text-gray-500">Approve {stakeAmount} Stake</span>
+                                           <span tw="text-7xl top-[10.95] left-[22] text-gray-500">Approve {stakeAmount} Stake</span>
                                         </span>  
                                     </span>  
 
