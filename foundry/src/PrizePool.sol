@@ -3,8 +3,8 @@ pragma solidity ^0.8.13;
 
 import {IERC20} from "openzeppelin-contracts/contracts/token/ERC20/IERC20.sol";
 
-// can deposit and withdraw eth move to frontend
-contract PrizePool {
+
+contract VersusIntegration {
   event EthDeposit(uint256 indexed fid, uint256 indexed amount, address indexed depositor);
   event VUSDCDeposit(uint256 indexed fid, uint256 indexed amount, address indexed depositor);
 

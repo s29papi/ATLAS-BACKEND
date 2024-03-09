@@ -23,7 +23,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
           <meta property="fc:frame:button:1:action" content="post"/>
           <meta property="fc:frame:button:2" content="Approve" />
           <meta property="fc:frame:button:2:action" content="tx"/>
-          <meta property="fc:frame:button:2:target" content="https://wag3r-bot-gamma.vercel.app/api/frame/stake"/>
+          <meta property="fc:frame:button:2:target" content="https://wag3r-bot-gamma.vercel.app/api/tx/approve"/>
           <meta property="fc:frame:post_url" content="${postUrl}"/>
       </head></html>`);
 }

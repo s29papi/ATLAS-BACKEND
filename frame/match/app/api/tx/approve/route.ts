@@ -1,15 +1,14 @@
-// import { FrameRequest, getFrameMessage } from '@coinbase/onchainkit';
 import { FrameRequest, getFrameMessage } from '@coinbase/onchainkit';
 import { NextRequest, NextResponse } from 'next/server';
 import { encodeFunctionData, parseEther, parseUnits } from 'viem';
 import { base } from 'viem/chains';
-import PrizePool from "./contracts/PrizePool.json"
-import IERC20 from "./contracts/IERC20.json"
+import PrizePool from "../contracts/PrizePool.json";
+import IERC20 from "../contracts/IERC20.json";
 import type { FrameTransactionResponse } from '@coinbase/onchainkit/src/frame'
 
 async function getResponse(req: NextRequest): Promise<NextResponse> {
   let prizePoolAddr = '0xd9D454387F1cF48DB5b7D40C5De9d5bD9a92C1F8';
-  let vusdcAddr = '0x4dd745f5aca5b63999cb097c0c11cc4338e2febf';
+  
   const body: FrameRequest = await req.json();
   const searchParams = req.nextUrl.searchParams;
   const gameId:any = searchParams.get("gameId");
@@ -49,7 +48,7 @@ function handlesStake2StartMatch() {
   const data = encodeFunctionData({
     abi: IERC20.abi,
     functionName: 'approve',
-    args: [prizePoolAddr, parseUnits("0.000001", 6)],
+    args: [prizePoolAddr, parseUnits("0.1", 6)],
   });
 
   const txData: FrameTransactionResponse = {
@@ -64,7 +63,6 @@ function handlesStake2StartMatch() {
   };
   return NextResponse.json(txData);
 }
-
 
 
 
