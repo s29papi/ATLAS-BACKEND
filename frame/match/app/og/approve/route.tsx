@@ -50,7 +50,7 @@ export async function GET(req: Request) {
                                         </span>  
                                     </span>  
                                 </div>
-                                <div style={{display: 'flex', position: 'absolute', top: '65%', left: '50%', transform: 'translate(-50%, -50%)', textAlign: 'center', color: '#66757F', fontSize: '72px', fontWeight: '1200'}}> 
+                                <div style={{display: 'flex', position: 'absolute', top: '65%', left: '50%', transform: 'translate(-50%, -50%)', textAlign: 'center', color: '#66757F', fontSize: '72px', fontWeight: '1400'}}> 
                                         <span tw="flex flex-col text-lg sm:text-xl md:flex-row w-full py-12 px-4 justify-between p-8" style={{fontFamily: 'Inter-Bold'}}>
                                                 <span tw="flex flex-col bottom-7" style={{fontFamily: 'Inter-Regular', fontStyle: 'italic'}}>
                                                 <span tw="text-7xl top-[15.95] left-[10] text-gray-500">Approve {stakeAmount} Stake</span>
