@@ -1,7 +1,7 @@
 // import { FrameRequest, getFrameMessage } from '@coinbase/onchainkit';
 import { FrameRequest, getFrameMessage } from '@coinbase/onchainkit';
 import { NextRequest, NextResponse } from 'next/server';
-import { encodeFunctionData, parseEther } from 'viem';
+import { encodeFunctionData, parseEther, parseUnits } from 'viem';
 import { base } from 'viem/chains';
 import PrizePool from "./contracts/PrizePool.json"
 import IERC20 from "./contracts/IERC20.json"
@@ -50,7 +50,7 @@ function handlesStake2StartMatch() {
     const data = encodeFunctionData({
       abi: IERC20.abi,
       functionName: 'approve',
-      args: [prizePoolAddr, 100000],
+      args: [prizePoolAddr, parseUnits("0.001", 6)],
     });
 
     const txData: FrameTransactionResponse = {
