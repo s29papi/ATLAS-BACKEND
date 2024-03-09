@@ -13,11 +13,13 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
   const body: FrameRequest = await req.json();
   const { isValid } = await getFrameMessage(body, { neynarApiKey: 'NEYNAR_ONCHAIN_KIT' });
 
+
+  const buttonId = body.untrustedData.buttonIndex;
+  if (buttonId == 1) return NextResponse.redirect("https://wag3r-bot-gamma.vercel.app/");
+
   if (!isValid) {
     return new NextResponse('Message not valid', { status: 500 });
   }
-  const buttonId = body.untrustedData.buttonIndex;
-
 
   if (buttonId == 2) {
     return handlesStake2StartMatch()
