@@ -7,7 +7,7 @@ export const runtime = 'edge';
 
 
 export async function GET(req: Request) {
-    const imageData = await fetch(new URL('../../../public/You-Vs-Me-Rescale.png', import.meta.url)).then(
+    const imageData = await fetch(new URL('../../../public/base.png', import.meta.url)).then(
         (res) => res.arrayBuffer(),
       );
     const interData = await fetch(new URL('../../../public/Inter-Regular.ttf', import.meta.url)).then(
@@ -50,14 +50,8 @@ export async function GET(req: Request) {
                                         </span>  
                                     </span>  
                                     <span tw="flex flex-col text-lg sm:text-xl md:flex-row w-full py-12 px-4 justify-between p-8" style={{fontFamily: 'Inter-Bold'}}>
-                                        {/* <span tw="bottom-16 right-11" style={{fontFamily: 'Inter-Bold', borderRadius: "50%", overflow: 'hidden'}}>
-                                            <img tw="w-[180px] h-[182px]"
-                                                    src={pfpUrl}
-                                            /> 
-                                        </span>   */}
-                                        <span tw="flex flex-col bottom-7" style={{fontFamily: 'Inter-Regular'}}>
-                                           <span tw="text-5xl text-gray-400">Approve {stakeAmount} Stake</span>
-                                           <span tw="text-7xl top-[0.95]">{gameName}{" "}/{" "}{gameSetup}</span>
+                                        <span tw="flex flex-col bottom-7" style={{fontFamily: 'Inter-Regular', fontStyle: 'italic'}}>
+                                           <span tw="text-7xl top-[0.95] text-gray-400">Approve {stakeAmount} Stake</span>
                                         </span>  
                                     </span>  
 
