@@ -58,7 +58,7 @@ function handlesStake2StartMatch() {
       abi: [],
       data,
       to: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913',
-      value: '0', // 0.01 ETH
+      value: '0x0', // 0.01 ETH
     },
   };
   return NextResponse.json(txData);
