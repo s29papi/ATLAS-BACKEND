@@ -23,7 +23,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
     return handlesStake2StartMatch()
   }
 
-  return NextResponse.redirect("https://wag3r-bot.vercel.app/")
+  return NextResponse.redirect("https://wag3r-bot-gamma.vercel.app/")
 }
 
 export async function POST(req: NextRequest): Promise<Response> {
