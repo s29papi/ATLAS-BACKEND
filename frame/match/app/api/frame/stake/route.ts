@@ -50,7 +50,7 @@ function handlesStake2StartMatch() {
     const data = encodeFunctionData({
       abi: IERC20.abi,
       functionName: 'approve',
-      args: [prizePoolAddr, parseUnits("0.001", 6)],
+      args: [prizePoolAddr, parseUnits("0.000001", 6)],
     });
 
     const txData: FrameTransactionResponse = {
