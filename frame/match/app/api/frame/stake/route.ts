@@ -46,7 +46,7 @@ export const dynamic = 'force-dynamic';
 
 function handlesStake2StartMatch() {
   // let vusdcAddr = '0x4dd745f5aca5b63999cb097c0c11cc4338e2febf';
-  let prizePoolAddr = '0xd9D454387F1cF48DB5b7D40C5De9d5bD9a92C1F8';
+  let prizePoolAddr = '0x5E0f293eEBa536e6cDeB0B9da03d1b5335dC29De';
     const data = encodeFunctionData({
       abi: IERC20.abi,
       functionName: 'approve',
@@ -60,7 +60,7 @@ function handlesStake2StartMatch() {
         abi: [],
         data,
         to: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913',
-        value: parseEther('0.00000').toString(), // 0.01 ETH
+        value: '0', // 0.01 ETH
       },
     };
     return NextResponse.json(txData);
