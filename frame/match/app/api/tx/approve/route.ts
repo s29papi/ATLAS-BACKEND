@@ -4,7 +4,7 @@ import { encodeFunctionData, parseEther, parseUnits } from 'viem';
 import { base } from 'viem/chains';
 import PrizePool from "../contracts/PrizePool.json";
 import IERC20 from "../contracts/IERC20.json";
-import type { FrameTransactionResponse } from '@coinbase/onchainkit/src/frame'
+import type { FrameTransactionResponse } from '@coinbase/onchainkit/src/frame';
 
 async function getResponse(req: NextRequest): Promise<NextResponse> {
   let prizePoolAddr = '0xd9D454387F1cF48DB5b7D40C5De9d5bD9a92C1F8';
