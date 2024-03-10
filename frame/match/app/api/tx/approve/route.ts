@@ -1,7 +1,7 @@
 import { FrameRequest, getFrameMessage } from '@coinbase/onchainkit';
 import { NextRequest, NextResponse } from 'next/server';
 import { encodeFunctionData, parseEther, parseUnits } from 'viem';
-import { base, optimism } from 'viem/chains';
+import { base, optimismSepolia } from 'viem/chains';
 import PrizePool from "../contracts/PrizePool.json";
 import IERC20 from "../contracts/IERC20.json";
 import type { FrameTransactionResponse } from '@coinbase/onchainkit/src/frame';
@@ -52,13 +52,13 @@ function handlesStake2StartMatch() {
   });
 
   const txData: FrameTransactionResponse = {
-    chainId: `eip155:${optimism.id}`,
+    chainId: `eip155:${optimismSepolia.id}`,
     method: 'eth_sendTransaction',
     params: {
       abi: [],
       data,
       // to: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913',
-      to: '0x7F5c764cBc14f9669B88837ca1490cCa17c31607',
+      to: '0x4AEE21Ccb250624bD0b53adfc3BE26B8c262D2FA',
       value: '0x0', // 0.01 ETH
     },
   };
