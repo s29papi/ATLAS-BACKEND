@@ -19,7 +19,7 @@ type RenderDoNotWindDown struct {
 
 var (
 	dev_endpoint_renderDoNotWindDown  = "http://localhost:8181/api/worker/dummy-rdWD"
-	prod_endpoint_renderDoNotWindDown = ""
+	prod_endpoint_renderDoNotWindDown = "https://toshi-pay-bot.onrender.com/api/worker/dummy-rdWD"
 )
 
 func NewRenderDoNotWindDown(dev bool, client *http.Client) *RenderDoNotWindDown {

@@ -62,7 +62,7 @@ func startRenderDoNotWindDown() {
 		return
 	}
 	s := client.NewHTTPService()
-	renderDoNotWindDown = rDWD.NewRenderDoNotWindDown(true, s.C)
+	renderDoNotWindDown = rDWD.NewRenderDoNotWindDown(false, s.C)
 	log.Println("Starting Render Do Not Wind Down")
 	go renderDoNotWindDown.Start()
 }
