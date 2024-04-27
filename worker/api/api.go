@@ -1,17 +1,21 @@
 package api
 
 import (
-	"fmt"
 	"log"
-	"net/http"
 
+	dbHC "github.com/s29papi/wag3r-bot/service/dbHealthChecker"
+	rDWD "github.com/s29papi/wag3r-bot/service/renderDoNotWindDown"
 	"github.com/s29papi/wag3r-bot/worker"
+	client "github.com/s29papi/wag3r-bot/worker/client"
 )
 
-var bot *worker.Worker
+var (
+	bot                 *worker.Worker
+	dbHealthChecker     *dbHC.DBHealthChecker
+	renderDoNotWindDown *rDWD.RenderDoNotWindDown
+)
 
 func startBot() {
-	fmt.Println(337373763)
 	if bot != nil {
 		log.Println("Cant start Bot. Bot is currently running")
 		return
@@ -21,7 +25,7 @@ func startBot() {
 	go bot.Start()
 }
 
-func StopBot() {
+func stopBot() {
 	if bot == nil {
 		log.Println("Cant stop Bot. Bot is not running")
 		return
@@ -32,66 +36,72 @@ func StopBot() {
 	log.Println("Stopped")
 }
 
-func StoppedFrameEvents() {
-	if bot == nil {
-		log.Println("Cant stop frame events. Bot is not running")
+func startDBHealthChecker() {
+	if dbHealthChecker != nil {
+		log.Println("Cant start Database Health Checker. Database Health Checker is currently running")
 		return
 	}
-	bot.StoppedFrameEvents = true
+	dbHealthChecker = dbHC.NewDBHealthChecker()
+	log.Println("Starting Database Health Checker")
+	go dbHealthChecker.Start()
 }
 
-func AddBot(ooo int64) {
-	ooo += ooo
-	fmt.Println(ooo)
-}
-
-func DepositRequest() {
-
-}
-
-type CallBack struct {
-	Fn     func()
-	ArgsNo int
-}
-
-type CallBackAddBot struct {
-	Fn     func(r *http.Request) ([]byte, *HttpError)
-	ArgsNo int
-}
-
-func Register() map[string]interface{} {
-	patternFuncs := make(map[string]interface{})
-	// patternFuncs["/api/worker/start-bot"] = CallBack{
-	// 	Fn:     StartBot,
-	// 	ArgsNo: 0,
-	// }
-	patternFuncs["/api/worker/stop-bot"] = CallBack{
-		Fn:     StopBot,
-		ArgsNo: 0,
+func stopDBHealthChecker() {
+	if dbHealthChecker == nil {
+		log.Println("Cant stop Database Health Checker. Database Health Checker is not running")
+		return
 	}
-	patternFuncs["/api/worker/stop-frame-events"] = CallBack{
-		Fn:     StoppedFrameEvents,
-		ArgsNo: 0,
-	}
-	patternFuncs["/api/worker/add-bot"] = CallBackAddBot{
-		Fn:     AddBotHandleFunc,
-		ArgsNo: 2,
-	}
-	patternFuncs["/api/worker/deposit-request"] = CallBackAddBot{
-		Fn:     DepositRequestHandleFunc,
-		ArgsNo: 2,
-	}
-	patternFuncs["/api/worker/start-bot"] = CallBackAddBot{
-		Fn:     StartBotRequestHandleFunc,
-		ArgsNo: 2,
-	}
-	return patternFuncs
+	go dbHealthChecker.Stop()
+	dbHealthChecker = nil
+	log.Println("Database Health Checker Stopped")
 }
 
-func depositRequest(d worker.DepositRequestData) {
-	bot.SendDepositRequest(d)
+func startRenderDoNotWindDown() {
+	if renderDoNotWindDown != nil {
+		log.Println("Cant start renderDoNotWindDown. renderDoNotWindDown is currently running")
+		return
+	}
+	s := client.NewHTTPService()
+	renderDoNotWindDown = rDWD.NewRenderDoNotWindDown(true, s.C)
+	log.Println("Starting Render Do Not Wind Down")
+	go renderDoNotWindDown.Start()
+}
+func stopRenderDoNotWindDown() {
+	if renderDoNotWindDown == nil {
+		log.Println("Cant stop renderDoNotWindDown. renderDoNotWindDown is not currently running")
+		return
+	}
+	go renderDoNotWindDown.Stop()
+	renderDoNotWindDown = nil
+	log.Println("Render Do Not Wind Down Stopped")
+
 }
 
-func withdrawRequest(d worker.WithdrawalRequestData) {
-	bot.SendWithdrawalRequest(d)
-}
+// {
+// 	"messages":
+// 		[
+// 			{
+// 			  "data":
+// 				{
+// 					"type":"MESSAGE_TYPE_CAST_ADD",
+// 					"fid":399452,
+// 					"timestamp":104737157,
+// 					"network":"FARCASTER_NETWORK_MAINNET",
+// 					"castAddBody":
+// 						{
+// 							"embedsDeprecated":[],
+// 							"mentions":[502736],
+// 							"text":" hey",
+// 							"mentionsPositions":[0],
+// 							"embeds":[]
+// 						}
+// 				},
+// 					"hash":"0x25e621250906f784a4a6eec22c0bd4d898d4564a",
+// 					"hashScheme":"HASH_SCHEME_BLAKE3",
+// 					"signature":"YyHQCVOdLfdnF+cgkmtuS7zOEWdcAo+448N8zRfBx2r2GP+4og3cXNPPoRFHr2S0A6tdqJS7UKdj0REV/5g7Aw==",
+// 					"signatureScheme":"SIGNATURE_SCHEME_ED25519",
+// 					"signer":"0x94542a1c465ad74982cd8874cfa758aa38c450edd65d829ff3da067390e79c10"
+// 			}
+// 		],
+// 	"nextPageToken":""
+// }

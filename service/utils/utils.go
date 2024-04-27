@@ -12,7 +12,6 @@ func KeyFunc(token *jwt.Token) (interface{}, error) {
 		return nil, err
 	}
 	return key[:], nil
-
 }
 
 func getKey() ([32]byte, error) {

@@ -99,3 +99,111 @@ func (db *DB) GetLastUserMentionUpdateTime() int64 {
 	}
 	return lastusermentionsupdatetimes[0]
 }
+
+func (db *DB) LastUserMentionsRequestTime() int64 {
+	queryStatement := `SELECT time FROM usermentions_requesttime ORDER BY requestid DESC LIMIT 1`
+	var rows *sql.Rows
+	var err error
+
+	for {
+		rows, err = db.Query(queryStatement)
+		if rows != nil && err == nil {
+			break
+		}
+
+		log.Printf("Error: LastUserMentionsRequestTime Failed %v\n", err)
+	}
+	var lastUserMentionsRequestTimes []int64
+	for rows.Next() {
+		var lastUserMentionsRequestTime int64
+		if err := rows.Scan(&lastUserMentionsRequestTime); err != nil {
+			log.Printf("Error: LastUserMentionsRequestTime Failed %v\n", err)
+		}
+		lastUserMentionsRequestTimes = append(lastUserMentionsRequestTimes, lastUserMentionsRequestTime)
+	}
+	if len(lastUserMentionsRequestTimes) == 0 {
+		return int64(0)
+	}
+	return lastUserMentionsRequestTimes[0]
+}
+
+// we create the game id per time, time in this case is the time specified by the user for the game to start
+// we have a goroutine the manages this table i.e. finalized, framecast_hash e.t.c
+// so we pass the current time into this function and we check on the time, 10 secs before the time
+// we pass the current time into this function
+func (db *DB) GameIdsByTime(t int64) []int64 {
+	queryStatement := fmt.Sprintf("SELECT gameid FROM gameid_time WHERE time = %d AND finalized = FALSE", t)
+	var rows *sql.Rows
+	var err error
+
+	for {
+		rows, err = db.Query(queryStatement)
+		if rows != nil && err == nil {
+			break
+		}
+		log.Printf("Error: GameIdsByTime Failed %v\n", err)
+	}
+	var gameIds []int64
+	for rows.Next() {
+		var gameId int64
+		if err := rows.Scan(&gameId); err != nil {
+			log.Printf("Error: GameIdsByTime Failed %v\n", err)
+		}
+		gameIds = append(gameIds, gameId)
+	}
+	return gameIds
+}
+
+func (db *DB) LatestGameID() int64 {
+	queryStatement := " SELECT gameid FROM gameid_time ORDER BY gameid DESC LIMIT 1"
+	var rows *sql.Rows
+	var err error
+
+	for {
+		rows, err = db.Query(queryStatement)
+		if rows != nil && err == nil {
+			break
+		}
+		log.Printf("Error: LatestGameID Failed %v\n", err)
+	}
+	var gameIds []int64
+	for rows.Next() {
+		var gameId int64
+		if err := rows.Scan(&gameId); err != nil {
+			log.Printf("Error: LatestGameID Failed %v\n", err)
+		}
+		gameIds = append(gameIds, gameId)
+	}
+	return gameIds[0]
+}
+
+func (db *DB) UnfinalizedCastHashByTime(t int64) []string {
+	queryStatement := fmt.Sprintf("SELECT framecast_hash FROM gameid_time WHERE finalized = false AND time < %d", t)
+	var rows *sql.Rows
+	var err error
+
+	for {
+		rows, err = db.Query(queryStatement)
+		if rows != nil && err == nil {
+			break
+		}
+		log.Printf("Error: UnfinalizedCastHashByTime Failed %v\n", err)
+	}
+	var castHashes []string
+	for rows.Next() {
+		var castHash string
+		if err := rows.Scan(&castHash); err != nil {
+			log.Printf("Error: UnfinalizedCastHashByTime Failed %v\n", err)
+		}
+		castHashes = append(castHashes, castHash)
+	}
+	return castHashes
+}
+
+// func (db *DB) LastGameId() int64 {
+// 	queryStatement := `SELECT gameid FROM gameid_time ORDER BY requestid DESC LIMIT 1`
+// 	var rows *sql.Rows
+// 	var err error
+// }
+
+// SELECT time FROM usermentions_requesttime ORDER BY requestid DESC LIMIT 1

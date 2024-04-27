@@ -1,25 +1,59 @@
 package api
 
 import (
-	"encoding/json"
-	"io/ioutil"
+	"log"
 	"net/http"
-
-	"github.com/s29papi/wag3r-bot/worker"
 )
 
 type HttpError struct {
 	ErrorString string
 	ErrorCode   int
 }
+type CallBack struct {
+	Fn     func(r *http.Request) ([]byte, *HttpError)
+	ArgsNo int
+}
 
-func AddBotHandleFunc(r *http.Request) ([]byte, *HttpError) {
-	if r.Method != http.MethodPost {
-		return nil, &HttpError{ErrorString: "Method not allowed", ErrorCode: http.StatusMethodNotAllowed}
+func Register() map[string]interface{} {
+	patternFuncs := make(map[string]interface{})
+
+	patternFuncs["/api/worker/stop-bot"] = CallBack{
+		Fn:     StopBotRequestHandleFunc,
+		ArgsNo: 0,
 	}
-	AddBot(2)
-
-	return []byte{0x01, 0x02, 0x03}, nil
+	patternFuncs["/api/worker/start-bot"] = CallBack{
+		Fn:     StartBotRequestHandleFunc,
+		ArgsNo: 2,
+	}
+	patternFuncs["/api/worker/start-db-healthchecker"] = CallBack{
+		Fn:     StartDBHealthCheckerRequestHandleFunc,
+		ArgsNo: 2,
+	}
+	patternFuncs["/api/worker/stop-db-healthchecker"] = CallBack{
+		Fn:     StopDBHealthCheckerRequestHandleFunc,
+		ArgsNo: 2,
+	}
+	patternFuncs["/api/worker/start-db-healthchecker"] = CallBack{
+		Fn:     StartDBHealthCheckerRequestHandleFunc,
+		ArgsNo: 2,
+	}
+	patternFuncs["/api/worker/stop-db-healthchecker"] = CallBack{
+		Fn:     StopDBHealthCheckerRequestHandleFunc,
+		ArgsNo: 2,
+	}
+	patternFuncs["/api/worker/start-rdWD"] = CallBack{
+		Fn:     StartRenderDoNotWindDownHandleFunc,
+		ArgsNo: 2,
+	}
+	patternFuncs["/api/worker/stop-rdWD"] = CallBack{
+		Fn:     StopRenderDoNotWindDownHandleFunc,
+		ArgsNo: 2,
+	}
+	patternFuncs["/api/worker/dummy-rdWD"] = CallBack{
+		Fn:     dummyRenderDoNotWindDown,
+		ArgsNo: 2,
+	}
+	return patternFuncs
 }
 
 var SUCCESS_MESSAGE = []byte("success")
@@ -32,42 +66,49 @@ func StartBotRequestHandleFunc(r *http.Request) ([]byte, *HttpError) {
 	return SUCCESS_MESSAGE, nil
 }
 
-// puts a deposit in the pending array
-func DepositRequestHandleFunc(r *http.Request) ([]byte, *HttpError) {
+func StopBotRequestHandleFunc(r *http.Request) ([]byte, *HttpError) {
 	if r.Method != http.MethodPost {
 		return nil, &HttpError{ErrorString: "Method not allowed", ErrorCode: http.StatusMethodNotAllowed}
 	}
-
-	body, err := ioutil.ReadAll(r.Body)
-	if err != nil {
-		return nil, &HttpError{ErrorString: "Error reading request body", ErrorCode: http.StatusInternalServerError}
-	}
-	var requestData worker.DepositRequestData
-	err = json.Unmarshal(body, &requestData)
-	if err != nil {
-		return nil, &HttpError{ErrorString: "Error decoding JSON", ErrorCode: http.StatusBadRequest}
-	}
-
-	depositRequest(requestData)
-
+	stopBot()
 	return SUCCESS_MESSAGE, nil
 }
 
-func WithdrawalRequestHandleFunc(r *http.Request) ([]byte, *HttpError) {
+func StartDBHealthCheckerRequestHandleFunc(r *http.Request) ([]byte, *HttpError) {
 	if r.Method != http.MethodPost {
 		return nil, &HttpError{ErrorString: "Method not allowed", ErrorCode: http.StatusMethodNotAllowed}
 	}
-	body, err := ioutil.ReadAll(r.Body)
-	if err != nil {
-		return nil, &HttpError{ErrorString: "Error reading request body", ErrorCode: http.StatusInternalServerError}
-	}
-	var requestData worker.WithdrawalRequestData
-	err = json.Unmarshal(body, &requestData)
-	if err != nil {
-		return nil, &HttpError{ErrorString: "Error decoding JSON", ErrorCode: http.StatusBadRequest}
-	}
+	startDBHealthChecker()
+	return SUCCESS_MESSAGE, nil
+}
 
-	withdrawRequest(requestData)
+func StopDBHealthCheckerRequestHandleFunc(r *http.Request) ([]byte, *HttpError) {
+	if r.Method != http.MethodPost {
+		return nil, &HttpError{ErrorString: "Method not allowed", ErrorCode: http.StatusMethodNotAllowed}
+	}
+	stopDBHealthChecker()
+	return SUCCESS_MESSAGE, nil
+}
 
+func dummyRenderDoNotWindDown(r *http.Request) ([]byte, *HttpError) {
+	if r.Method != http.MethodGet {
+		return nil, &HttpError{ErrorString: "Method not allowed", ErrorCode: http.StatusMethodNotAllowed}
+	}
+	log.Println("DummyRenderDoNotWindDown: Fired 🔥🔥🔥")
+	return SUCCESS_MESSAGE, nil
+}
+
+func StartRenderDoNotWindDownHandleFunc(r *http.Request) ([]byte, *HttpError) {
+	if r.Method != http.MethodPost {
+		return nil, &HttpError{ErrorString: "Method not allowed", ErrorCode: http.StatusMethodNotAllowed}
+	}
+	startRenderDoNotWindDown()
+	return SUCCESS_MESSAGE, nil
+}
+func StopRenderDoNotWindDownHandleFunc(r *http.Request) ([]byte, *HttpError) {
+	if r.Method != http.MethodPost {
+		return nil, &HttpError{ErrorString: "Method not allowed", ErrorCode: http.StatusMethodNotAllowed}
+	}
+	stopRenderDoNotWindDown()
 	return SUCCESS_MESSAGE, nil
 }

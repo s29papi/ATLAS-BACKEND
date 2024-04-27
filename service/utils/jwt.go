@@ -1,7 +1,6 @@
 package utils
 
 import (
-	"fmt"
 	"log"
 	"time"
 
@@ -10,11 +9,9 @@ import (
 
 func GenerateNewJWT() string {
 	key, err := getKey()
-	fmt.Println(key)
 	if err != nil {
 		log.Fatal(err)
 	}
-
 	return getSignedJwtString(key[:])
 }
 
@@ -22,11 +19,9 @@ func getSignedJwtString(key []byte) (signedJwtString string) {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"iat": &jwt.NumericDate{Time: time.Now()},
 	})
-
 	signedJwtString, err := token.SignedString(key[:])
 	if err != nil {
 		log.Fatal(err)
 	}
-
 	return
 }

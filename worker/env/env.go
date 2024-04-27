@@ -8,17 +8,23 @@ import (
 )
 
 var (
-	DURATION_STR        string
-	CHANNEL_CAST_URL    string
-	USER_MENTIONS_URL   string
-	MENTIONS_REPLY_URL  string
-	API_KEY             string
-	CHANNEL_ID          string
-	SIGNER_UUID         string
-	RENDER_POSTGRES_URL string
-	STARTING_BLOCK_HASH common.Hash
-	PRIZE_POOL_ADDRESS  common.Address
-	EVENT_ETH_DEP_SIG   common.Hash
+	DURATION_STR                    string
+	CHANNEL_CAST_URL                string
+	USER_MENTIONS_URL               string
+	MENTIONS_REPLY_URL              string
+	API_KEY                         string
+	API_KEY_TOSHI                   string
+	CHANNEL_ID                      string
+	SIGNER_UUID                     string
+	RENDER_POSTGRES_URL             string
+	FRAMES_URL                      string
+	AUTH_TOKEN                      string
+	NotificationsForToshiPayBot_URL string
+	DataForCastHash_URL             string
+	SERVICE_ACCOUNT_JSON_HEX        string
+	STARTING_BLOCK_HASH             common.Hash
+	PRIZE_POOL_ADDRESS              common.Address
+	EVENT_ETH_DEP_SIG               common.Hash
 )
 
 func loadEnv() {
@@ -44,6 +50,18 @@ func init() {
 	SIGNER_UUID = os.Getenv("SIGNER_UUID")
 
 	RENDER_POSTGRES_URL = os.Getenv("RENDER_POSTGRES_URL")
+
+	FRAMES_URL = os.Getenv("FRAMES_URL")
+
+	AUTH_TOKEN = os.Getenv("AUTH_TOKEN")
+
+	DataForCastHash_URL = os.Getenv("DataForCastHash_URL")
+
+	API_KEY_TOSHI = os.Getenv("API_KEY_TOSHI")
+
+	SERVICE_ACCOUNT_JSON_HEX = os.Getenv("SERVICE_ACCOUNT_JSON_HEX")
+
+	NotificationsForToshiPayBot_URL = os.Getenv("NotificationsForToshiPayBot_URL")
 
 	STARTING_BLOCK_HASH = common.HexToHash(os.Getenv("STARTING_BLOCK_HASH"))
 

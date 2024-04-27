@@ -1,30 +1,11 @@
-hub
+firebase
+signer
 
 main/r.go
 main/try.go
 main/db.go
 
-db/main
 
 .env
-
-./signature/.env
-p
-
-
-# .gitignore on the frontend side 
-frame/match/node_modules
-frame/match/.DS_STORE
-frame/match/.next/
-frame/match/.env
-
-# .gitignore on the frontend side 
-frame/stake/node_modules
-frame/stake/.DS_STORE
-frame/stake/.next/
-
-
-framesjs-starter
-framesjs-starter/node_modules
 
 jwt.txt

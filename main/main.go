@@ -19,17 +19,11 @@ func main() {
 			log.Fatal("Error loading .env file")
 		}
 	}
+
 	startServer()
 }
 
-var id = 318902
-
-// func startBot() {
-// 	signalChan := make(chan os.Signal, 1)
-// 	signal.Notify(signalChan, os.Interrupt, syscall.SIGTERM)
-// 	bot := worker.NewWorker(signalChan)
-// 	go bot.Start()
-// }
+var id = 502736
 
 func startServer() {
 	cors := cors.New(cors.Options{
@@ -47,7 +41,7 @@ func startServer() {
 	}
 	corsHandler := cors.Handler(a)
 	server := http.Server{
-		Addr:    ":8080",
+		Addr:    ":8181",
 		Handler: corsHandler,
 	}
 
@@ -58,5 +52,3 @@ func startServer() {
 		log.Fatal(err)
 	}
 }
-
-// https://dashboard.render.com/web/srv-cn9tbvuv3ddc73d88a20/settings
