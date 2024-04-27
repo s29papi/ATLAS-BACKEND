@@ -1,6 +1,7 @@
 package task
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"sync"
@@ -97,10 +98,9 @@ func (s *Stake) internalTestProcess() {
 	if lastnotificationsupdatetime == 0 {
 		return
 	}
-	// notifsByLastUpdate := filterToshiPayBotNotificationsByLastUpdate(notifications, lastnotificationsupdatetime)
-	// notifsByNetwork := filterNotificationsByNetwork(notifsByLastUpdate)
-	txs := notifs2Tx(s.Client, notifications.Messages)
-	getValidToshiPayPayload(txs)
+	notifsByLastUpdate := filterToshiPayBotNotificationsByLastUpdate(notifications, lastnotificationsupdatetime)
+	notifsByNetwork := filterNotificationsByNetwork(notifsByLastUpdate)
+	txs := notifs2Tx(s.Client, notifsByNetwork.Messages)
 	if len(txs) == 0 {
 		return
 	}
@@ -108,9 +108,9 @@ func (s *Stake) internalTestProcess() {
 	if lastnotificationsupdatetime == timestamp {
 		return
 	}
-	getValidToshiPayPayload(txs)
-	// castToshiPayReplies(s.Client, payloads)
+	payloads := getValidToshiPayPayload(txs)
+	castToshiPayReplies(s.Client, payloads)
 
-	// updatelastnotificationsupdatetime(context.Background(), s.FC, timestamp)
+	updatelastnotificationsupdatetime(context.Background(), s.FC, timestamp)
 
 }
