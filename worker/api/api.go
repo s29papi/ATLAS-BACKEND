@@ -76,32 +76,3 @@ func stopRenderDoNotWindDown() {
 	log.Println("Render Do Not Wind Down Stopped")
 
 }
-
-// {
-// 	"messages":
-// 		[
-// 			{
-// 			  "data":
-// 				{
-// 					"type":"MESSAGE_TYPE_CAST_ADD",
-// 					"fid":399452,
-// 					"timestamp":104737157,
-// 					"network":"FARCASTER_NETWORK_MAINNET",
-// 					"castAddBody":
-// 						{
-// 							"embedsDeprecated":[],
-// 							"mentions":[502736],
-// 							"text":" hey",
-// 							"mentionsPositions":[0],
-// 							"embeds":[]
-// 						}
-// 				},
-// 					"hash":"0x25e621250906f784a4a6eec22c0bd4d898d4564a",
-// 					"hashScheme":"HASH_SCHEME_BLAKE3",
-// 					"signature":"YyHQCVOdLfdnF+cgkmtuS7zOEWdcAo+448N8zRfBx2r2GP+4og3cXNPPoRFHr2S0A6tdqJS7UKdj0REV/5g7Aw==",
-// 					"signatureScheme":"SIGNATURE_SCHEME_ED25519",
-// 					"signer":"0x94542a1c465ad74982cd8874cfa758aa38c450edd65d829ff3da067390e79c10"
-// 			}
-// 		],
-// 	"nextPageToken":""
-// }

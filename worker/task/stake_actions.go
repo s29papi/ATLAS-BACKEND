@@ -135,9 +135,9 @@ func checkValidToshiPayTxText(s string) (valid bool, info types.ToshiPayInfo) {
 func buildToshiPayEmbedUrl(amount int64, recipientFid string) string {
 	baseUrl := env.FRAMES_URL
 	queryParams := url.Values{
-		"amount":    {strconv.Itoa(int(amount))},
-		"recipient": {recipientFid},
-		"tip":       {"true"},
+		"amount": {strconv.Itoa(int(amount))},
+		"fid":    {recipientFid},
+		"tip":    {"true"},
 	}.Encode()
 	urlStr := baseUrl + "/?" + queryParams
 	return urlStr

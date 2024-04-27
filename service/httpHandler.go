@@ -18,9 +18,6 @@ func muxHandlerFunc(h interface{}) func(w http.ResponseWriter, r *http.Request) 
 			}
 
 			if bytesResult, ok := result[0].Interface().([]byte); ok {
-				// w.Header().Set("Content-Type", "application/octet-stream")
-				// w.Header().Set("accept", "application/json")
-				w.Header().Set("Access-Control-Allow-Origin", "http://127.0.0.1:3001")
 				w.Header().Set("Access-Control-Allow-Methods", "POST")
 
 				w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
