@@ -14,49 +14,29 @@ type CallBack struct {
 	ArgsNo int
 }
 
+var SUCCESS_MESSAGE = []byte("success")
+
 func Register() map[string]interface{} {
 	patternFuncs := make(map[string]interface{})
 
 	patternFuncs["/api/worker/stop-bot"] = CallBack{
-		Fn:     StopBotRequestHandleFunc,
-		ArgsNo: 0,
+		Fn: StopBotRequestHandleFunc,
 	}
 	patternFuncs["/api/worker/start-bot"] = CallBack{
-		Fn:     StartBotRequestHandleFunc,
-		ArgsNo: 2,
-	}
-	patternFuncs["/api/worker/start-db-healthchecker"] = CallBack{
-		Fn:     StartDBHealthCheckerRequestHandleFunc,
-		ArgsNo: 2,
-	}
-	patternFuncs["/api/worker/stop-db-healthchecker"] = CallBack{
-		Fn:     StopDBHealthCheckerRequestHandleFunc,
-		ArgsNo: 2,
-	}
-	patternFuncs["/api/worker/start-db-healthchecker"] = CallBack{
-		Fn:     StartDBHealthCheckerRequestHandleFunc,
-		ArgsNo: 2,
-	}
-	patternFuncs["/api/worker/stop-db-healthchecker"] = CallBack{
-		Fn:     StopDBHealthCheckerRequestHandleFunc,
-		ArgsNo: 2,
+		Fn: StartBotRequestHandleFunc,
 	}
 	patternFuncs["/api/worker/start-rdWD"] = CallBack{
-		Fn:     StartRenderDoNotWindDownHandleFunc,
-		ArgsNo: 2,
+		Fn: StartRenderDoNotWindDownHandleFunc,
 	}
 	patternFuncs["/api/worker/stop-rdWD"] = CallBack{
-		Fn:     StopRenderDoNotWindDownHandleFunc,
-		ArgsNo: 2,
+		Fn: StopRenderDoNotWindDownHandleFunc,
 	}
 	patternFuncs["/api/worker/dummy-rdWD"] = CallBack{
-		Fn:     dummyRenderDoNotWindDown,
-		ArgsNo: 2,
+		Fn: dummyRenderDoNotWindDown,
 	}
+
 	return patternFuncs
 }
-
-var SUCCESS_MESSAGE = []byte("success")
 
 func StartBotRequestHandleFunc(r *http.Request) ([]byte, *HttpError) {
 	if r.Method != http.MethodPost {
@@ -71,22 +51,6 @@ func StopBotRequestHandleFunc(r *http.Request) ([]byte, *HttpError) {
 		return nil, &HttpError{ErrorString: "Method not allowed", ErrorCode: http.StatusMethodNotAllowed}
 	}
 	stopBot()
-	return SUCCESS_MESSAGE, nil
-}
-
-func StartDBHealthCheckerRequestHandleFunc(r *http.Request) ([]byte, *HttpError) {
-	if r.Method != http.MethodPost {
-		return nil, &HttpError{ErrorString: "Method not allowed", ErrorCode: http.StatusMethodNotAllowed}
-	}
-	startDBHealthChecker()
-	return SUCCESS_MESSAGE, nil
-}
-
-func StopDBHealthCheckerRequestHandleFunc(r *http.Request) ([]byte, *HttpError) {
-	if r.Method != http.MethodPost {
-		return nil, &HttpError{ErrorString: "Method not allowed", ErrorCode: http.StatusMethodNotAllowed}
-	}
-	stopDBHealthChecker()
 	return SUCCESS_MESSAGE, nil
 }
 

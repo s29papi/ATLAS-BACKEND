@@ -1,0 +1,58 @@
+package api
+
+import (
+	"encoding/json"
+	"log"
+	"net/http"
+
+	"github.com/s29papi/atlas-backend/worker/client"
+	"github.com/s29papi/atlas-backend/worker/types"
+)
+
+type HttpError struct {
+	ErrorString string
+	ErrorCode   int
+}
+
+type CallBack struct {
+	Fn func(r *http.Request) ([]byte, *HttpError)
+}
+
+func Register() map[string]interface{} {
+	patternFuncs := make(map[string]interface{})
+	patternFuncs["/api/service/get-trending-frames"] = CallBack{
+		Fn: GetTrendingFramesHandleFunc,
+	}
+	patternFuncs["/api/service/get-recommended-frames"] = CallBack{
+		Fn: GetRecommendedFramesHandleFunc,
+	}
+	return patternFuncs
+}
+
+func GetTrendingFramesHandleFunc(r *http.Request) ([]byte, *HttpError) {
+	if r.Method != http.MethodGet {
+		return nil, &HttpError{ErrorString: "Method not allowed", ErrorCode: http.StatusMethodNotAllowed}
+	}
+	frames, err := getTrendingFrames()
+	if err != nil {
+		log.Println(err)
+		return nil, &HttpError{ErrorString: err.Error(), ErrorCode: 0}
+	}
+	return frames, nil
+}
+
+func GetRecommendedFramesHandleFunc(r *http.Request) ([]byte, *HttpError) {
+	if r.Method != http.MethodPost {
+		return nil, &HttpError{ErrorString: "Method not allowed", ErrorCode: http.StatusMethodNotAllowed}
+	}
+	var reqBody types.BulkFollowingRequestBody
+	if err := json.NewDecoder(r.Body).Decode(&reqBody); err != nil {
+		return nil, &HttpError{ErrorString: "Invalid request body", ErrorCode: http.StatusBadRequest}
+	}
+	frames, err := getRecommendedFrames(reqBody.ViewerFid, client.NewHTTPService())
+	if err != nil {
+		log.Println(err)
+		return nil, &HttpError{ErrorString: err.Error(), ErrorCode: 0}
+	}
+	return frames, nil
+}

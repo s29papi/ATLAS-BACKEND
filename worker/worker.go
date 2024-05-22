@@ -8,9 +8,9 @@ import (
 
 	"cloud.google.com/go/firestore"
 	firebase "firebase.google.com/go"
-	"github.com/s29papi/wag3r-bot/worker/client"
-	"github.com/s29papi/wag3r-bot/worker/env"
-	"github.com/s29papi/wag3r-bot/worker/task"
+	"github.com/s29papi/atlas-backend/worker/client"
+	"github.com/s29papi/atlas-backend/worker/env"
+	"github.com/s29papi/atlas-backend/worker/task"
 	"google.golang.org/api/option"
 )
 
@@ -84,7 +84,7 @@ func (w *Worker) Stop() {
 }
 
 func (w *Worker) RegisterTasks() {
-	stake := task.Stake{
+	stake := task.CastWithFramesBot{
 		FC:     w.fc,
 		Client: w.s,
 	}

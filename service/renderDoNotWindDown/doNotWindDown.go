@@ -6,7 +6,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/s29papi/wag3r-bot/worker/env"
+	"github.com/s29papi/atlas-backend/worker/env"
 )
 
 type RenderDoNotWindDown struct {

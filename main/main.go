@@ -7,8 +7,8 @@ import (
 
 	"github.com/joho/godotenv"
 	"github.com/rs/cors"
-	"github.com/s29papi/wag3r-bot/service"
-	"github.com/s29papi/wag3r-bot/service/utils"
+	"github.com/s29papi/atlas-backend/service"
+	"github.com/s29papi/atlas-backend/service/utils"
 )
 
 func main() {
@@ -23,26 +23,23 @@ func main() {
 	startServer()
 }
 
-var id = 502736
-
 func startServer() {
-	cors := cors.New(cors.Options{
-		AllowedOrigins: []string{"*"},
+	corsHandler := cors.New(cors.Options{
+		AllowedOrigins: []string{"*", "http://localhost:3001"},
 		AllowedMethods: []string{
 			http.MethodPost,
 			http.MethodGet,
 		},
 		AllowedHeaders:   []string{"*"},
 		AllowCredentials: false,
-	})
+	}).Handler
 	a := service.AuthHandler{
 		KeyFunc:     utils.KeyFunc,
 		HttpHandler: service.Mux,
 	}
-	corsHandler := cors.Handler(a)
 	server := http.Server{
 		Addr:    ":8181",
-		Handler: corsHandler,
+		Handler: corsHandler(a),
 	}
 
 	log.SetOutput(os.Stdout)

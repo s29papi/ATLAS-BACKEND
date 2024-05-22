@@ -4,7 +4,8 @@ import (
 	"net/http"
 	"reflect"
 
-	wApi "github.com/s29papi/wag3r-bot/worker/api"
+	sApi "github.com/s29papi/atlas-backend/service/api"
+	wApi "github.com/s29papi/atlas-backend/worker/api"
 )
 
 var Mux http.Handler
@@ -19,12 +20,10 @@ func muxHandlerFunc(h interface{}) func(w http.ResponseWriter, r *http.Request) 
 
 			if bytesResult, ok := result[0].Interface().([]byte); ok {
 				w.Header().Set("Access-Control-Allow-Methods", "POST")
-
 				w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
 				w.WriteHeader(http.StatusOK)
 				w.Write(bytesResult)
 			}
-
 		}
 	}
 }
@@ -34,6 +33,8 @@ func init() {
 	var patternHandlers = make([]map[string]interface{}, 0, 10)
 	workerPatternHandler := wApi.Register()
 	patternHandlers = append(patternHandlers, workerPatternHandler)
+	servicePatternHandler := sApi.Register()
+	patternHandlers = append(patternHandlers, servicePatternHandler)
 	for _, patternHandler := range patternHandlers {
 		for pattern, handler := range patternHandler {
 			handlerFunc := muxHandlerFunc(handler)

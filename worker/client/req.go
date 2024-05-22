@@ -4,13 +4,12 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"strings"
 
-	"github.com/s29papi/wag3r-bot/worker/env"
+	"github.com/s29papi/atlas-backend/worker/env"
 )
 
-func ChannelCastRequest() *http.Request {
-	req, err := http.NewRequest(http.MethodGet, env.CHANNEL_CAST_URL, nil)
+func FramesInCast() *http.Request {
+	req, err := http.NewRequest(http.MethodGet, env.CASTWITHFRAMES_URL, nil)
 	if err != nil {
 		log.Println("Error: couldn't create requests")
 		return nil
@@ -20,57 +19,14 @@ func ChannelCastRequest() *http.Request {
 	return req
 }
 
-func UserMentionsRequest() *http.Request {
-	req, err := http.NewRequest(http.MethodGet, env.USER_MENTIONS_URL, nil)
+func BulkFollowing(authorFid, viewerFid string) *http.Request {
+	formattedURL := fmt.Sprintf(env.BULKFOLLOWING_URL, authorFid, viewerFid)
+	req, err := http.NewRequest(http.MethodGet, formattedURL, nil)
 	if err != nil {
 		log.Println("Error: couldn't create requests")
 		return nil
 	}
 	req.Header.Add("accept", "application/json")
 	req.Header.Add("api_key", env.API_KEY)
-	return req
-}
-func NotificationsInStadiumRequest() *http.Request {
-	req, err := http.NewRequest(http.MethodGet, env.USER_MENTIONS_URL, nil)
-	if err != nil {
-		log.Println("Error: couldn't create requests")
-		return nil
-	}
-	req.Header.Add("accept", "application/json")
-	req.Header.Add("api_key", env.API_KEY)
-	return req
-}
-func DataForCastHash(castHash string) *http.Request {
-	url := fmt.Sprintf(env.DataForCastHash_URL, castHash)
-	req, err := http.NewRequest(http.MethodGet, url, nil)
-	if err != nil {
-		log.Println("Error: couldn't create requests")
-		return nil
-	}
-	req.Header.Add("accept", "application/json")
-	req.Header.Add("api_key", env.API_KEY)
-	return req
-}
-
-func NotificationsForToshiPayBot() *http.Request {
-	req, err := http.NewRequest(http.MethodGet, env.NotificationsForToshiPayBot_URL, nil)
-	if err != nil {
-		log.Println("Error: couldn't create requests")
-		return nil
-	}
-	req.Header.Add("accept", "application/json")
-	req.Header.Add("api_key", env.API_KEY)
-	return req
-}
-
-func MentionReplyRequest(s *strings.Reader) *http.Request {
-	req, err := http.NewRequest(http.MethodPost, env.MENTIONS_REPLY_URL, s)
-	if err != nil {
-		log.Println("Error: couldn't create requests")
-		return nil
-	}
-	req.Header.Add("accept", "application/json")
-	req.Header.Add("api_key", env.API_KEY_TOSHI)
-	req.Header.Add("content-type", "application/json")
 	return req
 }
