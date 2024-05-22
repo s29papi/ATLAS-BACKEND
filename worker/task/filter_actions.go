@@ -3,7 +3,6 @@ package task
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 	"log"
 	"net/url"
 	"os"
@@ -147,7 +146,6 @@ func toUnixInt64(s string) int64 {
 		log.Println("Error parsing timestamp:", err)
 		return 0
 	}
-	fmt.Println(timestamp.Unix())
 	return timestamp.Unix()
 }
 
