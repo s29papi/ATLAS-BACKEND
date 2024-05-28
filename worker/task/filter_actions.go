@@ -3,6 +3,7 @@ package task
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/url"
 	"os"
@@ -44,7 +45,20 @@ func filterOutNftFramesCast(c types.Casts) types.Casts {
 func filterOutNonPowerBadge(c types.Casts) types.Casts {
 	var casts types.Casts
 	for _, cast := range c.Data {
-		if cast.Author.PowerBadge == true {
+		if cast.Author.PowerBadge {
+			casts.Data = append(casts.Data, cast)
+		}
+	}
+	return casts
+}
+
+func filterOutNonValidFrames(c types.Casts) types.Casts {
+	var casts types.Casts
+	for _, cast := range c.Data {
+		if len(cast.Frames) == 0 {
+			continue
+		}
+		if len(cast.Frames[0].Buttons) > 0 {
 			casts.Data = append(casts.Data, cast)
 		}
 	}
@@ -64,6 +78,31 @@ func filterOutRecentFramesCast(c types.Casts, fc *firestore.Client) types.Casts 
 			}
 		}
 		casts.Data = append(casts.Data, cast)
+	}
+	return casts
+}
+
+func normalizeHost(h string) string {
+	if strings.HasPrefix(h, "www.") {
+		return h[4:]
+	}
+	return h
+}
+
+func filterOutSameHostName(c types.Casts) types.Casts {
+	var casts types.Casts
+	frameUrlMap := make(map[string]bool)
+	for _, cast := range c.Data {
+		frameUrl, err := url.Parse(cast.Frames[0].FramesUrl)
+		if err != nil {
+			log.Println(err)
+			continue
+		}
+		host := normalizeHost(frameUrl.Host)
+		if !frameUrlMap[host] {
+			frameUrlMap[host] = true
+			casts.Data = append(casts.Data, cast)
+		}
 	}
 	return casts
 }
@@ -105,16 +144,38 @@ func resetCurrentReqDataId(fc *firestore.Client) {
 	}
 }
 
+func buildWarpcastUrl(username, hash string) string {
+	return fmt.Sprintf("https://www.warpcast.com/%s/%s", username, hash[:8])
+}
 func updateRecentFramesCast(c types.Casts, fc *firestore.Client) string {
+	dontCommit := true
 	batch := fc.Batch()
 	tfRef := fc.Collection("trending-frames").Doc("trending-frames")
+	dfuRef := fc.Collection("trending-frames").Doc("doesFrameUrlExist")
 	week := getCurrentWeek()
 	dataId := getCurrentDataId(fc)
+	dsnap, err := dfuRef.Get(context.Background())
+	if err != nil {
+		log.Println(err)
+		return ""
+	}
+	dfuData := dsnap.Data()
+	data := dfuData[week].(map[string]interface{})
 
 	for _, cast := range c.Data {
+		frameUrl, err := url.Parse(cast.Frames[0].FramesUrl)
+		if err != nil {
+			log.Println(err)
+			continue
+		}
+		if data[frameUrl.Hostname()] != nil {
+			continue
+		}
+
 		dataId = getTranscientDataId(dataId)
 		frameData := types.FrameData{
 			ImageUrl:       cast.Frames[0].Image,
+			FramesUrl:      buildWarpcastUrl(cast.Author.Username, cast.Hash),
 			FramesTitle:    cast.Frames[0].Title,
 			AuthorUserName: cast.Author.Username,
 			Text:           cast.Text,
@@ -130,12 +191,20 @@ func updateRecentFramesCast(c types.Casts, fc *firestore.Client) string {
 			},
 		}, firestore.MergeAll)
 
+		batch.Set(dfuRef, map[string]interface{}{
+			week: map[string]interface{}{
+				frameUrl.Hostname(): true,
+			},
+		}, firestore.MergeAll)
+		dontCommit = false
 	}
 
-	_, err := batch.Commit(context.Background())
-	if err != nil {
-		log.Println(err)
-		return ""
+	if !dontCommit {
+		_, err = batch.Commit(context.Background())
+		if err != nil {
+			log.Println(err)
+			return ""
+		}
 	}
 	return dataId
 }
@@ -176,6 +245,7 @@ func dataIdToInt(d string) int64 {
 
 func getCurrentDataId(fc *firestore.Client) string {
 	tfDoc := fc.Collection("trending-frames").Doc("trending-frames")
+	dfuRef := fc.Collection("trending-frames").Doc("doesFrameUrlExist")
 	dsnap, err := tfDoc.Get(context.Background())
 	if err != nil {
 		log.Println(err)
@@ -188,10 +258,19 @@ func getCurrentDataId(fc *firestore.Client) string {
 
 	if data[weekStr] == nil {
 		doc := make(map[string]interface{})
+		dfuDoc := make(map[string]interface{})
 		doc[weekStr] = map[string]interface{}{
 			"dataId_0": struct{}{},
 		}
+		dfuDoc[weekStr] = map[string]interface{}{
+			"url_0": true,
+		}
 		_, err = tfDoc.Set(context.Background(), doc)
+		if err != nil {
+			log.Println(err)
+			return ""
+		}
+		_, err = dfuRef.Set(context.Background(), dfuDoc)
 		if err != nil {
 			log.Println(err)
 			return ""

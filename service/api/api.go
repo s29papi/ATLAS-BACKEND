@@ -7,19 +7,19 @@ import (
 	"strconv"
 	"strings"
 
-	dbfetch "github.com/s29papi/atlas-backend/service/dbFetch"
+	db "github.com/s29papi/atlas-backend/service/db"
 	"github.com/s29papi/atlas-backend/worker/client"
 	"github.com/s29papi/atlas-backend/worker/types"
 )
 
 func getTrendingFrames() ([]byte, error) {
-	return dbfetch.NewDBFetch().GetTrendingFrames()
+	return db.NewDB().GetTrendingFrames()
 }
 
 func getRecommendedFrames(viewerFid string, service *client.HTTPService) ([]byte, error) {
-	var trendingFramesByFollowing []dbfetch.FrameData
+	var trendingFramesByFollowing []db.FrameData
 	var authorFids []string
-	trendingFrames := dbfetch.NewDBFetch().FetchSortedFrames()
+	trendingFrames := db.NewDB().FetchSortedFrames()
 
 	for _, tFrame := range trendingFrames {
 		authorFids = append(authorFids, strconv.Itoa(int(tFrame.AuthorFid)))
@@ -44,4 +44,15 @@ func getRecommendedFrames(viewerFid string, service *client.HTTPService) ([]byte
 		return nil, nil
 	}
 	return json.Marshal(trendingFramesByFollowing)
+}
+
+func putUserFrameByDataId(dataId, userFid string) ([]byte, error) {
+	return db.NewDB().PutUserFrameByDataId(userFid, dataId)
+}
+func rmUserFrameByDataId(dataId, userFid string) ([]byte, error) {
+	return db.NewDB().RMUserFrameByDataId(userFid, dataId)
+}
+
+func getSavedUserFramesByFid(userFid string) ([]byte, error) {
+	return db.NewDB().GetSavedSortedFrames(userFid)
 }

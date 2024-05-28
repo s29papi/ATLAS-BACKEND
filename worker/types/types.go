@@ -23,14 +23,22 @@ type Parent_Author struct {
 	Fid int64 `json:"fid"`
 }
 
+type Buttons struct {
+	Index       int64  `json:"index"`
+	Title       string `json:"title"`
+	Action_Type string `json:"action_type"`
+	Target      string `json:"target"`
+}
 type Frames struct {
-	Title     string `json:"title"`
-	Image     string `json:"image"`
-	FramesUrl string `json:"frames_url"`
+	Title     string    `json:"title"`
+	Image     string    `json:"image"`
+	FramesUrl string    `json:"frames_url"`
+	Buttons   []Buttons `json:"buttons"`
 }
 
 type FrameData struct {
 	ImageUrl       string `firestore:"image_url,omitempty"`
+	FramesUrl      string `firestore:"frames_url,omitempty"`
 	FramesTitle    string `firestore:"frames_title,omitempty"`
 	AuthorUserName string `firestore:"author_username,omitempty"`
 	Text           string `firestore:"text,omitempty"`
@@ -52,6 +60,15 @@ type DomainData struct {
 
 type BulkFollowingRequestBody struct {
 	ViewerFid string `json:"viewer_fid"`
+}
+
+type SaveUserFrameRequestBody struct {
+	UserFid string `json:"user_fid"`
+	DataId  string `json:"dataid"`
+}
+
+type SavedUserFrameByFidRequestBody struct {
+	UserFid string `json:"user_fid"`
 }
 
 type ViewerCtx struct {

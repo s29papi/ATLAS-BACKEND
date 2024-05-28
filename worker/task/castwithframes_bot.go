@@ -85,11 +85,19 @@ func (c *CastWithFramesBot) internalTestProcess() {
 	if len(casts.Data) == 0 {
 		return
 	}
+	casts = filterOutNonValidFrames(casts)
+	if len(casts.Data) == 0 {
+		return
+	}
 	casts = filterOutNftFramesCast(casts)
 	if len(casts.Data) == 0 {
 		return
 	}
 	casts = filterOutNonPowerBadge(casts)
+	if len(casts.Data) == 0 {
+		return
+	}
+	casts = filterOutSameHostName(casts)
 	if len(casts.Data) == 0 {
 		return
 	}
